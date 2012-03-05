@@ -1,6 +1,8 @@
 <div id="footer">
   <div class="user">Logging in...</div>
+  <% if defined?(terms_path) %>
   <a class="terms" href="<%= terms_path %>">Terms of Sale</a>
+  <% end %>
   <div class="logo"></div>
 </div>
 
