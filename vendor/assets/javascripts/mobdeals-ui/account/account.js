@@ -123,13 +123,13 @@ MobDeals.Account = {
   },
   _verifyCookie: function(callback) {
     $.get(HOST+'/sessions.json', function(data) {
-      if (data.user) { MobDeals.Account._authenticated(data); }
-      else { MobDeals.Account._authenticated(null); }
+      if (data.error) { MobDeals.Account._authenticated(null); }
+      else { MobDeals.Account._authenticated(data); }
       
       if (callback) { callback.apply(callback, [MobDeals.Account._cookied]); }
     }, 'json');
   },
-  _authenticated: function(data) {
+  _authenticated: function(data) { console.log("setting user _auth", data);
     if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
