@@ -75,7 +75,7 @@ MobDeals.Account = {
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) { console.log("GOT USER from callback:", dataOrXhr, error, errorType);
       if (errorType) {
-        MobDeals.Account._username(parent, callback, $.parseJSON(dataOrXhr.responseText))
+        MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText))
       }
       else {
         MobDeals.Account._authenticated(dataOrXhr);
