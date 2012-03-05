@@ -56,7 +56,7 @@ MobDeals.Account = {
       var readInput = function() { 
         $.post(HOST+'/account/passwords', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
           if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
-          else { MobDeals.Account._authenticated({user: data}); callback.apply(callback); }
+          else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
         MobDeals.Popup.destroy(popup);
       }
@@ -134,7 +134,7 @@ MobDeals.Account = {
     }
     else {
       this._cookied = true;
-      this.user = data.user;
+      this.user = data;
       
       $('#footer .user').html('Hi '+this.user.short_name+'. <a>Not you?</a>').find('a').bind(CLICK, function(ev) { 
         MobDeals.Account._clear();
