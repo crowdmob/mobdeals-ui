@@ -26,13 +26,13 @@ MobDeals.Account = {
       
       var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); }
       popup.find('a.email').bind(CLICK, function(ev) {
- 	  popup.find('.inputs').slideDown()
+ 	      popup.find('.inputs').slideDown()
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus(); 
         popup.find('.phone-box').addClass('hidden').removeClass('active');
       });
       popup.find('a.phone').bind(CLICK, function(ev) { 
- 	  popup.find('.inputs').slideDown()
-      popup.find('.phone-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
+ 	      popup.find('.inputs').slideDown()
+        popup.find('.phone-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
@@ -72,7 +72,7 @@ MobDeals.Account = {
 
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    var params = {}; params[input.get(0).name] = input.val();
+    var params = {}; params[input.get(0).name] = input.val(); params['username'] = input.val();
     $.post(HOST+'/sessions.json', params, function(data) { console.log('got session data', data);
       var setAndCallback = function(user) { 
         MobDeals.Account._authenticated(user);
