@@ -73,7 +73,7 @@ MobDeals.Account = {
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
-    var setAndCallback = function(user) { 
+    var setAndCallback = function(user) { console.log("GOT USER:", user);
       MobDeals.Account._authenticated(user);
       if (callback) { callback.apply(callback); }
     };
