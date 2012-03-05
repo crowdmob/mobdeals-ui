@@ -80,6 +80,7 @@ MobDeals.Account = {
     
     $.ajax({
       url: HOST+'/users/sign_in.json', 
+      type: 'POST',
       data: params, 
       success: function(data) { console.log('got session data', data);
         if (data.password_initialized) {
