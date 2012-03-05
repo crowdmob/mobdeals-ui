@@ -127,7 +127,7 @@ MobDeals.Account = {
     }, 'json');
   },
   _authenticated: function(data) {
-    if (!data) { 
+    if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
       $('#footer .user').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
