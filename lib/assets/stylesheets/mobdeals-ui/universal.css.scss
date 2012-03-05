@@ -14,7 +14,7 @@ a {cursor:pointer;}
 #header {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  background: image-url('footer-texture.png') repeat;
+  background: image-url('mobdeals-ui/footer-texture.png') repeat;
   box-shadow: 0 1px 1px rgba(0,0,0, 0.3);
   padding:4px 10px 3px 1px;
   font-size: 12px;
@@ -49,7 +49,7 @@ a {cursor:pointer;}
   z-index: 10; 
   border-bottom-left-radius: 10px; 
   border-bottom-right-radius: 10px; 
-  background:image-url('footer-texture.png') repeat; 
+  background:image-url('mobdeals-ui/footer-texture.png') repeat; 
   box-shadow:0 -1px 2px rgba(0,0,0,0.3); 
   box-shadow:0 -1px 2px rgba(0,0,0,0.3); 
   position:fixed; 
@@ -70,7 +70,7 @@ a {cursor:pointer;}
   top:3px;
 }
 #footer .logo {
-  background:image-url('logo-111111.png') no-repeat; 
+  background:image-url('mobdeals-ui/logo-111111.png') no-repeat; 
   width:88px;
   height:23px;
   position:absolute;
@@ -83,6 +83,6 @@ a {cursor:pointer;}
 
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-  #footer { background-size:20px 20px; background:image-url('footer-texture-2x.png') repeat; }
-  #footer .logo  { background-size:88px 23px; background:image-url('logo-2x-111111.png') no-repeat; }
+  #footer { background-size:20px 20px; background:image-url('mobdeals-ui/footer-texture-2x.png') repeat; }
+  #footer .logo  { background-size:88px 23px; background:image-url('mobdeals-ui/logo-2x-111111.png') no-repeat; }
 }
