@@ -11,11 +11,11 @@
   <div class="inputs" style="display:none">
     <div class="errors hidden"></div>
     <div class="email-box hidden">
-      <form action="#" name="email"><input type="email" name="email" placeholder="Email address"/></form>
+      <form action="#" name="email"><input type="email" name="user[email]" placeholder="Email address"/></form>
     </div>
 
     <div class="phone-box hidden">
-      <form action="#" name="phone"><input type="tel" name="mobile" placeholder="Phone number"/></form>
+      <form action="#" name="phone"><input type="tel" name="user[mobile]" placeholder="Phone number"/></form>
     </div>
   </div>
   <div class="bottom"></div>
@@ -23,10 +23,10 @@
 
 
 <div id="password-popup">
-  <h3>Enter your password</h3>
+  <h3>Enter your PIN</h3>
   <div class="errors hidden"></div>
   <div class="password-box">
-    <form name="password"><input type="password" name="password" /></form>
+    <form name="password"><input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/></form>
   </div>
 </div>
 
@@ -37,7 +37,7 @@
   <div class="create-password-box">
     <form name="create-password">
       <div class="errors hidden"></div>
-      <input type="tel" pattern="[0-9]*" name="password" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
+      <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
       <button>Enter</button>
     </form>
   </div>
