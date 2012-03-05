@@ -36,7 +36,7 @@ MobDeals.Account = {
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
-      if (error && error.errors) {
+      if (error && error.errors) { console.log("in prompt in error, got ", error, error.errors);
         for (var field in error.errors) {
           popup.find('a.'+field).click();
           var box = popup.find('.'+field+'-box');
