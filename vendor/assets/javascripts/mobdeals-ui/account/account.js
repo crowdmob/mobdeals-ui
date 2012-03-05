@@ -19,7 +19,7 @@ MobDeals.Account = {
     });
   },
   
-  prompt: function(callback, error) {
+  prompt: function(callback, error) { console.log("Got in prompt: ", callback, error);
     MobDeals.Popup.show('login', function(popup) {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
       popup.html(MobDeals.Account._promptHtml);
@@ -39,7 +39,7 @@ MobDeals.Account = {
       if (error) {
         popup.find('a.'+error.field).click();
         var box = popup.find('.'+error.field+'-box');
-        box.find('.errors').text(error.message).removeClass('hidden');
+        box.find('.errors').removeClass('hidden').text(error.message);
         box.find('input').val(error.value);
       }
       
@@ -70,7 +70,7 @@ MobDeals.Account = {
     });
   },
 
-  _username: function(parent, callback, error) { console.log("Got in _username: ", parent, callback, error);
+  _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) { console.log("GOT USER from callback:", dataOrXhr, error, errorType);
