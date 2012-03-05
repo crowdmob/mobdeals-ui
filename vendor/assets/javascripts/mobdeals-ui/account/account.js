@@ -78,7 +78,7 @@ MobDeals.Account = {
       if (callback) { callback.apply(callback); }
     };
     
-    $.ajax(
+    $.ajax({
       url: HOST+'/users/sign_in.json', 
       data: params, 
       success: function(data) { console.log('got session data', data);
@@ -101,7 +101,8 @@ MobDeals.Account = {
       error: function(data) {console.log('got error in session', data);
         $.post(HOST+'/users/sign_up.json', params, setAndCallback);
       },
-      dataType: 'json');
+      dataType: 'json'
+    });
   },
   
   _password: function(parent, grandparent, callback) {
