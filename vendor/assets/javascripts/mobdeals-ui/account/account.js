@@ -72,7 +72,7 @@ MobDeals.Account = {
 
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    var params = {}; params[input.get(0).name] = input.val(); params['username'] = input.val();
+    var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(user) { 
       MobDeals.Account._authenticated(user);
       if (callback) { callback.apply(callback); }
@@ -100,7 +100,7 @@ MobDeals.Account = {
         else { setAndCallback(data); }
       }, 
       error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        $.post(HOST+'/users.json', {user: params}, setAndCallback); // register
+        $.post(HOST+'/users.json', params, setAndCallback); // register
       },
       dataType: 'json'
     });
