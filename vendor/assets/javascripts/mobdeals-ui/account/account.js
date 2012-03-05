@@ -73,13 +73,13 @@ MobDeals.Account = {
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['username'] = input.val();
-    $.post(HOST+'/sessions.json', params, function(data) { console.log('got session data', data);
+    $.post(HOST+'/users/sign_in.json', params, function(data) { console.log('got session data', data);
       var setAndCallback = function(user) { 
         MobDeals.Account._authenticated(user);
         if (callback) { callback.apply(callback); }
       }
       
-      if (data.error) { $.post(HOST+'/users.json', params, setAndCallback); }
+      if (data.error) { $.post(HOST+'/users/sign_up.json', params, setAndCallback); }
       else if (data.requires_password) {
         MobDeals.Popup.show('password', function(popup) { 
           if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
