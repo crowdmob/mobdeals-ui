@@ -36,11 +36,12 @@ MobDeals.Account = {
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
-      if (error) {
-        popup.find('a.'+error.field).click();
-        var box = popup.find('.'+error.field+'-box');
-        box.find('.errors').removeClass('hidden').text(error.message);
-        box.find('input').val(error.value);
+      if (error && error.errors && error.errors.length > 0) {
+        for (var field in error.errors) {
+          popup.find('a.'+field).click();
+          var box = popup.find('.'+field+'-box');
+          box.find('.errors').removeClass('hidden').text(error.errors[field].join(', and '));
+        }
       }
       
       popup.find('a.facebook').bind(CLICK, function(ev) { MobDeals.Account._facebook(callback); });
