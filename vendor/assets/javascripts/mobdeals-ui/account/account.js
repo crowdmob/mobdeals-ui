@@ -73,7 +73,7 @@ MobDeals.Account = {
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val();
-    $.post(HOST+'/sessions', params, function(data) {
+    $.post(HOST+'/sessions.json', params, function(data) {
       if (data.requires_password) {
         MobDeals.Popup.show('password', function(popup) { 
           if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
@@ -98,7 +98,7 @@ MobDeals.Account = {
   
   _password: function(parent, grandparent, callback) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    $.post(HOST+'/sessions', { password: input.val() }, function(data) {
+    $.post(HOST+'/sessions.json', { password: input.val() }, function(data) {
       if (data.authenticated) {
         MobDeals.Account._cookied = true;
         MobDeals.Account._authenticated(data);
@@ -119,7 +119,7 @@ MobDeals.Account = {
     MobDeals.Account._authenticated(null);
   },
   _verifyCookie: function(callback) {
-    $.get(HOST+'/sessions', function(data) {
+    $.get(HOST+'/sessions.json', function(data) {
       if (data.user) { MobDeals.Account._authenticated(data); }
       else { MobDeals.Account._authenticated(null); }
       
