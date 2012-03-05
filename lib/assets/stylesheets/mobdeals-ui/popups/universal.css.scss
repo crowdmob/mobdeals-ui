@@ -1,0 +1,6 @@
+/* styles that are for all popups */
+
+#popup-mask { position:fixed; z-index:9998; width:100%; height:100%; background-color: rgba(255,255,255, 0.8);}
+.popup { position:absolute; top:0px; z-index:9999; padding-bottom:20px; background-color:#0C183E; background:-moz-linear-gradient(top, #0D1B3F 0%,#0B183E 31%,#0E1B41 31%,#0E1B41 36%,#0C193F 62%,#0A163C 69%,#0D193F 70%,#0B183D 74%,#0D193F 75%,#04153D 75%,#01143C 76%,#01143C 78%,#0A183E 78%,#01143C 79%,#01143C 81%,#0D183F 81%,#0B163D 82%,#0D183F 83%,#0C183E 90%,#09153C 92%,#0C183F 93%,#0C183E 100%); background: -ms-linear-gradient(top, #0D1B3F 0%,#0B183E 31%,#0E1B41 31%,#0E1B41 36%,#0C193F 62%,#0A163C 69%,#0D193F 70%,#0B183D 74%,#0D193F 75%,#04153D 75%,#01143C 76%,#01143C 78%,#0A183E 78%,#01143C 79%,#01143C 81%,#0D183F 81%,#0B163D 82%,#0D183F 83%,#0C183E 90%,#09153C 92%,#0C183F 93%,#0C183E 100%); background:-webkit-linear-gradient(top, #0D1B3F 0%,#0B183E 31%,#0E1B41 31%,#0E1B41 36%,#0C193F 62%,#0A163C 69%,#0D193F 70%,#0B183D 74%,#0D193F 75%,#04153D 75%,#01143C 76%,#01143C 78%,#0A183E 78%,#01143C 79%,#01143C 81%,#0D183F 81%,#0B163D 82%,#0D183F 83%,#0C183E 90%,#09153C 92%,#0C183F 93%,#0C183E 100%); border: 2px solid #fff; border-radius:10px; color:#fff; }
+
+

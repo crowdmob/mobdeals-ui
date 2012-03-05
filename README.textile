@@ -1,0 +1,57 @@
+h1. MobDeals UI Gem
+
+This provides the common assets for mobdeals apps in a single place.  
+
+h2. Installation
+
+Install the @mobdeals-ui@ gem in your application with: 
+
+<pre>
+  gem 'mobdeals-ui', :git => 'git@github.com:crowdmob/mobdeals-ui.git'
+</pre>
+
+h2. Usage 
+
+This loads several javascript and css files into your application.  You can start to compile them into your app with the following.
+
+For CSS:
+
+<pre>
+/*
+ * This is a manifest file that'll be compiled into EXAMPLE.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require mobdeals-ui/universal
+ *= require mobdeals-ui/popups/universal
+ *= require mobdeals-ui/popups/login
+*/
+</pre>
+
+For JS:
+
+<pre>
+  // This is a manifest file that'll be compiled into EXAMPLE.js, which will include all the files
+  // listed below.
+  //
+  // It's not advisable to add pre directly here, but if you do, it'll appear at the bottom of the
+  // the compiled file.
+  //
+  // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
+  // GO AFTER THE REQUIRES BELOW.
+  //
+  //= require mobdeals-ui/mobdeals
+  //= require mobdeals-ui/account
+  //= require mobdeals-ui/habitat
+  //= require mobdeals-ui/popup
+  //= require mobdeals-ui/wallet
+  //= require mobdeals-ui/location
+
+
+  MobDeals.inits(MobDeals, MobDeals.Habitat, MobDeals.Account, MobDeals.Popup, MobDeals.Location, MobDeals.Account.Wallet);
+</pre>
