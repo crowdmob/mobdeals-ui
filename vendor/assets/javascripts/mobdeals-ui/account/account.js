@@ -100,7 +100,7 @@ MobDeals.Account = {
         else { setAndCallback(data); }
       }, 
       error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        $.post(HOST+'/users/sign_up.json', params, setAndCallback);
+        $.post(HOST+'/users.json', params, setAndCallback); // register
       },
       dataType: 'json'
     });
