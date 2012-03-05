@@ -1,0 +1,44 @@
+<div id="choose-login-type-popup">
+  <h4>MobDeals</h4>
+  <p>Create your account, or sign in to an existing account.</p>
+
+  <div class="types">
+    <a rel="email-box" class="email"><img src="<%= asset_path('mobdeals-ui/emailicon@2x.png') %>" alt="email"/><div>Email</div></a>
+    <a rel="phone-box" class="phone"><img src="<%= asset_path('mobdeals-ui/phoneicon@2x.png') %>" alt="phone"/><div>Phone</div></a>
+    <a rel="facebook-redirect" class="facebook"><img src="<%= asset_path('mobdeals-ui/fbicon@2x.png') %>" alt="facebook"/><div>Facebook</div></a>
+  </div>
+
+  <div class="inputs" style="display:none">
+    <div class="errors hidden"></div>
+    <div class="email-box hidden">
+      <form action="#" name="email"><input type="email" name="email" placeholder="Email address"/></form>
+    </div>
+
+    <div class="phone-box hidden">
+      <form action="#" name="phone"><input type="tel" name="mobile" placeholder="Phone number"/></form>
+    </div>
+  </div>
+  <div class="bottom"></div>
+</div>
+
+
+<div id="password-popup">
+  <h3>Enter your password</h3>
+  <div class="errors hidden"></div>
+  <div class="password-box">
+    <form name="password"><input type="password" name="password" /></form>
+  </div>
+</div>
+
+<div id="create-password-popup">
+  <h4>Thank you!</h4>
+  <p>Please create a PIN to retrieve your deal.</p>
+
+  <div class="create-password-box">
+    <form name="create-password">
+      <div class="errors hidden"></div>
+      <input type="tel" pattern="[0-9]*" name="password" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
+      <button>Enter</button>
+    </form>
+  </div>
+</div>
