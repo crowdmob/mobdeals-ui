@@ -7,8 +7,6 @@ MobDeals.Account.Wallet = {
     if (this._initialized) { return false; } else { this._initialized = true; }
   },
   
-  Methods: {},
-  
   _empty: function() { console.log("this.methods == null", this.methods == null, "this.methods.length < 1", this.methods.length < 1);
     return this.methods == null || this.methods.length < 1;
   },
@@ -121,3 +119,4 @@ MobDeals.Account.Wallet = {
     });
   }
 };
+
