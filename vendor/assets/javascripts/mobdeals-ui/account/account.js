@@ -73,30 +73,35 @@ MobDeals.Account = {
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['username'] = input.val();
-    $.post(HOST+'/users/sign_in.json', params, function(data) { console.log('got session data', data);
-      var setAndCallback = function(user) { 
-        MobDeals.Account._authenticated(user);
-        if (callback) { callback.apply(callback); }
-      }
-      
-      if (data.error) { $.post(HOST+'/users/sign_up.json', params, setAndCallback); }
-      else if (data.password_initialized) {
-        MobDeals.Popup.show('password', function(popup) { 
-          if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
-          popup.html(MobDeals.Account._passwordHtml);
-          popup.find('input').focus();
-        });
-        var readInput = function() { MobDeals.Account._password($(this), parent, callback); MobDeals.Popup.destroy(popup); }
-        popup.find('form').submit(readInput).find('input').blur(readInput).focus();
-        
-        if (error) {
-          var box = popup.find('.'+error.field+'-box');
-          box.find('.errors').text(error.message).removeClass('hidden');
+    var setAndCallback = function(user) { 
+      MobDeals.Account._authenticated(user);
+      if (callback) { callback.apply(callback); }
+    };
+    
+    $.ajax(
+      url: HOST+'/users/sign_in.json', 
+      data: params, 
+      success: function(data) { console.log('got session data', data);
+        if (data.password_initialized) {
+          MobDeals.Popup.show('password', function(popup) { 
+            if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
+            popup.html(MobDeals.Account._passwordHtml);
+            popup.find('input').focus();
+          });
+          var readInput = function() { MobDeals.Account._password($(this), parent, callback); MobDeals.Popup.destroy(popup); }
+          popup.find('form').submit(readInput).find('input').blur(readInput).focus();
+          
+          if (error) {
+            var box = popup.find('.'+error.field+'-box');
+            box.find('.errors').text(error.message).removeClass('hidden');
+          }
         }
-      }
-      else { setAndCallback(data); }
-      
-    }, 'json');
+        else { setAndCallback(data); }
+      }, 
+      error: function(data) {console.log('got error in session', data);
+        $.post(HOST+'/users/sign_up.json', params, setAndCallback);
+      },
+      dataType: 'json');
   },
   
   _password: function(parent, grandparent, callback) {
