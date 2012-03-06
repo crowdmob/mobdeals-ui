@@ -161,7 +161,7 @@ MobDeals.Account = {
         MobDeals.Account.prompt();
       });
     }
-    if (this.user == null && userWas == null || this.user && userWas && this.user.id == userWas.id) {
+    if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
         this._switchedListeners[i].apply(this._switchedListeners[i]);
       }
