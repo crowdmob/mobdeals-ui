@@ -25,7 +25,7 @@ var MobDeals = {
   },
   
   host: function(app) {
-    return this._protocol + "://" + this._topology[app];
+    return this._protocol + '://' + this._topology[app];
   },
   
   // logging for analytics
