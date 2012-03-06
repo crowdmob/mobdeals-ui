@@ -79,6 +79,11 @@ MobDeals.Account.Wallet = {
         else { popup.find('label').show(); } 
       });
 
+      popup.find('a.back').bind(CLICK, function(ev) {
+        MobDeals.Popup.destroy(popup);
+        MobDeals.Account.Wallet._now(callback, offer);
+      });
+      
       popup.find('a.cancel').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
         MobDeals.Log.click({'event': 'cancel-new-cc-payment', 'offer': offer.id});
