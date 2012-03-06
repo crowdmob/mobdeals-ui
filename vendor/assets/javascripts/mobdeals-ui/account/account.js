@@ -3,6 +3,7 @@
 MobDeals.Account = {
   _initialized: false,
   _cookied: null,
+  _switchedListeners: [],
   user: null,
   init: function() {
     if (this._initialized) { return false; } else { this._initialized = true; }
@@ -18,6 +19,8 @@ MobDeals.Account = {
       else { MobDeals.Account.prompt(callback); }
     });
   },
+  
+  switched: function(callback) { this._switchedListeners.append(callback); },
   
   prompt: function(callback, error) { console.log("Got in prompt: ", callback, error);
     MobDeals.Popup.show('login', function(popup) {
@@ -143,6 +146,7 @@ MobDeals.Account = {
     }, 'json');
   },
   _authenticated: function(data) { console.log("setting user _auth", data);
+    var userWas = this.user;
     if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
@@ -156,6 +160,11 @@ MobDeals.Account = {
         MobDeals.Account._clear();
         MobDeals.Account.prompt();
       });
+    }
+    if (this.user == null && userWas == null || this.user && userWas && this.user.id == userWas.id) {
+      for (var i in this._switchedListeners) {
+        this._switchedListeners[i].apply(this._switchedListeners[i]);
+      }
     }
   }
 };
