@@ -36,10 +36,10 @@ var MobDeals = {
       var postable = $.param({data: payload});
       if (window.XMLHttpRequest) { xhr = new XMLHttpRequest(); }
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("Content-length", params.length);
-      xhr.setRequestHeader("Connection", "close");
       xhr.open("POST",MobDeals.host('crumbs')+'/'+dataType+'s.json');
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-length", postable.length);
+      xhr.setRequestHeader("Connection", "close");
       xhr.send(postable);
     }
   },
