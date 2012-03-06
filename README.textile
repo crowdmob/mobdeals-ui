@@ -55,3 +55,9 @@ For JS:
 
   MobDeals.inits(MobDeals, MobDeals.Habitat, MobDeals.Account, MobDeals.Popup, MobDeals.Location, MobDeals.Account.Wallet);
 </pre>
+
+Also, be sure to set the topology of the applications if you're using the @routes-client@ gem:
+
+<pre>
+  MobDeals.topology("<%=request.ssl? ? 'https' : 'http' %>", <%= Routes::Client::URL_HELPERS.to_json.html_safe  %>);
+</pre>
