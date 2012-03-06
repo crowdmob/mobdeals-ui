@@ -38,8 +38,6 @@ var MobDeals = {
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
       xhr.open("POST",MobDeals.host('crumbs')+'/'+dataType+'s.json');
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-      xhr.setRequestHeader("Content-length", postable.length);
-      xhr.setRequestHeader("Connection", "close");
       xhr.send(postable);
     }
   },
