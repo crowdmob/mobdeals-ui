@@ -75,7 +75,7 @@ MobDeals.Account = {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) { console.log("GOT USER from callback:", dataOrXhr, error, errorType);
-      if (error != 'success') {
+      if (error && error != 'success') {
         MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
       }
       else {
