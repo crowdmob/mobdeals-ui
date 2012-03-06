@@ -58,7 +58,7 @@ MobDeals.Account = {
       popup.find('input').focus();
       
       var readInput = function() { 
-        $.post(HOST+'/account/passwords', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
+        $.post(MobDeals.host('core')+'/account/passwords', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
           if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
           else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
@@ -88,7 +88,7 @@ MobDeals.Account = {
     };
     
     $.ajax({
-      url: HOST+'/users/sign_in.json', 
+      url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
       data: params, 
       success: function(data) { console.log('got session data', data);
@@ -109,7 +109,7 @@ MobDeals.Account = {
         else { setAndCallback(data); }
       }, 
       error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        $.ajax({ url: HOST+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
+        $.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
       },
       dataType: 'json'
     });
@@ -117,7 +117,7 @@ MobDeals.Account = {
   
   _password: function(parent, grandparent, callback) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    $.post(HOST+'/users/sign_in.json', { password: input.val() }, function(data) {
+    $.post(MobDeals.host('core')+'/users/sign_in.json', { password: input.val() }, function(data) {
       if (data.authenticated) {
         MobDeals.Account._cookied = true;
         MobDeals.Account._authenticated(data);
@@ -138,7 +138,7 @@ MobDeals.Account = {
     MobDeals.Account._authenticated(null);
   },
   _verifyCookie: function(callback) {
-    $.get(HOST+'/sessions.json', function(data) {
+    $.get(MobDeals.host('core')+'/sessions.json', function(data) {
       if (data.error) { MobDeals.Account._authenticated(null); }
       else { MobDeals.Account._authenticated(data); }
       
