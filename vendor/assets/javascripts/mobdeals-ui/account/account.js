@@ -28,11 +28,11 @@ MobDeals.Account = {
       popup.find('a.email').bind(CLICK, function(ev) {
  	      popup.find('.inputs').slideDown()
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus(); 
-        popup.find('.phone-box').addClass('hidden').removeClass('active');
+        popup.find('.mobile-box').addClass('hidden').removeClass('active');
       });
-      popup.find('a.phone').bind(CLICK, function(ev) { 
+      popup.find('a.mobile').bind(CLICK, function(ev) { 
  	      popup.find('.inputs').slideDown()
-        popup.find('.phone-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
+        popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
