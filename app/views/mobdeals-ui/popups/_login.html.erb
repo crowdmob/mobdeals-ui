@@ -26,9 +26,12 @@
 <div id="password-popup">
   <h4>MobDeals</h4>
   <p>Please enter your PIN</p>
-  <div class="errors hidden"></div>
   <div class="password-box">
-    <form name="password"><input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/></form>
+    <div class="errors hidden"></div>
+    <form name="password">
+      <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
+      <button>Enter</button>
+    </form>
   </div>
 </div>
 
