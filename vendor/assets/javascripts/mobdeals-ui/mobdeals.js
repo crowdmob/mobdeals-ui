@@ -33,10 +33,14 @@ var MobDeals = {
     click: function(data) { this._send('click', data); console.log('log.click', data); },
     error: function(data) { this._send('error', data); console.log('log.error', data); },
     _send: function(dataType, payload) {
+      var postable = $.param({data: payload});
       if (window.XMLHttpRequest) { xhr = new XMLHttpRequest(); }
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
+      xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      xhr.setRequestHeader("Content-length", params.length);
+      xhr.setRequestHeader("Connection", "close");
       xhr.open("POST",MobDeals.host('crumbs')+'/'+dataType+'s.json');
-      xhr.send($.param({data: payload}));
+      xhr.send(postable);
     }
   },
   
