@@ -90,7 +90,7 @@ MobDeals.Account.Wallet = {
       });
       
       popup.find('form').submit(function(ev) {
-        var serializedCard = {type: 'cc'};
+        var serializedCard = {kind: 'credit_card'};
         $.each($(this).serializeArray(), function(index,value) { serializedCard[value.name] = value.value; });
 
         $.post(MobDeals.host('core')+'/account/wallet/methods.json', { wallet_method: serializedCard }, function(data) {
