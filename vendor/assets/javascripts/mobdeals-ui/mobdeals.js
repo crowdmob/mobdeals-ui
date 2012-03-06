@@ -1,6 +1,8 @@
 var CLICK = 'click';
 var MobDeals = {
   _initialized: false,
+  _topology: {},
+  _protocol: 'https',
   
   // send in classes you wish to init
   inits: function() {
@@ -17,14 +19,23 @@ var MobDeals = {
     $("#loading").ajaxStop(function(){ $(this).addClass("hidden"); });
   },
   
+  topology: function(protocol, topologyHash) {
+    this._topology = topologyHash;
+    this._protocol = protocol;
+  },
+  
+  host: function(app) {
+    return this._protocol + "://" + this._topology[app];
+  },
+  
   // logging for analytics
   Log: {
-    click: function(data) { data['type'] = 'click'; this._send(HOST+'/crumbs', data, 'json'); console.log('log.click', data); },
-    error: function(data) { data['type'] = 'error'; this._send(HOST+'/crumbs', data, 'json'); console.log('log.error', data); },
+    click: function(data) { data['type'] = 'click'; this._send(data); console.log('log.click', data); },
+    error: function(data) { data['type'] = 'error'; this._send(data); console.log('log.error', data); },
     _send: function(data) {
       if (window.XMLHttpRequest) { xhr = new XMLHttpRequest(); }
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-      xhr.open("POST",HOST+'/crumbs');
+      xhr.open("POST",MobDeals.host('crumbs')+'/crumbs');
       xhr.send($.param(data));
     }
   },
