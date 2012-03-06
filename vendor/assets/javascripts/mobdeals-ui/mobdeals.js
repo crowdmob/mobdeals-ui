@@ -30,13 +30,13 @@ var MobDeals = {
   
   // logging for analytics
   Log: {
-    click: function(data) { data['type'] = 'click'; this._send(data); console.log('log.click', data); },
-    error: function(data) { data['type'] = 'error'; this._send(data); console.log('log.error', data); },
-    _send: function(data) {
+    click: function(data) { this._send('click', data); console.log('log.click', data); },
+    error: function(data) { this._send('error', data); console.log('log.error', data); },
+    _send: function(dataType, payload) {
       if (window.XMLHttpRequest) { xhr = new XMLHttpRequest(); }
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-      xhr.open("POST",MobDeals.host('crumbs')+'/crumbs.json');
-      xhr.send($.param(data));
+      xhr.open("POST",MobDeals.host('crumbs')+'/'+dataType+'s.json');
+      xhr.send($.param({data: payload}));
     }
   },
   
