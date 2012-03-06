@@ -15,4 +15,14 @@
   color:#fff;
 }
 
-
+.popup h4 {
+  background: -moz-linear-gradient(top, #9badc4 0%, #9098ac 2%, #8993a7 4%, #6f7992 10%, #606b87 19%, #535e7b 25%, #515c7b 27%, #374465 44%, #202e52 63%, #1b284d 65%, #0d1b40 67%, #0d1b3f 100%);
+  background: -ms-linear-gradient(top, #9badc4 0%, #9098ac 2%, #8993a7 4%, #6f7992 10%, #606b87 19%, #535e7b 25%, #515c7b 27%, #374465 44%, #202e52 63%, #1b284d 65%, #0d1b40 67%, #0d1b3f 100%);
+  background: -webkit-linear-gradient(top, #9badc4 0%, #9098ac 2%, #8993a7 4%, #6f7992 10%, #606b87 19%, #535e7b 25%, #515c7b 27%, #374465 44%, #202e52 63%, #1b284d 65%, #0d1b40 67%, #0d1b3f 100%);
+  text-shadow: 0 -1px 0 black;
+  padding: 10px 0 5px;
+  border-radius: 7px;
+  margin: 0;
+  text-align: center;
+  font-size: 14px;
+}
