@@ -37,10 +37,10 @@ MobDeals.Account = {
       });
       
       if (error && error.errors) { console.log("in prompt in error, got ", error, error.errors);
-        for (var field in error.errors) {
-          popup.find('a.'+field).click();
-          var box = popup.find('.'+field+'-box');
-          box.find('.errors').removeClass('hidden').text(error.errors[field].join(', and '));
+        for (var field in error.errors) { console.log("handling field", field);
+          popup.find('a.'+field).click(); console.log("meant to click", popup.find('a.'+field));
+          var box = popup.find('.'+field+'-box'); console.log("box is", box);
+          box.find('.errors').removeClass('hidden').text(error.errors[field].join(', and ')); console.log("errors is", box.find('.errors'));
         }
       }
       
