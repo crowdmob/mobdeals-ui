@@ -5,6 +5,7 @@ fieldset {padding:0; margin:0; border:0;}
 a {cursor:pointer;}
 .hidden {display:none;}
 .clear {clear:both;}
+button {cursor:pointer;}
 
 #loading,
 #redirecting { text-align:center; position:fixed; display:block; z-index:99999; background:#FFF; box-shadow: 0 1px 1px rgba(0,0,0, 0.2); border-radius: 5px; padding:10px; top:45%; left:45%; }
