@@ -20,7 +20,7 @@ MobDeals.Account = {
     });
   },
   
-  switched: function(callback) { this._switchedListeners.append(callback); },
+  switched: function(callback) { this._switchedListeners.push(callback); },
   
   prompt: function(callback, error) { console.log("Got in prompt: ", callback, error);
     MobDeals.Popup.show('login', function(popup) {
