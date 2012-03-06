@@ -17,7 +17,7 @@ MobDeals.Account.Wallet = {
     else { return this._now(callback, offer); }
   },
   load: function(callback) {
-    $.get(MobDeals.host('core')+'/account/wallet/methods', function(data) {
+    $.get(MobDeals.host('core')+'/account/wallet/methods.json', function(data) {
       MobDeals.Account.Wallet.methods = data;
       MobDeals.Account.Wallet._default = MobDeals.Account.Wallet.methods ? MobDeals.Account.Wallet.methods[0] : null;
       MobDeals.Account.Wallet.loaded = true;
@@ -88,7 +88,7 @@ MobDeals.Account.Wallet = {
         var serializedCard = {};
         $.each($(this).serializeArray(), function(index,value) { serializedCard[value.name] = value.value; });
 
-        $.post(MobDeals.host('core')+'/account/wallet/methods', { method: {type: 'cc', details: JSON.stringify(serializedCard)} }, function(data) {
+        $.post(MobDeals.host('core')+'/account/wallet/methods.json', { method: {type: 'cc', details: JSON.stringify(serializedCard)} }, function(data) {
           if (data.errors && data.errors.bad_input) {
             if (data.error_data.bad_input == 'card_number') {
               popup.find('.row-1-error').text('Credit card number is incorrect. Please try again.').removeClass('hidden');

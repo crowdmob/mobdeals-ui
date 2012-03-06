@@ -35,7 +35,7 @@ var MobDeals = {
     _send: function(data) {
       if (window.XMLHttpRequest) { xhr = new XMLHttpRequest(); }
       else { xhr = new ActiveXObject("Microsoft.XMLHTTP"); }
-      xhr.open("POST",MobDeals.host('crumbs')+'/crumbs');
+      xhr.open("POST",MobDeals.host('crumbs')+'/crumbs.json');
       xhr.send($.param(data));
     }
   },

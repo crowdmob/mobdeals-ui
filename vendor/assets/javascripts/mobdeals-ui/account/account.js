@@ -58,7 +58,7 @@ MobDeals.Account = {
       popup.find('input').focus();
       
       var readInput = function() { 
-        $.post(MobDeals.host('core')+'/account/passwords', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
+        $.post(MobDeals.host('core')+'/account/passwords.json', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
           if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
           else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
