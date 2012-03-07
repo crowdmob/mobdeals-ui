@@ -59,13 +59,20 @@ MobDeals.Account.Wallet = {
       });
       popup.find('button.paypal').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        callback.apply(callback, [{type: 'paypal'}, true]);
+        MobDeals.Account.Wallet._startPaypal(callback, offer);
       });
       popup.find('button.amazon').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
         callback.apply(callback, [{type: 'amazon'}, true]);
       });
     });
+  },
+  _startPaypal: function(callback, offer) { console.log("offer", offer);
+    $.get(MobDeals.host('core')+'/account/wallet/methods/paypals/new.json?purchasable_type='+offer.class_name+'&purchasable_id='+offer.id+, function(data) {
+      MobDeals.redirect(data.setup_url);
+      //      else { MobDeals.Popup.destroy(popup); if (callback) { callback.apply(callback, [data, true]); } }
+    }, 
+    'json');
   },
   _cc: function(callback, offer) {
     MobDeals.Popup.show('new-cc', function(popup) {
