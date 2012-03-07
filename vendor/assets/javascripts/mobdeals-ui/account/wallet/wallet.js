@@ -68,9 +68,8 @@ MobDeals.Account.Wallet = {
     });
   },
   _startPaypal: function(callback, offer) { console.log("offer", offer);
-    $.get(MobDeals.host('core')+'/account/wallet/methods/paypals/new.json?purchasable_type='+offer.purchasable_type+'&purchasable_id='+offer.id, function(data) {
+    $.get(MobDeals.host('core')+'/account/wallet/methods/paypals/new.json?settle=true&redirect=offerwall&habitat[apikey]='+MobDeals.Habitat.apikey()+'&purchasable_type='+offer.purchasable_type+'&purchasable_id='+offer.id, function(data) {
       MobDeals.redirect(data.setup_url);
-      //      else { MobDeals.Popup.destroy(popup); if (callback) { callback.apply(callback, [data, true]); } }
     }, 
     'json');
   },
