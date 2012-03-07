@@ -17,7 +17,7 @@ MobDeals.Account.Wallet = {
     else { return this._now(callback, offer); }
   },
   load: function(callback) {
-    $.get(MobDeals.host('core')+'/account/wallet/methods.json', function(data) {
+    $.get(MobDeals.host('core')+'/account/wallet/methods/usable.json', function(data) {
       MobDeals.Account.Wallet.methods = data;
       MobDeals.Account.Wallet._default = MobDeals.Account.Wallet.methods ? MobDeals.Account.Wallet.methods[0] : null;
       MobDeals.Account.Wallet.loaded = true;
