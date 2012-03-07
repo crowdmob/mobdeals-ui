@@ -59,18 +59,21 @@ MobDeals.Account.Wallet = {
       });
       popup.find('button.paypal').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        MobDeals.Account.Wallet._startPaypal(callback, offer);
+        MobDeals.Account.Wallet._start3rdParty('paypals', callback, offer);
       });
       popup.find('button.amazon').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        callback.apply(callback, [{type: 'amazon'}, true]);
+        MobDeals.Account.Wallet._start3rdParty('amazons', callback, offer);
       });
     });
   },
-  _startPaypal: function(callback, offer) { console.log("offer", offer);
-    $.get(MobDeals.host('core')+'/account/wallet/methods/paypals/new.json?settle=true&redirect=offerwall&habitat[apikey]='+MobDeals.Habitat.apiKey()+'&purchasable_type='+offer.purchasable_type+'&purchasable_id='+offer.id, function(data) {
-      MobDeals.redirect(data.setup_url);
-    }, 
+  _start3rdParty: function(uri, callback, offer) {
+    $.get(MobDeals.host('core') + 
+      '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
+      MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id, 
+      function(data) {
+        MobDeals.redirect(data.setup_url);
+      }, 
     'json');
   },
   _cc: function(callback, offer) {
