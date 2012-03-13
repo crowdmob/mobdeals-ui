@@ -4,7 +4,7 @@ This provides the common assets for mobdeals apps in a single place.
 
 h2. Installation
 
-Install the @mobdeals-ui@ gem in your application with: 
+Install the @mobdeals-ui@ gem in your application's @Gemfile@ with: 
 
 <pre>
   gem 'mobdeals-ui', :git => 'git@github.com:crowdmob/mobdeals-ui.git'
