@@ -5,6 +5,7 @@ MobDeals.Habitat = {
   _platform: null,
   _initialized: false,
   app: null,
+  currency_image_url: null,
   init: function() {
     if (this._initialized) { return false; } else { this._initialized = true; }
   },
