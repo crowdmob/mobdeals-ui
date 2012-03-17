@@ -119,7 +119,7 @@ MobDeals.Account = {
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
           data: params,
-          success: setAndCallback,
+          //success: setAndCallback,
           //error: setAndCallback,
           dataType: 'json'
         }); // register
