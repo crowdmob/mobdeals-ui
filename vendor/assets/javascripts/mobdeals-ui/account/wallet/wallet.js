@@ -69,8 +69,8 @@ MobDeals.Account.Wallet = {
   },
   _start3rdParty: function(uri, callback, offer) {
     $.get(MobDeals.host('core') + 
-      '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[virtual_good_id]='+offer.virtual_good_id+'&habitat[apikey]=' + 
-      MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id, 
+      '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
+      MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id, 
       function(data) {
         MobDeals.redirect(data.setup_url);
       }, 
