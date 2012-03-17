@@ -91,6 +91,9 @@ MobDeals.Account = {
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
       data: params, 
+      headers: {
+        'X-CSRF-Token': '<%= form_authenticity_token.to_s %>'
+      },
       success: function(data) { console.log('got session data', data);
         if (data.password_initialized) {
           MobDeals.Popup.show('password', function(popup) { 
