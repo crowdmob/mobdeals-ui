@@ -80,7 +80,7 @@ MobDeals.Account = {
     var setAndCallback = function(dataOrXhr, error, errorType) {
       console.log("GOT USER from callback:", dataOrXhr, error, errorType);
       if (error && error != 'success') {
-        //MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
+        MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
         console.log("error on the ajax call");
       }
       else {
@@ -115,14 +115,14 @@ MobDeals.Account = {
       }, 
       error: function(xhr, data, error) {
         console.log('got error in session', xhr, data, error);
-        $.ajax({ 
-          url: MobDeals.host('core')+'/users.json',
-          type:'POST',
-          data: params,
-          success: setAndCallback,
-          error: setAndCallback,
-          dataType: 'json'
-        }); // register
+        //$.ajax({ 
+          //url: MobDeals.host('core')+'/users.json',
+          //type:'POST',
+          //data: params,
+          //success: setAndCallback,
+          //error: setAndCallback,
+          //dataType: 'json'
+        //}); // register
       },
       dataType: 'json'
     });
