@@ -114,6 +114,7 @@ MobDeals.Account = {
         else { setAndCallback(data); console.log("no password initialized");}
       }, 
       error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
+        console.log("Registering new user!");
         $.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
       },
       dataType: 'json'
