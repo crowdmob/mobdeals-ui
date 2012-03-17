@@ -95,7 +95,7 @@ MobDeals.Account = {
       type: 'POST',
       data: params, 
       success: function(data) { console.log('got session data', data);
-        console.log("setting up the ajax call");
+        console.log("Successful ajax call!");
         if (data.password_initialized) {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
@@ -113,10 +113,10 @@ MobDeals.Account = {
         }
         else { setAndCallback(data); console.log("no password initialized");}
       }, 
-      error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        console.log("Registering new user!");
-        $.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
-      },
+      //error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
+        //console.log("Registering new user!");
+        //$.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
+      //},
       dataType: 'json'
     });
   },
