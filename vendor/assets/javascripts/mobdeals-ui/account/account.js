@@ -120,6 +120,7 @@ MobDeals.Account = {
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
           data: params,
+          async: false,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'
