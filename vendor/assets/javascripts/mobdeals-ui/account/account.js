@@ -90,34 +90,7 @@ MobDeals.Account = {
       }
     };
     console.log("next to the ajax call");
-    $.ajax({
-      url: MobDeals.host('core')+'/users/sign_in.json', 
-      type: 'POST',
-      data: params, 
-      success: function(data) { console.log('got session data', data);
-        console.log("setting up the ajax call");
-        if (data.password_initialized) {
-          MobDeals.Popup.show('password', function(popup) { 
-            if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
-            popup.html(MobDeals.Account._passwordHtml);
-            popup.find('input').focus();
-          });
-          var readInput = function() { MobDeals.Account._password($(this), parent, callback); MobDeals.Popup.destroy(popup); }
-          popup.find('form').submit(readInput).find('input').blur(readInput).focus();
-          
-          if (error) {
-            var box = popup.find('.'+error.field+'-box');
-            box.find('.errors').text(error.message).removeClass('hidden');
-          }
-          console.log("password initialized");
-        }
-        else { setAndCallback(data); console.log("no password initialized");}
-      }, 
-      error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        $.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
-      },
-      dataType: 'json'
-    });
+
   },
   
   _password: function(parent, grandparent, callback) {
