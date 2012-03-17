@@ -77,8 +77,8 @@ MobDeals.Account = {
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
-    var setAndCallback = function(dataOrXhr, error, errorType) { console.log("GOT USER from callback:", dataOrXhr, error, errorType);
-      console.log("response from ajax call");
+    var setAndCallback = function(dataOrXhr, error, errorType) {
+      console.log("GOT USER from callback:", dataOrXhr, error, errorType);
       if (error && error != 'success') {
         MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
         console.log("error on the ajax call");
@@ -113,10 +113,17 @@ MobDeals.Account = {
         }
         else { setAndCallback(data); console.log("no password initialized");}
       }, 
-      //error: function(xhr, data, error) {console.log('got error in session', xhr, data, error);
-        //console.log("Registering new user!");
-        //$.ajax({ url: MobDeals.host('core')+'/users.json', type:'POST', data: params, success: setAndCallback, error: setAndCallback,  dataType: 'json'}); // register
-      //},
+      error: function(xhr, data, error) {
+        console.log('got error in session', xhr, data, error);
+        $.ajax({ 
+          url: MobDeals.host('core')+'/users.json',
+          type:'POST',
+          data: params,
+          success: setAndCallback,
+          //error: setAndCallback,
+          dataType: 'json'
+        }); // register
+      },
       dataType: 'json'
     });
   },
