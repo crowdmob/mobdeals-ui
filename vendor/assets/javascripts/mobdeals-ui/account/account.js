@@ -80,7 +80,7 @@ MobDeals.Account = {
     var setAndCallback = function(dataOrXhr, error, errorType) { console.log("GOT USER from callback:", dataOrXhr, error, errorType);
       console.log("response from ajax call");
       if (error && error != 'success') {
-        //MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
+        MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
         console.log("error on the ajax call");
       }
       else {
