@@ -145,7 +145,7 @@ MobDeals.Account = {
 
   _facebook: function(callback) {
     MobDeals.Log.click({'event': 'facebook'});
-    MobDeals.redirect('https://WIP');
+    MobDeals.redirect(MobDeals.host('core')+'/users/auth/facebook');
     // TODO FIND WAY TO MAKE CALLBACK INSIDE AN IFRAME
   },
   
