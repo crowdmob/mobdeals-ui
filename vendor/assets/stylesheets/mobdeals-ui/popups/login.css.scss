@@ -1,4 +1,10 @@
-
+#facebook-popup {
+  min-width:320px;
+  min-height:480px;
+  position:absolute;
+  border:5px solid rgba(0,0,0,0.4);
+  box-shadow: 0 1px 1px rgba(0,0,0, 0.3);
+}
 /*login type*/
 .popup.login .types a { width:100px; height:107px; display:block; float:left; margin:10px 20px; }
 .popup.login .types a.phone{margin:10px 5px;}
