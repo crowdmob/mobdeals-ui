@@ -47,7 +47,7 @@ MobDeals.Account = {
         }
       }
       
-      popup.find('a.facebook').bind(CLICK, function(ev) { MobDeals.Account._facebook(callback); });
+      popup.find('a.facebook').bind(CLICK, function(ev) { MobDeals.Account._facebook(callback); MobDeals.Popup.destroy(popup); });
     });
   },
 
