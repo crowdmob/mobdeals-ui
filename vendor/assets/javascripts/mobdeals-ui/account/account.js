@@ -94,7 +94,7 @@ MobDeals.Account = {
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
       data: params,
-      async: false,
+      // async: false,
       success: function(data) { console.log('got session data', data);
         console.log("Successful ajax call!");
         if (data.password_initialized) {
@@ -120,7 +120,7 @@ MobDeals.Account = {
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
           data: params,
-          async: false,
+          // async: false,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'

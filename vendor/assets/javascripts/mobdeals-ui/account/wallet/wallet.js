@@ -70,7 +70,7 @@ MobDeals.Account.Wallet = {
   _start3rdParty: function(uri, callback, offer) {
     $.get(MobDeals.host('core') + 
       '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
-      MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id, 
+      MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id, 
       function(data) {
         MobDeals.redirect(data.setup_url);
       }, 
@@ -102,7 +102,7 @@ MobDeals.Account.Wallet = {
         var serializedCard = {kind: 'credit_card'};
         $.each($(this).serializeArray(), function(index,value) { serializedCard[value.name] = value.value; });
 
-        $.post(MobDeals.host('core')+'/account/wallet/methods.json', { wallet_method: serializedCard }, function(data) {
+        $.post(MobDeals.host('core')+'/account/wallet/methods.json', { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()}, function(data) {
           if (data.errors && data.errors.bad_input) {
             if (data.error_data.bad_input == 'card_number') {
               popup.find('.row-1-error').text('Credit card number is incorrect. Please try again.').removeClass('hidden');
