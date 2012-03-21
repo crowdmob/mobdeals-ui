@@ -149,10 +149,9 @@ MobDeals.Account = {
   
   fromFacebook: function() {
     $('iframe#facebook-popup').remove();
-    if (MobDeals.Account._fromFacebookCallback) { 
-      MobDeals.Account._fromFacebookCallback = null;
-      MobDeals.Account._fromFacebookCallback.apply(MobDeals.Account._fromFacebookCallback);
-    }
+    var callback = MobDeals.Account._fromFacebookCallback;
+    MobDeals.Account.assertCookied(callback);
+    MobDeals.Account._fromFacebookCallback = null;
   },
   
   _clear: function() {
