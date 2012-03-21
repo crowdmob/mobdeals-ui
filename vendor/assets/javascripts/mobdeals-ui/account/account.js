@@ -14,6 +14,7 @@ MobDeals.Account = {
     else if (callback) { callback.apply(callback, [this._cookied]); }
   },
   assertCookied: function(callback, returnUrl) {
+    console.log("Return URL ", returnUrl);
     this.cookied(function(isCookied) { console.log("checking isCookied:", isCookied);
       if (isCookied) { callback.apply(callback); }
       else { MobDeals.Account.prompt(callback, null, returnUrl); }
