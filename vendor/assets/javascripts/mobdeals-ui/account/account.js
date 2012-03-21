@@ -94,7 +94,6 @@ MobDeals.Account = {
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
       data: params,
-      // async: false,
       success: function(data) { console.log('got session data', data);
         console.log("Successful ajax call!");
         if (data.password_initialized) {
@@ -120,7 +119,6 @@ MobDeals.Account = {
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
           data: params,
-          // async: false,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'
@@ -144,8 +142,8 @@ MobDeals.Account = {
   },
 
   _facebook: function(callback) {
-    MobDeals.Log.click({'event': 'facebook'});
-    MobDeals.redirect(MobDeals.host('core')+'/users/auth/facebook');
+    MobDeals.Log.click({'event': 'facebook', 'redirect': callback});
+    //MobDeals.redirect(MobDeals.host('core')+'/users/auth/facebook');
     // TODO FIND WAY TO MAKE CALLBACK INSIDE AN IFRAME
   },
   
