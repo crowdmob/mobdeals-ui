@@ -145,7 +145,7 @@ MobDeals.Account = {
     MobDeals.Log.click({'event': 'facebook'});
     $.get(MobDeals.host('core')+'/users/auth/facebook.json', function(data) {
       if (data.redirect_url) {
-        $(document.body).append('<iframe src="'+data.redirect_url+'" id="facebook-popup"></iframe>');
+        $(document.body).append('<iframe src="'+'http://m.facebook.com/login.php?app_id=293759800656841&cancel=http%3A%2F%2Flocalhost%3A3000%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied%26error%3Daccess_denied%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.&fbconnect=1&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request%26app_id%3D293759800656841%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252Fusers%252Fauth%252Ffacebook%252Fcallback%26display%3Dtouch%26response_type%3Dcode%26perms%3Demail%252Coffline_access%26fbconnect%3D1%26from_login%3D1%26client_id%3D293759800656841&rcount=1&_rdr'+'" id="facebook-popup"></iframe>');
       }
     }, 'json');
     
