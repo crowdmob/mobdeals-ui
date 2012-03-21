@@ -142,7 +142,8 @@ MobDeals.Account = {
   },
 
   _facebook: function(callback) {
-    MobDeals.Log.click({'event': 'facebook', 'redirect': callback});
+    MobDeals.Log.click({'event': 'facebook'});
+    $(document.body).append('<iframe src="'+MobDeals.host('core')+'/users/auth/facebook'+'" id="facebook-popup"></iframe>');
     //MobDeals.redirect(MobDeals.host('core')+'/users/auth/facebook');
     // TODO FIND WAY TO MAKE CALLBACK INSIDE AN IFRAME
   },
