@@ -143,7 +143,12 @@ MobDeals.Account = {
 
   _facebook: function(callback) {
     MobDeals.Log.click({'event': 'facebook'});
-    $(document.body).append('<iframe src="'+MobDeals.host('core')+'/users/auth/facebook'+'" id="facebook-popup"></iframe>');
+    $.get(MobDeals.host('core')+'/users/auth/facebook.json', function(data) {
+      if (data.redirect_url) {
+        $(document.body).append('<iframe src="'+data.redirect_url+'" id="facebook-popup"></iframe>');
+      }
+    }, 'json');
+    
     //MobDeals.redirect(MobDeals.host('core')+'/users/auth/facebook');
     // TODO FIND WAY TO MAKE CALLBACK INSIDE AN IFRAME
   },
