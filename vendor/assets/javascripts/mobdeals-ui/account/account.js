@@ -142,16 +142,8 @@ MobDeals.Account = {
   },
 
   _facebook: function(callback, returnUrl) {
-    this._fromFacebookCallback = callback;
-    MobDeals.Log.click({'event': 'facebook'});
-    $(document.body).append('<iframe src="'+'http://m.facebook.com/login.php?app_id=293759800656841&cancel=http%3A%2F%2Flocalhost%3A3000%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied%26error%3Daccess_denied%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.%26state%3D'+escape(escape(returnUrl))+'&fbconnect=1&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request%26app_id%3D293759800656841%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252Fusers%252Fauth%252Ffacebook%252Fcallback%26display%3Dtouch%26response_type%3Dcode%26state%3Diframe%26perms%3Demail%252Coffline_access%26fbconnect%3D1%26from_login%3D1%26client_id%3D293759800656841&rcount=1&_rdr'+'" id="facebook-popup"></iframe>');
-  },
-  
-  fromFacebook: function() {
-    $('iframe#facebook-popup').remove();
-    var callback = MobDeals.Account._fromFacebookCallback;
-    MobDeals.Account.assertCookied(callback);
-    MobDeals.Account._fromFacebookCallback = null;
+    MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
+    MobDeals.redirect('http://m.facebook.com/login.php?app_id=293759800656841&cancel=http%3A%2F%2Flocalhost%3A3000%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied%26error%3Daccess_denied%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.%26state%3D'+escape(escape(returnUrl))+'&fbconnect=1&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request%26app_id%3D293759800656841%26redirect_uri%3Dhttp%253A%252F%252Flocalhost%253A3000%252Fusers%252Fauth%252Ffacebook%252Fcallback%26display%3Dtouch%26response_type%3Dcode%26state%3Diframe%26perms%3Demail%252Coffline_access%26fbconnect%3D1%26from_login%3D1%26client_id%3D293759800656841&rcount=1&_rdr');
   },
   
   _clear: function() {
