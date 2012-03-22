@@ -10,10 +10,7 @@ MobDeals.Account.Wallet = {
   _empty: function() {
     return this.methods == null || this.methods.length < 1;
   },
-  selectedMethod: function(callback, offer) { 
-    console.log("in selectedMethod offer:",offer, "user:", MobDeals.Account.user, "loaded:", this.loaded); 
-    console.log("offer.pay_later_allowed",offer.pay_later_allowed," && MobDeals.Account.user.can_pay_later",MobDeals.Account.user.can_pay_later,"====",(offer.pay_later_allowed && MobDeals.Account.user.can_pay_later));
-    
+  selectedMethod: function(callback, offer) {
     if (!this.loaded) { return this.load(function() { MobDeals.Account.Wallet.selectedMethod(callback, offer); })}  
     else if (this._default) { return callback.apply(callback, [this._default, false]); }
     else if (offer.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, offer); }
@@ -38,7 +35,7 @@ MobDeals.Account.Wallet = {
       popup.html(MobDeals.Account.Wallet._whenHtml);
       popup.find('a.now .virtual-count').text(offer.currency);
       popup.find('a.later .virtual-count').text(offer.advanced_virtual_good_quantity_for_pay_later);
-      popup.find('.virtual-img').html('<img src="'+offer.virtual.image_url+'"/>');
+      popup.find('.virtual-img').html('<img src="'+offer.virtual_good_image_url+'"/>');
 
       popup.find('a.now').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
