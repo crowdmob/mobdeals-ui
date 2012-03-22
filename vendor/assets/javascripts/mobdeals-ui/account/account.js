@@ -14,8 +14,7 @@ MobDeals.Account = {
     else if (callback) { callback.apply(callback, [this._cookied]); }
   },
   assertCookied: function(callback, returnUrl) {
-    console.log("Return URL ", returnUrl);
-    this.cookied(function(isCookied) { console.log("checking isCookied:", isCookied);
+    this.cookied(function(isCookied) {
       if (isCookied) { callback.apply(callback); }
       else { MobDeals.Account.prompt(callback, null, returnUrl); }
     });
@@ -23,7 +22,7 @@ MobDeals.Account = {
   
   switched: function(callback) { this._switchedListeners.push(callback); },
   
-  prompt: function(callback, error, returnUrl) { console.log("Got in prompt: ", callback, error);
+  prompt: function(callback, error, returnUrl) {
     MobDeals.Popup.show('login', function(popup) {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
       popup.html(MobDeals.Account._promptHtml);
@@ -59,7 +58,7 @@ MobDeals.Account = {
       popup.find('input').focus();
       
       var readInput = function() { 
-        $.post(MobDeals.host('core')+'/account/passwords.json', { password: popup.find('input').val() }, function(data) { console.log("created password, got", data);
+        $.post(MobDeals.host('core')+'/account/passwords.json', { password: popup.find('input').val() }, function(data) {
           if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
           else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
@@ -79,24 +78,20 @@ MobDeals.Account = {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) {
-      console.log("GOT USER from callback:", dataOrXhr, error, errorType);
       if (error && error != 'success') {
         MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
-        console.log("error on the ajax call");
       }
       else {
         MobDeals.Account._authenticated(dataOrXhr);
         if (callback) { callback.apply(callback); }
-        console.log("successful ajax call");
       }
     };
-    console.log("next to the ajax call");
+    
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
       data: params,
-      success: function(data) { console.log('got session data', data);
-        console.log("Successful ajax call!");
+      success: function(data) {
         if (data.password_initialized) {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
@@ -110,12 +105,10 @@ MobDeals.Account = {
             var box = popup.find('.'+error.field+'-box');
             box.find('.errors').text(error.message).removeClass('hidden');
           }
-          console.log("password initialized");
         }
-        else { setAndCallback(data); console.log("no password initialized");}
+        else { setAndCallback(data);}
       }, 
       error: function(xhr, data, error) {
-        console.log('got error in session', xhr, data, error);
         $.ajax({ 
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
@@ -158,7 +151,7 @@ MobDeals.Account = {
       if (callback) { callback.apply(callback, [MobDeals.Account._cookied]); }
     }, 'json');
   },
-  _authenticated: function(data) { console.log("setting user _auth", data);
+  _authenticated: function(data) {
     var userWas = this.user;
     if (!data || data.id == null) { 
       this._cookied = false;

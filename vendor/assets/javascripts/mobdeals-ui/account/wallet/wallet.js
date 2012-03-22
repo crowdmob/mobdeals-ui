@@ -7,10 +7,13 @@ MobDeals.Account.Wallet = {
     if (this._initialized) { return false; } else { this._initialized = true; }
   },
   
-  _empty: function() { console.log("this.methods == null", this.methods == null, "this.methods.length < 1", this.methods.length < 1);
+  _empty: function() {
     return this.methods == null || this.methods.length < 1;
   },
-  selectedMethod: function(callback, offer) { console.log("in selectedMethod offer:",offer, "user:", MobDeals.Account.user, "loaded:", this.loaded);
+  selectedMethod: function(callback, offer) { 
+    console.log("in selectedMethod offer:",offer, "user:", MobDeals.Account.user, "loaded:", this.loaded); 
+    console.log("offer.pay_later_allowed",offer.pay_later_allowed," && MobDeals.Account.user.can_pay_later",MobDeals.Account.user.can_pay_later,"====",(offer.pay_later_allowed && MobDeals.Account.user.can_pay_later));
+    
     if (!this.loaded) { return this.load(function() { MobDeals.Account.Wallet.selectedMethod(callback, offer); })}  
     else if (this._default) { return callback.apply(callback, [this._default, false]); }
     else if (offer.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, offer); }
