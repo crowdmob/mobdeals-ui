@@ -1,50 +1,56 @@
 <div id="choose-login-type-popup">
   <h4>MobDeals</h4>
-  <p>Create your account, or sign in to an existing account.</p>
+  <div class="body">
+    <p>Create your account, or sign in to an existing account.</p>
 
-  <div class="types">
-    <a rel="email-box" class="email"><img src="<%= asset_path('mobdeals-ui/emailicon@2x.png') %>" alt="email"/><div>Email</div></a>
-    <a rel="mobile-box" class="mobile"><img src="<%= asset_path('mobdeals-ui/phoneicon@2x.png') %>" alt="mobile phone"/><div>Phone</div></a>
-    <a rel="facebook-redirect" class="facebook"><img src="<%= asset_path('mobdeals-ui/fbicon@2x.png') %>" alt="facebook"/><div>Facebook</div></a>
-  </div>
-
-  <div class="inputs" style="display:none">
-    <div class="email-box hidden">
-      <div class="errors hidden"></div>
-      <form action="#" name="email"><input type="email" name="user[email]" placeholder="Email address"/></form>
+    <div class="types">
+      <a rel="email-box" class="email"><img src="<%= asset_path('mobdeals-ui/emailicon@2x.png') %>" alt="email"/><div>Email</div></a>
+      <a rel="mobile-box" class="mobile"><img src="<%= asset_path('mobdeals-ui/phoneicon@2x.png') %>" alt="mobile phone"/><div>Phone</div></a>
+      <a rel="facebook-redirect" class="facebook"><img src="<%= asset_path('mobdeals-ui/fbicon@2x.png') %>" alt="facebook"/><div>Facebook</div></a>
     </div>
 
-    <div class="mobile-box hidden">
-      <div class="errors hidden"></div>
-      <form action="#" name="mobile"><input type="tel" name="user[mobile]" placeholder="Mobile number"/></form>
+    <div class="inputs" style="display:none">
+      <div class="email-box hidden">
+        <div class="errors hidden"></div>
+        <form action="#" name="email"><input type="email" name="user[email]" placeholder="Email address"/></form>
+      </div>
+
+      <div class="mobile-box hidden">
+        <div class="errors hidden"></div>
+        <form action="#" name="mobile"><input type="tel" name="user[mobile]" placeholder="Mobile number"/></form>
+      </div>
     </div>
+    <div class="bottom"></div>
   </div>
-  <div class="bottom"></div>
 </div>
 
 
 <div id="password-popup">
   <h4>MobDeals</h4>
-  <p>Please enter your PIN</p>
-  <div class="password-box">
-    <div class="errors hidden"></div>
-    <form name="password">
-      <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
-      <button>Enter</button>
-    </form>
+  <div class="body">
+    <p>Please enter your PIN</p>
+    <div class="password-box">
+      <div class="errors hidden"></div>
+      <form name="password">
+        <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
+        <button>Enter</button>
+      </form>
+    </div>
+    <div class="retrievable-box"><a>Forgot password?</a></div>
   </div>
-  <div class="retrievable-box"><a>Forgot password?</a></div>
 </div>
 
 <div id="create-password-popup">
   <h4>Thank you!</h4>
-  <p>Please create a PIN to retrieve your deal.</p>
+  <div class="body">
+    <p>Please create a PIN to retrieve your deal.</p>
 
-  <div class="create-password-box">
-    <form name="create-password">
-      <div class="errors hidden"></div>
-      <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
-      <button>Enter</button>
-    </form>
+    <div class="create-password-box">
+      <form name="create-password">
+        <div class="errors hidden"></div>
+        <input type="tel" pattern="[0-9]*" name="user[password]" placeholder="PIN" maxlength="19" min="1" max="99999999999999999"/>
+        <button>Enter</button>
+      </form>
+    </div>
   </div>
 </div>
