@@ -130,7 +130,7 @@ MobDeals.Account = {
   
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    additionalParams.password = input.val()
+    additionalParams['user[password]'] = input.val()
     $.post(MobDeals.host('core')+'/users/sign_in.json', additionalParams, function(data) {
       if (data.authenticated) {
         MobDeals.Account._cookied = true;
