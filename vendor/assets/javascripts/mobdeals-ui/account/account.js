@@ -82,7 +82,7 @@ MobDeals.Account = {
         var data = $.parseJSON(dataOrXhr.responseText)
         console.log(data)
         
-        if (false) {
+        if (data.errors.email[0] == "has already been taken") {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
             popup.html(MobDeals.Account._passwordHtml);
