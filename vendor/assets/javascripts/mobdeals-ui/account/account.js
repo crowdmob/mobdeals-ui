@@ -79,20 +79,10 @@ MobDeals.Account = {
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
-        MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
-      }
-      else {
-        MobDeals.Account._authenticated(dataOrXhr);
-        if (callback) { callback.apply(callback); }
-      }
-    };
-    
-    $.ajax({
-      url: MobDeals.host('core')+'/users/sign_in.json', 
-      type: 'POST',
-      data: params,
-      success: function(data) {
-        if (data.password_initialized) {
+        var data = $.parseJSON(dataOrXhr.responseText)
+        console.log(data)
+        
+        if (false) {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
             popup.html(MobDeals.Account._passwordHtml);
@@ -106,7 +96,22 @@ MobDeals.Account = {
             box.find('.errors').text(error.message).removeClass('hidden');
           }
         }
-        else { setAndCallback(data);}
+        else {
+          MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
+        }
+      }
+      else {
+        MobDeals.Account._authenticated(dataOrXhr);
+        if (callback) { callback.apply(callback); }
+      }
+    };
+    
+    $.ajax({
+      url: MobDeals.host('core')+'/users/sign_in.json', 
+      type: 'POST',
+      data: params,
+      success: function(data) {
+        setAndCallback(data);
       }, 
       error: function(xhr, data, error) {
         $.ajax({ 
