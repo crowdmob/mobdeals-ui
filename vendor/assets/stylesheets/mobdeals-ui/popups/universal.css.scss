@@ -13,6 +13,7 @@
   border: 2px solid #fff; 
   border-radius:10px; 
   color:#fff;
+  box-shadow:  0 0 10px rgba(0,0,0,0.25);
 }
 
 .popup h4 {
@@ -27,7 +28,43 @@
   font-size: 14px;
 }
 
-.popup > p { 
-  text-align:center; margin-top:3px;
+
+
+.popup .buttons {
+  text-align:center;
 }
+
+.popup .buttons button,
+.popup form button {
+  color:#fff;
+	cursor:pointer;
+	margin:0 10px 0 0;
+  padding:12px 20px;
+  border:0;
+  border-radius:5px;
+  border-top:1px solid #8B92A5;
+  font-size:14px;
+  background:#777E94;
+  background:-moz-linear-gradient(top, #A3A9B6 0%,#A4A9B7 3%,#989EAE 10%,#777E94 28%,#616A82 46%,#3A4564 49%,#3F4A68 62%,#525C77 95%,#5B6580 97%,#0B1531 100%);
+  background:-ms-linear-gradient(top, #A3A9B6 0%,#A4A9B7 3%,#989EAE 10%,#777E94 28%,#616A82 46%,#3A4564 49%,#3F4A68 62%,#525C77 95%,#5B6580 97%,#0B1531 100%);
+  background:-webkit-linear-gradient(top, #A3A9B6 0%,#A4A9B7 3%,#989EAE 10%,#777E94 28%,#616A82 46%,#3A4564 49%,#3F4A68 62%,#525C77 95%,#5B6580 97%,#0B1531 100%);
+  text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+.popup .buttons button.cancel,
+.popup form button.cancel {
+  background:#4A5470;
+	background:-moz-linear-gradient(top, #677088 0%,#5E6780 8%,#4A5470 18%,#354060 31%,#283456 44%,#232F52 46%,#000E36 49%,#0D1B41 95%,#0F1E44 97%,#000826 100%);
+	background:-ms-linear-gradient(top, #677088 0%,#5E6780 8%,#4A5470 18%,#354060 31%,#283456 44%,#232F52 46%,#000E36 49%,#0D1B41 95%,#0F1E44 97%,#000826 100%);
+	background:-webkit-linear-gradient(top, #677088 0%,#5E6780 8%,#4A5470 18%,#354060 31%,#283456 44%,#232F52 46%,#000E36 49%,#0D1B41 95%,#0F1E44 97%,#000826 100%);
+}
+
+.popup .body {
+  padding:0 10px;
+}
+
+.popup .body > p { 
+  text-align:center;
+  margin-top:3px;
+}
+
 

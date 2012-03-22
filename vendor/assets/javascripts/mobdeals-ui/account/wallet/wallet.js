@@ -27,7 +27,7 @@ MobDeals.Account.Wallet = {
   },
   switch: function(callback) {
     // TODO
-    alert("TODO");
+    alert("Sorry, we're hard at work on this and you'll be able to switch payment methods soon!");
   },
   _when: function(callback, offer) {
     MobDeals.Popup.show('pay-when', function(popup) {

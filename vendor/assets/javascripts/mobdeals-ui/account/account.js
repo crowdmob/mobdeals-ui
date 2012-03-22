@@ -20,6 +20,10 @@ MobDeals.Account = {
     });
   },
   
+  decookie: function(callback) {
+    $.post(MobDeals.host('core')+'/users/sign_out.json', {_method: 'delete'}, function(data) {  if (callback) { callback.apply(callback); } }, 'json');
+  },
+  
   switched: function(callback) { this._switchedListeners.push(callback); },
   
   prompt: function(callback, error, returnUrl) {
@@ -169,9 +173,11 @@ MobDeals.Account = {
       this._cookied = true;
       this.user = data;
       
-      $('#footer .user').html('Hi '+this.user.short_name+'. <a>Not you?</a>').find('a').bind(CLICK, function(ev) { 
-        MobDeals.Account._clear();
-        MobDeals.Account.prompt();
+      $('#footer .user').html('Hi '+this.user.short_name+'. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
+        MobDeals.Account.decookie(function() {
+          MobDeals.Account._clear();
+          MobDeals.Account.prompt();
+        });
       });
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
