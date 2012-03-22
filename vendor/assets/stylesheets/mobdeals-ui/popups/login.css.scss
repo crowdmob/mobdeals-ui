@@ -9,15 +9,31 @@
   border-radius: 8px;
 }
 /*login type*/
-.popup.login .types a { width:100px; height:107px; display:block; float:left; margin:10px 20px; }
-.popup.login .types a.phone{margin:10px 5px;}
+.popup.login .types a { 
+  width:100px; 
+  height:107px; 
+  display:block; 
+  float:left; 
+  margin:10px 20px;
+}
+.popup.login .types a.phone {
+  margin:10px 5px;
+}
 .popup.login .types a div{
 	font-weight:bold;
 	text-align:center;
 	text-shadow:0 -1px 0 #000;
 }
-.popup.login .inputs {clear:both; padding-left:20px }
-.popup.login .inputs input {width:84%; padding:8px; border-radius:8px; margin:6%;}
+.popup.login .inputs {
+  clear:both;
+  padding-left:20px;
+}
+.popup.login .inputs input {
+  width:84%; 
+  padding:8px;
+  border-radius:8px;
+  margin:6%;
+}
 .popup.login .inputs .phone-box form{
 	position:relative;
 }
@@ -50,4 +66,25 @@
 .popup.login .bottom{
 	display:inline-block;
 	height:20px;
+}
+
+/* password popup */
+.popup.create-password input,
+.popup.password input {
+  width:84%; 
+  padding:8px;
+  border-radius:8px;
+  margin-bottom:10px;
+}
+
+.popup.create-password a,
+.popup.password a{
+	text-decoration:underline;
+}
+.popup.create-password div,
+.popup.password div {
+  text-align:center;
+}
+.popup.password .retrievable-box {
+ margin-top:10px;
 }
