@@ -89,7 +89,7 @@ MobDeals.Account = {
             popup.find('input').focus();
           });
           var readInput = function() { MobDeals.Account._password($(this), parent, callback); MobDeals.Popup.destroy(popup); }
-          popup.find('form').submit(readInput).find('input').blur(readInput).focus();
+          popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
           
           if (error) {
             var box = popup.find('.'+error.field+'-box');
