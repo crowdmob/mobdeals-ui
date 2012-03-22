@@ -93,7 +93,7 @@ MobDeals.Account = {
 
             if (error) {
               var box = popup.find('.'+error.field+'-box');
-              box.find('.errors').text(error.message).removeClass('hidden');
+              box.find('.errors').removeClass('hidden').text(error.message);
             }
           });
         }
