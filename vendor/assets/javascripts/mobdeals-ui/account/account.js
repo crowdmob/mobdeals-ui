@@ -80,7 +80,7 @@ MobDeals.Account = {
   },
 
   _username: function(parent, callback, error) {
-    var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
+    var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
@@ -134,7 +134,7 @@ MobDeals.Account = {
   },
   
   _password: function(parent, grandparent, additionalParams, callback) {
-    var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
+    var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
     $.post(MobDeals.host('core')+'/users/sign_in.json', additionalParams, function(data) {
       if (data.authenticated) {
