@@ -88,12 +88,12 @@ MobDeals.Account = {
             popup.html(MobDeals.Account._passwordHtml);
             popup.find('input').focus();
             
-            var readInput = function() { MobDeals.Account._password($(this), parent, callback); MobDeals.Popup.destroy(popup); }
+            var readInput = function() { MobDeals.Account._password($(this), parent, params, callback); MobDeals.Popup.destroy(popup); }
             popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
 
             if (error) {
               var box = popup.find('.'+error.field+'-box');
-              box.find('.errors').text(error.message).removeClass('hidden');
+              box.find('.errors').removeClass('hidden').text(error.message);
             }
           });
         }
@@ -128,9 +128,10 @@ MobDeals.Account = {
     });
   },
   
-  _password: function(parent, grandparent, callback) {
+  _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    $.post(MobDeals.host('core')+'/users/sign_in.json', { password: input.val() }, function(data) {
+    additionalParams.password = input.val()
+    $.post(MobDeals.host('core')+'/users/sign_in.json', additionalParams, function(data) {
       if (data.authenticated) {
         MobDeals.Account._cookied = true;
         MobDeals.Account._authenticated(data);
