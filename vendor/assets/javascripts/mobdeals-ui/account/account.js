@@ -31,15 +31,16 @@ MobDeals.Account = {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
       popup.html(MobDeals.Account._promptHtml);
       
-      var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); }
+      var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); };
+      var readInputCancelBubble = function() { readInput(); return false; };
       popup.find('a.email').bind(CLICK, function(ev) {
  	    popup.find('.inputs').slideDown();
-        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus(); 
+        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
       });
       popup.find('a.mobile').bind(CLICK, function(ev) { 
  	    popup.find('.inputs').slideDown();
-        popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
+        popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
@@ -67,9 +68,9 @@ MobDeals.Account = {
           else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
         MobDeals.Popup.destroy(popup);
-      }
+      };
       
-      popup.find('form').submit(readInput).find('input').blur(readInput).focus();
+      popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
       
       if (error) {
         var box = popup.find('.'+error.field+'-box');
