@@ -84,10 +84,9 @@ MobDeals.Account = {
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
-        var data = $.parseJSON(dataOrXhr.responseText)
-        console.log(data)
+        var data = $.parseJSON(dataOrXhr.responseText);
         
-        if (data.errors.email[0] == "has already been taken") {
+        if ((data.errors.email && data.errors.email[0] == "has already been taken") || (data.errors.mobile && data.errors.mobile[0] == "has already been taken")) {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
             popup.html(MobDeals.Account._passwordHtml);
