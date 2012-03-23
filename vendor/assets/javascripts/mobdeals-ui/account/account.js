@@ -31,15 +31,16 @@ MobDeals.Account = {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
       popup.html(MobDeals.Account._promptHtml);
       
-      var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); }
+      var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); };
+      var readInputCancelBubble = function() { readInput(); return false; };
       popup.find('a.email').bind(CLICK, function(ev) {
  	    popup.find('.inputs').slideDown();
-        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus(); 
+        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
       });
       popup.find('a.mobile').bind(CLICK, function(ev) { 
  	    popup.find('.inputs').slideDown();
-        popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInput).find('input').blur(readInput).focus();
+        popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active'); 
       });
       
@@ -67,9 +68,9 @@ MobDeals.Account = {
           else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         }, 'json');
         MobDeals.Popup.destroy(popup);
-      }
+      };
       
-      popup.find('form').submit(readInput).find('input').blur(readInput).focus();
+      popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
       
       if (error) {
         var box = popup.find('.'+error.field+'-box');
@@ -79,14 +80,13 @@ MobDeals.Account = {
   },
 
   _username: function(parent, callback, error) {
-    var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
+    var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
-        var data = $.parseJSON(dataOrXhr.responseText)
-        console.log(data)
+        var data = $.parseJSON(dataOrXhr.responseText);
         
-        if (data.errors.email[0] == "has already been taken") {
+        if ((data.errors.email && data.errors.email[0] == "has already been taken") || (data.errors.mobile && data.errors.mobile[0] == "has already been taken")) {
           MobDeals.Popup.show('password', function(popup) { 
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
             popup.html(MobDeals.Account._passwordHtml);
@@ -133,7 +133,7 @@ MobDeals.Account = {
   },
   
   _password: function(parent, grandparent, additionalParams, callback) {
-    var input = parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
+    var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
     $.post(MobDeals.host('core')+'/users/sign_in.json', additionalParams, function(data) {
       if (data.authenticated) {
