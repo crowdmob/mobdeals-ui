@@ -21,7 +21,6 @@ MobDeals.Account.Wallet = {
       url: MobDeals.host('core')+'/account/wallet/methods/usable.json',
       async: false,
       type: 'OPTION',
-      data: params,
       dataType: 'json'
     }).done(function( data ) {
       MobDeals.Account.Wallet.methods = data;
