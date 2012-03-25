@@ -111,9 +111,12 @@ MobDeals.Account = {
       }
     };
     
+    $.support.cors = true
+    
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
+      beforeSend: function(xhr){ xhr.withCredentials = true; },
       data: params,
       success: function(data) {
         setAndCallback(data);
