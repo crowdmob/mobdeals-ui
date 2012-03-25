@@ -116,7 +116,7 @@ MobDeals.Account = {
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
-      beforeSend: function(xhr){ xhr.withCredentials = true; },
+      xhrFields: { withCredentials: true },
       data: params,
       crossDomain: true,
       success: function(data) {
@@ -126,7 +126,9 @@ MobDeals.Account = {
         $.ajax({ 
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
+          xhrFields: { withCredentials: true },
           data: params,
+          crossDomain: true,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'
