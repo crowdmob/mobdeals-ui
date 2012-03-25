@@ -23,7 +23,6 @@ MobDeals.Account.Wallet = {
       url: MobDeals.host('core')+'/account/wallet/methods/usable.json', 
       type: 'GET',
       xhrFields: { withCredentials: true },
-      data: params,
       crossDomain: true,
       success: function(data) {
         MobDeals.Account.Wallet.methods = data;
