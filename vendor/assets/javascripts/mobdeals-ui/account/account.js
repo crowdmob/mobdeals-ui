@@ -118,6 +118,7 @@ MobDeals.Account = {
       type: 'POST',
       beforeSend: function(xhr){ xhr.withCredentials = true; },
       data: params,
+      crossDomain: true,
       success: function(data) {
         setAndCallback(data);
       }, 
