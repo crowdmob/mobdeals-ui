@@ -178,7 +178,6 @@ MobDeals.Account = {
       type: 'GET',
       xhrFields: { withCredentials: true },
       crossDomain: true,
-      data: additionalParams,
       success: function(data) {
         MobDeals.Account._authenticated(data);
         },
