@@ -141,14 +141,24 @@ MobDeals.Account = {
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
-    $.post(MobDeals.host('core')+'/users/sign_in.json', additionalParams, function(data) {
-      if (data.authenticated) {
-        MobDeals.Account._cookied = true;
-        MobDeals.Account._authenticated(data);
-        callback.apply(callback);
-      }
-      else { MobDeals.Account._username(grandparent, callback, data.error); }
-    }, 'json');
+    $.support.cors = true
+    
+    $.ajax({
+      url: MobDeals.host('core')+'/users/sign_in.json', 
+      type: 'POST',
+      xhrFields: { withCredentials: true },
+      crossDomain: true,
+      data: additionalParams,
+      success: function(data) {
+        if (data.authenticated) {
+          MobDeals.Account._cookied = true;
+          MobDeals.Account._authenticated(data);
+          callback.apply(callback);
+        }
+        else { MobDeals.Account._username(grandparent, callback, data.error); }
+        },
+      dataType: 'json'
+    });
     
   },
 
@@ -161,12 +171,29 @@ MobDeals.Account = {
     MobDeals.Account._authenticated(null);
   },
   _verifyCookie: function(callback) {
-    $.get(MobDeals.host('core')+'/sessions.json', function(data) {
-      if (data.error) { MobDeals.Account._authenticated(null); }
-      else { MobDeals.Account._authenticated(data); }
+    $.support.cors = true
+    
+    $.ajax({
+      url: MobDeals.host('core')+'/sessions.json', 
+      type: 'GET',
+      xhrFields: { withCredentials: true },
+      crossDomain: true,
+      data: additionalParams,
+      success: function(data) {
+        MobDeals.Account._authenticated(data);
+        },
+      error: function(data) {
+        MobDeals.Account._authenticated(null);
+        },
+      dataType: 'json'
+    });
+    
+    //$.get(MobDeals.host('core')+'/sessions.json', function(data) {
+    //  if (data.error) { MobDeals.Account._authenticated(null); }
+    //  else { MobDeals.Account._authenticated(data); }
       
-      if (callback) { callback.apply(callback, [MobDeals.Account._cookied]); }
-    }, 'json');
+    //  if (callback) { callback.apply(callback, [MobDeals.Account._cookied]); }
+    //}, 'json');
   },
   _authenticated: function(data) {
     var userWas = this.user;
