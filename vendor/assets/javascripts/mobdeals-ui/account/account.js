@@ -39,7 +39,7 @@ MobDeals.Account = {
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
         popup.find('.email-box').keyup(function(event){
           if(event.keyCode == 13){
-            popup.find('.email-box').click();
+            popup.find('.email-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
           }
         });
       });
@@ -49,7 +49,7 @@ MobDeals.Account = {
         popup.find('.email-box').addClass('hidden').removeClass('active');
         popup.find('.mobile-box').keyup(function(event){
           if(event.keyCode == 13){
-            popup.find('.mobile-box').click();
+            popup.find('.mobile-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
           }
         });
       });
@@ -106,9 +106,9 @@ MobDeals.Account = {
             popup.html(MobDeals.Account._passwordHtml);
             popup.find('input').focus();
             popup.find('buttons').keyup(function(event){
-                if(event.keyCode == 13){
-                    popup.find('buttons').click();
-                }
+              if(event.keyCode == 13){
+                popup.find('buttons').click();
+              }
             });
             var readInput = function() { MobDeals.Account._password($(this), parent, params, callback); MobDeals.Popup.destroy(popup); }
             popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
