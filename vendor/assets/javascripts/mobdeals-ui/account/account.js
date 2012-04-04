@@ -37,7 +37,7 @@ MobDeals.Account = {
  	      popup.find('.inputs').slideDown();
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
-        popup.find('.email-box').keyup(function(event){
+        popup.find('.email-box').find('form').keyup(function(event){
           if(event.keyCode == 13){
             popup.find('.email-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
           }
