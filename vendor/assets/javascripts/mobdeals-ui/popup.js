@@ -8,11 +8,6 @@ MobDeals.Popup = {
     this._mask.bind(CLICK, function(ev) {
       MobDeals.Popup.destroy($('div.popup'));
     });
-    this._mask.keyup(function(event){
-        if(event.keyCode == 13){
-            this._mask.click();
-        }
-    });
   },
   show: function(classname, contentFunction) {
     var popup = $('<div id="popup_'+(++MobDeals.Popup._count)+'" class="popup '+classname+' hidden"></div>');
