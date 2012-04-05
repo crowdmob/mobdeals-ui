@@ -37,21 +37,21 @@ MobDeals.Account = {
  	      popup.find('.inputs').slideDown();
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
-        popup.find('.email-box').find('form').keyup(function(event){
-          if(event.keyCode == 13){
-            popup.find('.email-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
-          }
-        });
+        //popup.find('.email-box').keyup(function(event){
+        //  if(event.keyCode == 13){
+        //    popup.find('.email-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
+        //  }
+        //});
       });
       popup.find('a.mobile').bind(CLICK, function(ev) { 
  	      popup.find('.inputs').slideDown();
         popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active');
-        popup.find('.mobile-box').keyup(function(event){
-          if(event.keyCode == 13){
-            popup.find('.mobile-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
-          }
-        });
+        //popup.find('.mobile-box').keyup(function(event){
+        //  if(event.keyCode == 13){
+        //    popup.find('.mobile-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
+        //  }
+        //});
       });
       
       if (error && error.errors) {
