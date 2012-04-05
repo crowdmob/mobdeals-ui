@@ -38,6 +38,7 @@ MobDeals.Account = {
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
         popup.keypress(function(event){
           if(event.keyCode == 13){
+            alert('hello, world!')
             $this.find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
           }
         });
