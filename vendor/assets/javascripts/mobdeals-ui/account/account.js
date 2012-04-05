@@ -36,12 +36,7 @@ MobDeals.Account = {
       popup.find('a.email').bind(CLICK, function(ev) {
  	      popup.find('.inputs').slideDown();
         popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
-        popup.keypress(function(event){
-          if(event.keyCode == 13){
-            alert('hello, world!')
-            $this.find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
-          }
-        });
+
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
       });
       popup.find('a.mobile').bind(CLICK, function(ev) { 
@@ -72,11 +67,7 @@ MobDeals.Account = {
       if (!MobDeals.Account._createPasswordHtml) { MobDeals.Account._createPasswordHtml = $('#create-password-popup').remove().html(); }
       popup.html(MobDeals.Account._createPasswordHtml);
       popup.find('input').focus();
-      popup.find('buttons').keyup(function(event){
-          if(event.keyCode == 13){
-              popup.find('buttons').click();
-          }
-      });
+
       var readInput = function() { 
         $.post(MobDeals.host('core')+'/account/passwords.json', { password: popup.find('input').val() }, function(data) {
           if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
@@ -106,11 +97,7 @@ MobDeals.Account = {
             if (!MobDeals.Account._passwordHtml) { MobDeals.Account._passwordHtml = $('#password-popup').remove().html(); }
             popup.html(MobDeals.Account._passwordHtml);
             popup.find('input').focus();
-            popup.find('buttons').keyup(function(event){
-              if(event.keyCode == 13){
-                popup.find('buttons').click();
-              }
-            });
+
             var readInput = function() { MobDeals.Account._password($(this), parent, params, callback); MobDeals.Popup.destroy(popup); }
             popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
 
