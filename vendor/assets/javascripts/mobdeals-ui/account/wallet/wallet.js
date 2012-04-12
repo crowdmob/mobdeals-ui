@@ -33,18 +33,18 @@ MobDeals.Account.Wallet = {
       dataType: 'json'
     });
   },
-  mobCredit: function(appIdToInstall, callback) {
+  install: function(installCampaign, callback) {
     $.support.cors = true;
     $.ajax({
-      url: MobDeals.host('core')+'/loot/install_staged', 
+      url: MobDeals.host('core')+'/account/installs.json', 
       type: 'POST',
       xhrFields: { withCredentials: true },
       crossDomain: true,
-      data: { app_id: appIdToInstall },
+      data: { install: { app_id: installCampaign.app_id, bid_price_in_cents: installCampaign.bid_in_cents} },
       success: function(data) {
-        //do something with data.balance_in_cents?
         if (callback) { callback.apply(callback); }
-      }
+      },
+      dataType: 'json'
     });
   },
   switch: function(callback) {
