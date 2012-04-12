@@ -17,7 +17,7 @@ MobDeals.Account.Wallet = {
     else { return this._now(callback, offer); }
   },
   load: function(callback) {
-    $.support.cors = true
+    $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core')+'/account/wallet/methods/usable.json', 
@@ -31,6 +31,20 @@ MobDeals.Account.Wallet = {
         if (callback) { callback.apply(callback); }
       },
       dataType: 'json'
+    });
+  },
+  mobCredit: function(appIdToInstall, callback) {
+    $.support.cors = true;
+    $.ajax({
+      url: MobDeals.host('core')+'/loot/install_staged', 
+      type: 'POST',
+      xhrFields: { withCredentials: true },
+      crossDomain: true,
+      data: { app_id: appIdToInstall },
+      success: function(data) {
+        //do something with data.balance_in_cents?
+        if (callback) { callback.apply(callback); }
+      }
     });
   },
   switch: function(callback) {
@@ -76,7 +90,7 @@ MobDeals.Account.Wallet = {
     });
   },
   _start3rdParty: function(uri, callback, offer) {
-    $.support.cors = true
+    $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core') + 

@@ -117,7 +117,7 @@ MobDeals.Account = {
       }
     };
     
-    $.support.cors = true
+    $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
@@ -147,7 +147,7 @@ MobDeals.Account = {
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
-    $.support.cors = true
+    $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
@@ -177,7 +177,7 @@ MobDeals.Account = {
     MobDeals.Account._authenticated(null);
   },
   _verifyCookie: function(callback) {
-    $.support.cors = true
+    $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core')+'/sessions.json', 
