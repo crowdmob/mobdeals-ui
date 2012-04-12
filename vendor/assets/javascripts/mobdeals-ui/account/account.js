@@ -190,6 +190,11 @@ MobDeals.Account = {
       error: function(data) {
         MobDeals.Account._authenticated(null);
         },
+      complete: function(jqXHR, textStatus) {
+        if (callback) {
+          callback.apply(callback, [MobDeals.Account._cookied]);
+        }
+      },
       dataType: 'json'
     });
     
