@@ -88,3 +88,14 @@
 .popup.password .retrievable-box {
  margin-top:10px;
 }
+
+@media screen and (max-width: 320px) {
+	.popup.login .types a { 
+    width:75px; 
+    height:80px; 
+  	background-size:75px 80px;
+    display:block; 
+    float:left; 
+    margin:5px 10px;
+  }
+}
