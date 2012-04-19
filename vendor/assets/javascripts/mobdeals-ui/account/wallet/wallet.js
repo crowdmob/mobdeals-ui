@@ -128,7 +128,7 @@ MobDeals.Account.Wallet = {
 
         $.ajax({
           url: MobDeals.host('core')+'/account/wallet/methods.json', 
-          type: 'GET',
+          type: 'POST',
           xhrFields: { withCredentials: true },
           data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
           crossDomain: true,
