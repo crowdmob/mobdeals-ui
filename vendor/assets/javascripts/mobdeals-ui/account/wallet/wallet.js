@@ -124,28 +124,37 @@ MobDeals.Account.Wallet = {
         var serializedCard = {kind: 'credit_card'};
         $.each($(this).serializeArray(), function(index,value) { serializedCard[value.name] = value.value; });
 
-        $.post(MobDeals.host('core')+'/account/wallet/methods.json', { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()}, function(data) {
-          if (data.errors && data.errors.bad_input) {
-            if (data.error_data.bad_input == 'card_number') {
-              popup.find('.row-1-error').text('Credit card number is incorrect. Please try again.').removeClass('hidden');
-              popup.find('p.card_number').addClass('errored');
+        $.support.cors = true;
+
+        $.ajax({
+          url: MobDeals.host('core')+'/account/wallet/methods.json', 
+          type: 'GET',
+          xhrFields: { withCredentials: true },
+          data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
+          crossDomain: true,
+          success: function(data) {
+            if (data.errors && data.errors.bad_input) {
+              if (data.error_data.bad_input == 'card_number') {
+                popup.find('.row-1-error').text('Credit card number is incorrect. Please try again.').removeClass('hidden');
+                popup.find('p.card_number').addClass('errored');
+              }
+              else if (data.error_data.bad_input == 'card_processing') {
+                popup.find('.row-1-error').text('Card declined. Please try another card, or call your bank.').removeClass('hidden');
+                popup.find('p.card_number').addClass('errored');
+              }
+              else if (data.error_data.bad_input == 'card_sec') {
+                popup.find('.row-2-error').text('Security code incorrect. Please try again.').removeClass('hidden');
+                popup.find('p.cvv').addClass('errored');
+              }
+              else if (data.error_data.bad_input == 'card_expires') {
+                popup.find('.row-2-error').text('Expiration date is incorrect. Please try again.').removeClass('hidden');
+                popup.find('p.exp').addClass('errored');
+              }
             }
-            else if (data.error_data.bad_input == 'card_processing') {
-              popup.find('.row-1-error').text('Card declined. Please try another card, or call your bank.').removeClass('hidden');
-              popup.find('p.card_number').addClass('errored');
-            }
-            else if (data.error_data.bad_input == 'card_sec') {
-              popup.find('.row-2-error').text('Security code incorrect. Please try again.').removeClass('hidden');
-              popup.find('p.cvv').addClass('errored');
-            }
-            else if (data.error_data.bad_input == 'card_expires') {
-              popup.find('.row-2-error').text('Expiration date is incorrect. Please try again.').removeClass('hidden');
-              popup.find('p.exp').addClass('errored');
-            }
-          }
-          else { MobDeals.Popup.destroy(popup); if (callback) { callback.apply(callback, [data, true]); } }
-        }, 
-        'json');
+            else { MobDeals.Popup.destroy(popup); if (callback) { callback.apply(callback, [data, true]); } }
+          },
+          dataType: 'json'
+        });
 
         popup.find('.row-1-error,.row-2-error').addClass('hidden');
         popup.find('p.card_number,p.cvv,p.exp').removeClass('errored');
