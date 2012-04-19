@@ -12,16 +12,15 @@ MobDeals.Habitat = {
     if (val) { MobDeals.Habitat._apiKey = val; }
     return MobDeals.Habitat._apiKey;
   },
-  platform: function(val) {
-    if (val) { MobDeals.Habitat._platform = val; }
-    return MobDeals.Habitat._platform;
-  },
   report: function(str) {
-    if (this.platform() == 'android') {
+    var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+    var android = navigator.userAgent.toLowerCase().match(/android/i) ? true : false;
+      
+    if (android) {
       try { window.mobdeals_native.purchaseConfirmed(str); }
       catch(ignored) {}
     }
-    else if (this.platform() == 'ios') {
+    else if (iOS) {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", "mobdeals-html5:"+str);
       document.documentElement.appendChild(iframe);
