@@ -90,13 +90,6 @@ MobDeals.Account.Wallet = {
       },
       dataType: 'json'
     });
-    //$.get(MobDeals.host('core') + 
-    //  '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
-    //  MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id, 
-    //  function(data) {
-    //    MobDeals.redirect(data.setup_url);
-    //  }, 
-    //'json');
   },
   _cc: function(callback, offer) {
     MobDeals.Popup.show('new-cc', function(popup) {

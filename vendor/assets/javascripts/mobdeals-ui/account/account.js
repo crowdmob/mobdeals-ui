@@ -21,7 +21,17 @@ MobDeals.Account = {
   },
   
   decookie: function(callback) {
-    $.post(MobDeals.host('core')+'/users/sign_out.json', {_method: 'delete'}, function(data) {  if (callback) { callback.apply(callback); } }, 'json');
+    $.support.cors = true;
+    
+    $.ajax({
+      url: MobDeals.host('core')+'/users/sign_out.json', 
+      type: 'POST',
+      xhrFields: { withCredentials: true },
+      data: {_method: 'delete'},
+      crossDomain: true,
+      success: function(data) {  if (callback) { callback.apply(callback); } },
+      dataType: 'json'
+    });
   },
   
   switched: function(callback) { this._switchedListeners.push(callback); },
@@ -69,10 +79,20 @@ MobDeals.Account = {
       popup.find('input').focus();
 
       var readInput = function() { 
-        $.post(MobDeals.host('core')+'/account/passwords.json', { password: popup.find('input').val() }, function(data) {
-          if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
-          else { MobDeals.Account._authenticated(data); callback.apply(callback); }
-        }, 'json');
+        $.support.cors = true;
+        
+        $.ajax({
+          url: MobDeals.host('core')+'/account/passwords.json', 
+          type: 'POST',
+          xhrFields: { withCredentials: true },
+          data: { password: popup.find('input').val() },
+          crossDomain: true,
+          success: function(data) {
+            if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
+            else { MobDeals.Account._authenticated(data); callback.apply(callback); }
+          },
+          dataType: 'json'
+        });
         MobDeals.Popup.destroy(popup);
       };
       
@@ -197,13 +217,6 @@ MobDeals.Account = {
       },
       dataType: 'json'
     });
-    
-    //$.get(MobDeals.host('core')+'/sessions.json', function(data) {
-    //  if (data.error) { MobDeals.Account._authenticated(null); }
-    //  else { MobDeals.Account._authenticated(data); }
-      
-    //  if (callback) { callback.apply(callback, [MobDeals.Account._cookied]); }
-    //}, 'json');
   },
   _authenticated: function(data) {
     var userWas = this.user;
