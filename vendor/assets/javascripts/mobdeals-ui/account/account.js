@@ -243,10 +243,7 @@ MobDeals.Account = {
           type: 'POST',
           xhrFields: {withCredentials: true},
           data: {device: {uuid: uuid}},
-          crossDomain: true,
-          complete: function(jqXHR, textStatus) {
-            alert(jqXHR.responseText);
-          }
+          crossDomain: true
         });
       }
 
