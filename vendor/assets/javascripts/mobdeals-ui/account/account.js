@@ -1,4 +1,3 @@
-
 // Anything related to the current user
 MobDeals.Account = {
   _initialized: false,
@@ -19,23 +18,23 @@ MobDeals.Account = {
       else { MobDeals.Account.prompt(callback, null, returnUrl); }
     });
   },
-  
+
   decookie: function(callback) {
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_out.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       data: {_method: 'delete'},
       crossDomain: true,
       success: function(data) {  if (callback) { callback.apply(callback); } },
       dataType: 'json'
     });
   },
-  
+
   switched: function(callback) { this._switchedListeners.push(callback); },
-  
+
   prompt: function(callback, error, returnUrl) {
     MobDeals.Popup.show('login', function(popup) {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
@@ -84,7 +83,7 @@ MobDeals.Account = {
         $.ajax({
           url: MobDeals.host('core')+'/account/passwords.json', 
           type: 'POST',
-          xhrFields: { withCredentials: true },
+          xhrFields: {withCredentials: true},
           data: { password: popup.find('input').val() },
           crossDomain: true,
           success: function(data) {
@@ -140,10 +139,11 @@ MobDeals.Account = {
     $.support.cors = true;
     
     $.ajax({
-      url: MobDeals.host('core')+'/users/sign_in.json', 
+      url: MobDeals.host('core') + '/users/sign_in.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       data: params,
+      dataType: 'json',
       crossDomain: true,
       success: function(data) {
         setAndCallback(data);
@@ -152,27 +152,26 @@ MobDeals.Account = {
         $.ajax({ 
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
-          xhrFields: { withCredentials: true },
+          xhrFields: {withCredentials: true},
           data: params,
           crossDomain: true,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'
         }); // register
-      },
-      dataType: 'json'
+      }
     });
   },
-  
+
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       crossDomain: true,
       data: additionalParams,
       success: function(data) {
@@ -185,7 +184,7 @@ MobDeals.Account = {
         },
       dataType: 'json'
     });
-    
+
   },
 
   _facebook: function(callback, returnUrl) {
@@ -202,7 +201,7 @@ MobDeals.Account = {
     $.ajax({
       url: MobDeals.host('core')+'/sessions.json', 
       type: 'GET',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       crossDomain: true,
       success: function(data) {
         MobDeals.Account._authenticated(data);
@@ -218,6 +217,7 @@ MobDeals.Account = {
       dataType: 'json'
     });
   },
+
   _authenticated: function(data) {
     var userWas = this.user;
     if (!data || data.id == null) { 
@@ -229,17 +229,36 @@ MobDeals.Account = {
       this._cookied = true;
       this.user = data;
       
-      $('#footer .user').html('Hi '+this.user.short_name+'. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
+      $('#footer .user').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
           MobDeals.Account.prompt();
         });
       });
+
+      var uuid = MobDeals.Account._getUUID();
+      if (uuid !== null) {
+        $.ajax({
+          url: MobDeals.host('core') + '/devices.json',
+          type: 'POST',
+          xhrFields: {withCredentials: true},
+          data: {uuid: uuid},
+          crossDomain: true,
+          complete: function(jqXHR, textStatus) {
+            alert(jqXHR.responseText);
+          }
+        });
+      }
+
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
         this._switchedListeners[i].apply(this._switchedListeners[i]);
       }
     }
+  },
+
+  _getUUID: function() {
+    return window.loot_native === undefined ? null : window.loot_native.getUUID();
   }
 };
