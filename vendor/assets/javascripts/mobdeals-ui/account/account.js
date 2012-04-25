@@ -259,6 +259,9 @@ MobDeals.Account = {
   },
 
   _getUUID: function() {
-    return window.loot_native === undefined ? null : window.loot_native.getUUID();
+    alert('getting UUID');
+    var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
+    alert('got UUID: ' + uuid);
+    return uuid;
   }
 };
