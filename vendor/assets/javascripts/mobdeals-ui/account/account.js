@@ -4,18 +4,32 @@ MobDeals.Account = {
   _cookied: null,
   _switchedListeners: [],
   user: null,
+
   init: function() {
-    if (this._initialized) { return false; } else { this._initialized = true; }
+    if (this._initialized) {
+      return false;
+    } else {
+      this._initialized = true;
+    }
   },
-  // returns whether or not the user is cookied and returns that to the callback
+
+  // Determines whether or not the user is cookied and returns that to the
+  // callback.
   cookied: function(callback) {
-    if (this._cookied === null) { this._verifyCookie(callback); }
-    else if (callback) { callback.apply(callback, [this._cookied]); }
+    if (this._cookied === null) {
+      this._verifyCookie(callback);
+    } else if (callback) {
+      callback.apply(callback, [this._cookied]);
+    }
   },
+
   assertCookied: function(callback, returnUrl) {
     this.cookied(function(isCookied) {
-      if (isCookied) { callback.apply(callback); }
-      else { MobDeals.Account.prompt(callback, null, returnUrl); }
+      if (isCookied) {
+        callback.apply(callback);
+      } else {
+        MobDeals.Account.prompt(callback, null, returnUrl);
+      }
     });
   },
 
@@ -33,7 +47,9 @@ MobDeals.Account = {
     });
   },
 
-  switched: function(callback) { this._switchedListeners.push(callback); },
+  switched: function(callback) {
+    this._switchedListeners.push(callback);
+  },
 
   prompt: function(callback, error, returnUrl) {
     MobDeals.Popup.show('login', function(popup) {
@@ -195,6 +211,7 @@ MobDeals.Account = {
   _clear: function() {
     MobDeals.Account._authenticated(null);
   },
+
   _verifyCookie: function(callback) {
     $.support.cors = true;
     
@@ -205,10 +222,10 @@ MobDeals.Account = {
       crossDomain: true,
       success: function(data) {
         MobDeals.Account._authenticated(data);
-        },
+      },
       error: function(data) {
         MobDeals.Account._authenticated(null);
-        },
+      },
       complete: function(jqXHR, textStatus) {
         if (callback) {
           callback.apply(callback, [MobDeals.Account._cookied]);
@@ -224,8 +241,7 @@ MobDeals.Account = {
       this._cookied = false;
       this.user = null;
       $('#footer .user').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
-    }
-    else {
+    } else {
       this._cookied = true;
       this.user = data;
       
