@@ -242,7 +242,7 @@ MobDeals.Account = {
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: {uuid: uuid},
+          data: {device: {uuid: uuid}},
           crossDomain: true,
           complete: function(jqXHR, textStatus) {
             alert(jqXHR.responseText);
