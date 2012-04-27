@@ -253,7 +253,8 @@ MobDeals.Account = {
       });
 
       var uuid = MobDeals.Account._getUUID();
-      if (uuid !== null) {
+      var platform = MobDeals.Account._getPlatform();
+      if (uuid !== null && platform != null) {
         $.ajax({
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
@@ -274,5 +275,19 @@ MobDeals.Account = {
   _getUUID: function() {
     var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
     return uuid;
+  },
+
+  _getPlatform: function() {
+      var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+      if (iOS) {
+        return 'ios';
+      }
+
+      var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
+      if (android) {
+        return 'android';
+      }
+
+      return null;
   }
 };
