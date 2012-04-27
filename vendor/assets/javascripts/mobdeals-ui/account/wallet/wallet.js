@@ -33,7 +33,7 @@ MobDeals.Account.Wallet = {
       dataType: 'json'
     });
   },
-  switch: function(callback) {
+  switchPaymentMethod: function(callback) {
     // TODO
     alert("Sorry, we're hard at work on this and you'll be able to switch payment methods soon!");
   },
@@ -48,7 +48,7 @@ MobDeals.Account.Wallet = {
       popup.find('a.now').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
         if (MobDeals.Account.Wallet._empty()) { MobDeals.Account.Wallet._now(callback, offer); }
-        else { MobDeals.Account.Wallet.switch(callback, offer); }
+        else { MobDeals.Account.Wallet.switchPaymentMethod(callback, offer); }
       });
       popup.find('a.later').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
