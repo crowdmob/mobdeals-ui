@@ -189,7 +189,7 @@ MobDeals.Account.Wallet = {
           url: MobDeals.host('core')+'/account/wallet/methods.json', 
           type: 'POST',
           xhrFields: { withCredentials: true },
-          data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
+          data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'purchasable[app_id]': offer.app_id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
           crossDomain: true,
           success: function(data) {
             if (data.errors && data.errors.bad_input) {
