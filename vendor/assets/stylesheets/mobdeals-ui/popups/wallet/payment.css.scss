@@ -35,7 +35,7 @@
 	display:block;
 }
 .popup.new-method-type button.paypal span.ico_paypal{
-	background:image-url('ico_paypal.png') no-repeat;
+	background:image-url('mobdeals-ui/ico_paypal.png') no-repeat;
 	background-size:100px 29px;
 	display:block;
 	height:29px;
@@ -58,7 +58,7 @@
 	display:block;
 }
 .popup.new-method-type button.amazon span.ico_amazon{
-	background:image-url('ico_amazon.png') no-repeat;
+	background:image-url('mobdeals-ui/ico_amazon.png') no-repeat;
 	background-size:110px 34px;
 	display:block;
 	height:34px;
@@ -76,7 +76,7 @@
 	position:relative;
 }
 .popup.new-cc .card_number::after{
-	content:image-url('ico_credit.png') no-repeat;
+	content:image-url('mobdeals-ui/ico_credit.png') no-repeat;
 	position:absolute;
 	top:9px;
 	left:7px;
@@ -119,7 +119,7 @@
 	margin-top:10px;
 }
 .popup.new-cc p.exp::after{
-	content:image-url('ico_calendar-dgray.png');
+	content:image-url('mobdeals-ui/ico_calendar-dgray.png');
 	position:absolute;
 	top:12px;
 	left:7px;
@@ -147,7 +147,7 @@
 	width:42%;
 }
 .popup.new-cc p.cvv::after{
-	content:image-url('ico_lock.png');
+	content:image-url('mobdeals-ui/ico_lock.png');
 	position:absolute;
 	top:8px;
 	left:7px;
@@ -192,9 +192,9 @@
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-  .popup.new-method-type button.paypal span.ico_paypal { background:image-url('ico_paypal_2x.png') no-repeat; }
-  .popup.new-method-type button.amazon span.ico_amazon { background:image-url('ico_amazon_2x.png') no-repeat; }
-  .popup.new-cc p.card_number::after{ background-size:27px 19px; background:image-url('ico_credit_2x.png') no-repeat;}
-  .popup.new-cc p.exp::after{ background-size:24px 24px; background:image-url('ico_calendar-dgray@2x.png') no-repeat;}
-  .overlay-popup .popup_content p.cvv::after{ background-size:21px 25px; background:image-url('ico_lock_2x.png') no-repeat; }  
+  .popup.new-method-type button.paypal span.ico_paypal { background:image-url('mobdeals-ui/ico_paypal_2x.png') no-repeat; }
+  .popup.new-method-type button.amazon span.ico_amazon { background:image-url('mobdeals-ui/ico_amazon_2x.png') no-repeat; }
+  .popup.new-cc p.card_number::after{ background-size:27px 19px; background:image-url('mobdeals-ui/ico_credit_2x.png') no-repeat;}
+  .popup.new-cc p.exp::after{ background-size:24px 24px; background:image-url('mobdeals-ui/ico_calendar-dgray@2x.png') no-repeat;}
+  .overlay-popup .popup_content p.cvv::after{ background-size:21px 25px; background:image-url('mobdeals-ui/ico_lock_2x.png') no-repeat; }  
 }

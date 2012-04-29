@@ -2,7 +2,7 @@
 /*pay now or pay later*/
 
 .popup.pay-when a {
-	background:image-url('btnpay.png') no-repeat; 
+	background:image-url('mobdeals-ui/btnpay.png') no-repeat; 
 	background-size:200px 200px;
 	width:200px;
 	height:200px;
@@ -47,5 +47,5 @@
 }
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5) {
-  .popup.pay-when a { background:image-url('btnpay@2x.png') no-repeat; }
+  .popup.pay-when a { background:image-url('mobdeals-ui/btnpay@2x.png') no-repeat; }
 }
