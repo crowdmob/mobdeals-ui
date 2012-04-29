@@ -10,11 +10,11 @@ MobDeals.Account.Wallet = {
   _empty: function() {
     return this.methods == null || this.methods.length < 1;
   },
-  selectedMethod: function(callback, offer) {
-    if (!this.loaded) { return this.load(function() { MobDeals.Account.Wallet.selectedMethod(callback, offer); })}  
+  selectedMethod: function(callback, purchasable) {
+    if (!this.loaded) { return this.load(function() { MobDeals.Account.Wallet.selectedMethod(callback, purchasable); })}  
     else if (this._default) { return callback.apply(callback, [this._default, false]); }
-    else if (offer.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, offer); }
-    else { return this._now(callback, offer); }
+    else if (purchasable.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, purchasable); }
+    else { return this._now(callback, purchasable); }
   },
   load: function(callback) {
     $.support.cors = true;
@@ -35,18 +35,20 @@ MobDeals.Account.Wallet = {
   },
   switchPaymentMethod: function(callback) {
     // TODO
+    MobDeals.Log.click({'event': 'switch-payment-method', 'purchasable_id': purchasable.id, 'purchasable_type': purchasable.purchasable_type});
     alert("Sorry, we're hard at work on this and you'll be able to switch payment methods soon!");
   },
-  assertChargeConfirmed: function(callback, message, confirmed, canceled) {
+  assertChargeConfirmed: function(message, purchasable, walletMethod, confirmed, canceled) {
     MobDeals.Popup.show('confirm-purchase', function(popup) {
-      if (!MobDeals.AppyMeals.Meals.Purchase._confirmHtml) { MobDeals.AppyMeals.Meals.Purchase._confirmHtml = $('#confirm-purchase-popup').remove().html(); }
-      popup.html(MobDeals.AppyMeals.Meals.Purchase._confirmHtml);
+      if (!MobDeals.Account.Wallet._confirmPurchaseHtml) { MobDeals.Account.Wallet._confirmPurchaseHtml = $('#confirm-purchase-popup').remove().html(); }
+      popup.html(MobDeals.Account.Wallet._confirmPurchaseHtml);
+      popup.find('.confirm-message').text(message);
 
       if (walletMethod.kind == 'credit_card') { popup.find('.using-cc').removeClass('hidden').find('.lastfour').text(walletMethod.last_four); }
       else { popup.find('.using-3rdparty').removeClass('hidden').find('.3rdparty-name').text(walletMethod.kind); }
 
       popup.find('button.cancel').bind(CLICK, function(ev) {
-        MobDeals.Log.click({'event': 'cancel-payment', 'purchasable': purchasable.id});
+        MobDeals.Log.click({'event': 'cancel-payment', 'purchasable_id': purchasable.id, 'purchasable_type': purchasable.purchasable_type});
         canceled.apply(canceled, [purchasable, walletMethod]);
         MobDeals.Popup.destroy(popup);
       });
@@ -55,11 +57,48 @@ MobDeals.Account.Wallet = {
         MobDeals.Popup.destroy(popup);
       });
       popup.find('.switch').bind(CLICK, function(ev) {
-        MobDeals.Account.Wallet.switch(function() { confirmed.apply(confirmed, [purchasable, walletMethod]); });
+        MobDeals.Account.Wallet.switchPaymentMethod(function() { confirmed.apply(confirmed, [purchasable, walletMethod]); });
         MobDeals.Popup.destroy(popup);
       });
     });
   },
+  
+  charge: function(purchasable, walletMethod, callback) {
+    $.support.cors = true;
+    $.ajax({
+      url: MobDeals.host('core')+'/account/purchases.json', 
+      type: 'POST',
+      xhrFields: { withCredentials: true },
+      data: { purchase: { purchasable_id: purchasable.id, purchasable_type: purchasable.purchasable_type, wallet_method_id: walletMethod.id, extra_data: purchasable.extra_data }, habitat: { apikey: MobDeals.Habitat.apiKey() } },
+      crossDomain: true,
+      success: function(data) {
+        if (data.error_message) { return MobDeals.error(data.error_message); }
+        if (!MobDeals.Account.user.password_initialized) {
+          MobDeals.Account.createPassword(function() { MobDeals.AppyMeals.Meals.Purchase.receipt(data, true, data.id); });
+        }
+        else { MobDeals.AppyMeals.Meals.Purchase.receipt(data, false, data.id); }
+      },
+      dataType: 'json'
+    });
+  },
+
+  receipt: function(purchase, passwordCreated, receiptId) {
+    MobDeals.Popup.show('receipt', function(popup) {
+      if (!MobDeals.Account.Wallet._receiptHtml) { MobDeals.Account.Wallet._receiptHtml = $('#receipt-popup').remove().html(); }
+      popup.html(MobDeals.Account.Wallet._receiptHtml);
+
+      if (passwordCreated) { popup.find('.initialized-password').removeClass('hidden'); }
+
+      popup.find('button.giftcard').bind(CLICK, function(ev) {
+        MobDeals.redirect(MobDeals.host('wallet') + '/?receipt_id='+receiptId);
+        MobDeals.Popup.destroy(popup);
+      });
+      popup.find('button.continue').bind(CLICK, function(ev) {
+        MobDeals.Popup.destroy(popup);
+      });
+    });
+  },
+  
   _when: function(callback, offer) {
     MobDeals.Popup.show('pay-when', function(popup) {
       if (!MobDeals.Account.Wallet._whenHtml) { MobDeals.Account.Wallet._whenHtml = $('#pay-when-popup').remove().html(); }
