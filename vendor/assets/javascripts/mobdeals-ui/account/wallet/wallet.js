@@ -49,7 +49,7 @@ MobDeals.Account.Wallet = {
 
       popup.find('button.cancel').bind(CLICK, function(ev) {
         MobDeals.Log.click({'event': 'cancel-payment', 'purchasable_id': purchasable.id, 'purchasable_type': purchasable.purchasable_type});
-        canceled.apply(canceled, [purchasable, walletMethod]);
+        if (canceled) { canceled.apply(canceled, [purchasable, walletMethod]); }
         MobDeals.Popup.destroy(popup);
       });
       popup.find('button.buy').bind(CLICK, function(ev) {
@@ -63,7 +63,7 @@ MobDeals.Account.Wallet = {
     });
   },
   
-  charge: function(purchasable, walletMethod, callback) {
+  charge: function(purchasable, walletMethod, chargeCompletedCallback) {
     $.support.cors = true;
     $.ajax({
       url: MobDeals.host('core')+'/account/purchases.json', 
@@ -73,6 +73,10 @@ MobDeals.Account.Wallet = {
       crossDomain: true,
       success: function(data) {
         if (data.error_message) { return MobDeals.error(data.error_message); }
+        
+        // Any callbacks, like report to natives...
+        if (chargeCompletedCallback) { chargeCompletedCallback.apply(chargeCompletedCallback, [data]); } 
+        
         if (!MobDeals.Account.user.password_initialized) {
           MobDeals.Account.createPassword(function() { MobDeals.AppyMeals.Meals.Purchase.receipt(data, true, data.id); });
         }
