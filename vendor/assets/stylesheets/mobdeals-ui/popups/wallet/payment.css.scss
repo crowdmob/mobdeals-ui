@@ -1,0 +1,200 @@
+
+
+/*choose payment method*/
+
+.popup.new-method-type button.cc{
+	margin:10px 30px;
+	font-size:18px;
+	color:#fff;
+	text-shadow:-1px -1px 1px rgba(0, 0, 0, 0.25);
+	width:165px;
+	height:55px;
+	line-height:40px;
+	border:1px solid #82D7F9;
+	border-radius:5px;
+	background:#28A5D6;
+	background:-moz-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	background:-ms-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	background:-webkit-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	box-shadow:0 1px 3px rgba(0,0,0, 0.8);
+	display:block;
+}
+.popup.new-method-type button.paypal{
+	color:#183765;
+	text-shadow:0px 1px 0px rgba(255, 255, 255, 0.4);
+	border:1px solid #FDDAA0;
+	border-radius:5px;
+	background:#FAA727;
+	background:-moz-linear-gradient(top, #FCC572 0%,#FCC572 49%,#FAA727 51%,#FAA727 100%);
+	background:-ms-linear-gradient(top, #FCC572 0%,#FCC572 49%,#FAA727 51%,#FAA727 100%);
+	background:-webkit-linear-gradient(top, #FCC572 0%,#FCC572 49%,#FAA727 51%,#FAA727 100%);
+	box-shadow:0 1px 2px rgba(0,0,0, 0.4);
+	width:165px;
+	height:55px;
+	margin:10px 30px 10px 30px;
+	display:block;
+}
+.popup.new-method-type button.paypal span.ico_paypal{
+	background:image-url('mobdeals-ui/ico_paypal.png') no-repeat;
+	background-size:100px 29px;
+	display:block;
+	height:29px;
+	width:100px;
+	margin:auto;
+}
+.popup.new-method-type button.amazon{
+	color:#021471;
+	text-shadow:0px 1px 0px rgba(255, 255, 255, 0.4);
+	border:1px solid #FDDAA0;
+	border-radius:5px;
+	background:#FAA727;
+	background:-moz-linear-gradient(top, #F7D274 0%, #F7D274 26%,  #F7D479 36%, #F7D479 41%,  #F8D57D 49%, #F2BB2A 51%, #F2BB2A 100%);
+	background:-ms-linear-gradient(top, #F7D274 0%, #F7D274 26%,  #F7D479 36%, #F7D479 41%,  #F8D57D 49%, #F2BB2A 51%, #F2BB2A 100%);
+	background:-webkit-linear-gradient(top, #F7D274 0%, #F7D274 26%,  #F7D479 36%, #F7D479 41%,  #F8D57D 49%, #F2BB2A 51%, #F2BB2A 100%);
+	box-shadow:0 1px 2px rgba(0,0,0, 0.4);
+	width:165px;
+	height:55px;
+	margin:10px 30px 10px 30px;
+	display:block;
+}
+.popup.new-method-type button.amazon span.ico_amazon{
+	background:image-url('mobdeals-ui/ico_amazon.png') no-repeat;
+	background-size:110px 34px;
+	display:block;
+	height:34px;
+	width:110px;
+	margin:auto;
+}
+
+/*Enter cc info*/
+.popup.new-cc a {text-decoration:underline; text-align:center}
+
+.popup.new-cc p.card_number{
+	width:91%;
+	margin:8px 4.5% 0 4.5%;
+	padding:0;
+	position:relative;
+}
+.popup.new-cc .card_number::after{
+	content:image-url('mobdeals-ui/ico_credit.png') no-repeat;
+	position:absolute;
+	top:9px;
+	left:7px;
+}
+.popup.new-cc .iconified::after{
+	position:absolute;
+	left:5px;
+	z-index:9;
+}
+
+.popup.new-cc input.with_icon{
+	padding-left:37px;
+	width:100%;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+}
+.popup.new-cc input[type="tel"],
+.popup.new-cc input[type="month"]{
+	display:block;
+	border-radius:5px;
+	border:1px solid #E5E5E5;
+	font-size:13px;
+	background:#fff;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+.popup.new-cc p.exp{
+	width:42%;
+	background:#DBDCDD;
+	background:-moz-linear-gradient(top, #DBDCDD 0%, #E7E7E7 100%);
+	background:-webkit-linear-gradient(top, #DBDCDD 0%,#E7E7E7 100%);
+	background:-ms-linear-gradient(top, #DBDCDD 0%,#E7E7E7 100%);
+	background:linear-gradient(top, #DBDCDD 0%,#E7E7E7 100%);
+	border-radius:5px;
+	padding:6px 1% 5px 1%;
+	border:1px solid #D2D4D6;
+	float:left;
+	margin-left:4.5%;
+	position:relative;
+	margin-top:10px;
+}
+.popup.new-cc p.exp::after{
+	content:image-url('mobdeals-ui/ico_calendar-dgray.png');
+	position:absolute;
+	top:12px;
+	left:7px;
+}
+
+.popup.new-cc .exp-label{
+	position:absolute;
+	color:#aaa;
+	top:18px;
+	left:45px;
+	font-size:12px;
+	text-shadow:none;
+}
+.popup.new-cc input.exp.with_icon{
+	margin-left:28px; 
+	padding-left:5px;
+	width:83%;
+}
+.popup.new-cc p.cvv{
+	margin-left:8px;
+	float:left;
+	margin-left:4.5%;
+	position:relative;
+	margin-top:10px;
+	width:42%;
+}
+.popup.new-cc p.cvv::after{
+	content:image-url('mobdeals-ui/ico_lock.png');
+	position:absolute;
+	top:8px;
+	left:7px;
+}
+
+.popup.new-cc div.buy_btn_blue{
+	width:91%;
+	margin-left:4%;
+	margin-bottom:3%;
+}
+.popup.new-cc div.buy_btn_blue button{
+	position:relative;
+	width:100%;
+	padding-left:0;
+	padding-right:0;
+	margin:0;
+	font-size:18px;
+	color:#fff;
+	text-shadow:-1px -1px 1px rgba(0, 0, 0, 0.25);
+	height:39px;
+	line-height:16px;
+	border:1px solid #82D7F9;
+	border-radius:5px;
+	background:#28A5D6;
+	background:-moz-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	background:-ms-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	background:-webkit-linear-gradient(top, #6ACDF6 0%,#5DC7F5 2%,#49BBE9 51%,#2EABE0 53%,#1EA2D7 76%,#129AD1 98%,#28A5D6 100%);
+	box-shadow:0 1px 3px rgba(0,0,0, 0.8);
+}
+.popup.new-cc .other_payment{
+	font-size:10px;
+	color:#fff;
+	text-decoration:underline;
+}
+
+/*confirm purchase pop up*/
+.popup.confirm-purchase div {
+  text-align: center;
+}
+.popup.confirm-purchase a {
+  text-decoration: underline;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .popup.new-method-type button.paypal span.ico_paypal { background:image-url('mobdeals-ui/ico_paypal_2x.png') no-repeat; }
+  .popup.new-method-type button.amazon span.ico_amazon { background:image-url('mobdeals-ui/ico_amazon_2x.png') no-repeat; }
+  .popup.new-cc p.card_number::after{ background-size:27px 19px; background:image-url('mobdeals-ui/ico_credit_2x.png') no-repeat;}
+  .popup.new-cc p.exp::after{ background-size:24px 24px; background:image-url('mobdeals-ui/ico_calendar-dgray@2x.png') no-repeat;}
+  .overlay-popup .popup_content p.cvv::after{ background-size:21px 25px; background:image-url('mobdeals-ui/ico_lock_2x.png') no-repeat; }  
+}

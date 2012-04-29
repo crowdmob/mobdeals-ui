@@ -1,41 +1,56 @@
-
 // Anything related to the current user
 MobDeals.Account = {
   _initialized: false,
   _cookied: null,
   _switchedListeners: [],
   user: null,
+
   init: function() {
-    if (this._initialized) { return false; } else { this._initialized = true; }
+    if (this._initialized) {
+      return false;
+    } else {
+      this._initialized = true;
+    }
   },
-  // returns whether or not the user is cookied and returns that to the callback
+
+  // Determines whether or not the user is cookied and returns that to the
+  // callback.
   cookied: function(callback) {
-    if (this._cookied === null) { this._verifyCookie(callback); }
-    else if (callback) { callback.apply(callback, [this._cookied]); }
+    if (this._cookied === null) {
+      this._verifyCookie(callback);
+    } else if (callback) {
+      callback.apply(callback, [this._cookied]);
+    }
   },
+
   assertCookied: function(callback, returnUrl) {
     this.cookied(function(isCookied) {
-      if (isCookied) { callback.apply(callback); }
-      else { MobDeals.Account.prompt(callback, null, returnUrl); }
+      if (isCookied) {
+        callback.apply(callback);
+      } else {
+        MobDeals.Account.prompt(callback, null, returnUrl);
+      }
     });
   },
-  
+
   decookie: function(callback) {
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_out.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       data: {_method: 'delete'},
       crossDomain: true,
       success: function(data) {  if (callback) { callback.apply(callback); } },
       dataType: 'json'
     });
   },
-  
-  switched: function(callback) { this._switchedListeners.push(callback); },
-  
+
+  switched: function(callback) {
+    this._switchedListeners.push(callback);
+  },
+
   prompt: function(callback, error, returnUrl) {
     MobDeals.Popup.show('login', function(popup) {
       if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
@@ -84,7 +99,7 @@ MobDeals.Account = {
         $.ajax({
           url: MobDeals.host('core')+'/account/passwords.json', 
           type: 'POST',
-          xhrFields: { withCredentials: true },
+          xhrFields: {withCredentials: true},
           data: { password: popup.find('input').val() },
           crossDomain: true,
           success: function(data) {
@@ -140,10 +155,11 @@ MobDeals.Account = {
     $.support.cors = true;
     
     $.ajax({
-      url: MobDeals.host('core')+'/users/sign_in.json', 
+      url: MobDeals.host('core') + '/users/sign_in.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       data: params,
+      dataType: 'json',
       crossDomain: true,
       success: function(data) {
         setAndCallback(data);
@@ -152,27 +168,26 @@ MobDeals.Account = {
         $.ajax({ 
           url: MobDeals.host('core')+'/users.json',
           type:'POST',
-          xhrFields: { withCredentials: true },
+          xhrFields: {withCredentials: true},
           data: params,
           crossDomain: true,
           success: setAndCallback,
           error: setAndCallback,
           dataType: 'json'
         }); // register
-      },
-      dataType: 'json'
+      }
     });
   },
-  
+
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     additionalParams['user[password]'] = input.val()
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       crossDomain: true,
       data: additionalParams,
       success: function(data) {
@@ -185,7 +200,7 @@ MobDeals.Account = {
         },
       dataType: 'json'
     });
-    
+
   },
 
   _facebook: function(callback, returnUrl) {
@@ -196,20 +211,21 @@ MobDeals.Account = {
   _clear: function() {
     MobDeals.Account._authenticated(null);
   },
+
   _verifyCookie: function(callback) {
     $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core')+'/sessions.json', 
       type: 'GET',
-      xhrFields: { withCredentials: true },
+      xhrFields: {withCredentials: true},
       crossDomain: true,
       success: function(data) {
         MobDeals.Account._authenticated(data);
-        },
+      },
       error: function(data) {
         MobDeals.Account._authenticated(null);
-        },
+      },
       complete: function(jqXHR, textStatus) {
         if (callback) {
           callback.apply(callback, [MobDeals.Account._cookied]);
@@ -218,28 +234,60 @@ MobDeals.Account = {
       dataType: 'json'
     });
   },
+
   _authenticated: function(data) {
     var userWas = this.user;
     if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
-      $('#footer .user').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
-    }
-    else {
+      $('.mobdeals-account-link-box').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
+    } else {
       this._cookied = true;
       this.user = data;
       
-      $('#footer .user').html('Hi '+this.user.short_name+'. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
+      $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
           MobDeals.Account.prompt();
         });
       });
+
+      var uuid = MobDeals.Account._getUUID();
+      var platform = MobDeals.Account._getPlatform();
+      if (uuid !== null && platform != null) {
+        $.ajax({
+          url: MobDeals.host('core') + '/devices.json',
+          type: 'POST',
+          xhrFields: {withCredentials: true},
+          data: {device: {uuid: uuid}},
+          crossDomain: true
+        });
+      }
+
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
         this._switchedListeners[i].apply(this._switchedListeners[i]);
       }
     }
+  },
+
+  _getUUID: function() {
+    var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
+    return uuid;
+  },
+
+  _getPlatform: function() {
+      var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+      if (iOS) {
+        return 'ios';
+      }
+
+      var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
+      if (android) {
+        return 'android';
+      }
+
+      return null;
   }
 };

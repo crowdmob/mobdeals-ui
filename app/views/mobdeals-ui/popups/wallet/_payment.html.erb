@@ -1,0 +1,70 @@
+
+<div id="confirm-purchase-popup">
+  <h4>Mob Deals</h4>
+  <div class="body">
+    <p><span class="confirm-message"></span></p>
+    <p class="method-info">
+      <div class="using-cc hidden">
+        Using card ending in <span class="lastfour"></span> 
+        <div><a class="switch">change card</a></div>
+      </div>
+      <div class="using-3rdparty hidden">
+        Using <span class="3rdparty-name"></span> 
+        <div><a class="switch">change payment</a></div>
+      </div>
+    </p>
+    <div class="buttons">
+      <button class="cancel">Cancel</button>
+      <button class="buy">Buy</button>
+    </div>
+  </div>
+</div>
+
+<div id="new-method-type-popup">
+  <h4>MobDeals</h4>
+  <div class="body">
+    <p>Pay by:</p>
+    <button class="cc">Credit card</button>
+    <button class="paypal"><span class="ico_paypal"></span></button>
+    <button class="amazon"><span class="ico_amazon"></span></button>
+  </div>
+</div>
+
+<div id="new-cc-popup">
+  <h4>Mob Deals</h4>
+  <div class="body">
+    <p>Input your credit card.</p>
+    <form action="#">
+      <div class="row-1-error hidden"></div>
+      <p class="card_number iconified">
+        <input type="tel" pattern="[0-9]*" name="credit_card[credit_card_number]" class="with_icon" placeholder="Credit card number" maxlength="19" min="111111111111" max="99999999999999999"/>
+        <span class="verisign"></span>
+      </p>
+      <div class="row-2-error hidden"></div>
+      <p class="exp iconified">
+        <label class="exp-label" for="cc_expr">Expiration</label>
+        <input type="month" name="credit_card[expiration]" class="exp with_icon" maxlength="5" min="MobDealsOfferwall.firstExpiresDate" max="MobDealsOfferwall.lastExpiresDate" />
+      </p>
+      <p class="cvv iconified">
+        <input type="tel" pattern="[0-9]*" name="credit_card[cvv2]" class="cvv with_icon" placeholder="CVV" maxlength="4" min="001" max="9999" />
+      </p>
+      <div class="buy_btn_blue"><button>Buy</button></div>
+    </form>
+
+    <p><a class="back">&laquo; other payment methods</a></p>
+  </div>
+</div>
+
+<div id="receipt-popup">
+  <h4>MobDeals</h4>
+  <div class="body">
+    <p class="initialized-password hidden">Password created!</p>
+    <p>We emailed you a receipt.</p>
+
+    <div class="buttons">
+      <button class="giftcard cancel">View Gift Card</button>
+      <button class="continue">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
