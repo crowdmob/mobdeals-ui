@@ -33,7 +33,7 @@ MobDeals.Account.Wallet = {
       dataType: 'json'
     });
   },
-  switchPaymentMethod: function(callback) {
+  switchPaymentMethod: function(callback, purchasable) {
     // TODO
     MobDeals.Log.click({'event': 'switch-payment-method', 'purchasable_id': purchasable.id, 'purchasable_type': purchasable.purchasable_type});
     alert("Sorry, we're hard at work on this and you'll be able to switch payment methods soon!");
@@ -57,7 +57,7 @@ MobDeals.Account.Wallet = {
         MobDeals.Popup.destroy(popup);
       });
       popup.find('.switch').bind(CLICK, function(ev) {
-        MobDeals.Account.Wallet.switchPaymentMethod(function() { confirmed.apply(confirmed, [purchasable, walletMethod]); });
+        MobDeals.Account.Wallet.switchPaymentMethod(function() { confirmed.apply(confirmed, [purchasable, walletMethod]); }, purchasable);
         MobDeals.Popup.destroy(popup);
       });
     });
@@ -78,9 +78,9 @@ MobDeals.Account.Wallet = {
         if (chargeCompletedCallback) { chargeCompletedCallback.apply(chargeCompletedCallback, [data]); } 
         
         if (!MobDeals.Account.user.password_initialized) {
-          MobDeals.Account.createPassword(function() { MobDeals.AppyMeals.Meals.Purchase.receipt(data, true, data.id); });
+          MobDeals.Account.createPassword(function() { MobDeals.Account.Wallet.receipt(data, true, data.id); });
         }
-        else { MobDeals.AppyMeals.Meals.Purchase.receipt(data, false, data.id); }
+        else { MobDeals.Account.Wallet.receipt(data, false, data.id); }
       },
       dataType: 'json'
     });
