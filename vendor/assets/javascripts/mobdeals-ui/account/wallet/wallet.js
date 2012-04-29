@@ -37,6 +37,29 @@ MobDeals.Account.Wallet = {
     // TODO
     alert("Sorry, we're hard at work on this and you'll be able to switch payment methods soon!");
   },
+  assertChargeConfirmed: function(callback, message, confirmed, canceled) {
+    MobDeals.Popup.show('confirm-purchase', function(popup) {
+      if (!MobDeals.AppyMeals.Meals.Purchase._confirmHtml) { MobDeals.AppyMeals.Meals.Purchase._confirmHtml = $('#confirm-purchase-popup').remove().html(); }
+      popup.html(MobDeals.AppyMeals.Meals.Purchase._confirmHtml);
+
+      if (walletMethod.kind == 'credit_card') { popup.find('.using-cc').removeClass('hidden').find('.lastfour').text(walletMethod.last_four); }
+      else { popup.find('.using-3rdparty').removeClass('hidden').find('.3rdparty-name').text(walletMethod.kind); }
+
+      popup.find('button.cancel').bind(CLICK, function(ev) {
+        MobDeals.Log.click({'event': 'cancel-payment', 'purchasable': purchasable.id});
+        canceled.apply(canceled, [purchasable, walletMethod]);
+        MobDeals.Popup.destroy(popup);
+      });
+      popup.find('button.buy').bind(CLICK, function(ev) {
+        confirmed.apply(confirmed, [purchasable, walletMethod]);
+        MobDeals.Popup.destroy(popup);
+      });
+      popup.find('.switch').bind(CLICK, function(ev) {
+        MobDeals.Account.Wallet.switch(function() { confirmed.apply(confirmed, [purchasable, walletMethod]); });
+        MobDeals.Popup.destroy(popup);
+      });
+    });
+  },
   _when: function(callback, offer) {
     MobDeals.Popup.show('pay-when', function(popup) {
       if (!MobDeals.Account.Wallet._whenHtml) { MobDeals.Account.Wallet._whenHtml = $('#pay-when-popup').remove().html(); }

@@ -1,0 +1,51 @@
+
+/*pay now or pay later*/
+
+.popup.pay-when a {
+	background:image-url('btnpay.png') no-repeat; 
+	background-size:200px 200px;
+	width:200px;
+	height:200px;
+	display:block;
+	float:left;
+	padding:5px;
+	cursor:pointer;
+}
+.popup.pay-when a.now { margin-left:10px; }
+.popup.pay-when a p {
+	color:#444;
+	font-size:16px;
+	font-weight:bold;
+	text-align:center;
+	text-shadow: 0 1px 0 #fff;
+	width:190px;
+	margin-bottom:0;
+	margin-top:60px;
+}
+.popup.pay-when img {
+  max-width:25px;
+  max-height:25px;
+  vertical-align:bottom;
+}
+.popup.pay-when p.parenthesis{
+	font-size:12px;
+	font-weight:normal;
+	margin-top:0;
+	text-shadow: 0 1px 0 #fff;
+}
+.popup.pay-when h1{
+	color:#fff;
+	font-size:20px;
+	text-align:center;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.6);
+}
+
+/*pay later confirm pop up*/
+.popup.will-pay-later .virtual-img img {
+  vertical-align: bottom;
+  max-height: 2em;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 1.5) {
+  .popup.pay-when a { background:image-url('btnpay@2x.png') no-repeat; }
+}
