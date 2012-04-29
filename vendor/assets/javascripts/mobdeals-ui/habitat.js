@@ -12,7 +12,7 @@ MobDeals.Habitat = {
     if (val) { MobDeals.Habitat._apiKey = val; }
     return MobDeals.Habitat._apiKey;
   },
-  report: function(str) {
+  report: function(header, str) {
     var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
     var android = navigator.userAgent.toLowerCase().match(/android/i) ? true : false;
       
@@ -22,7 +22,7 @@ MobDeals.Habitat = {
     }
     else if (iOS) {
       var iframe = document.createElement("IFRAME");
-      iframe.setAttribute("src", "mobdeals-html5:"+str);
+      iframe.setAttribute("src", header+":"+str);
       document.documentElement.appendChild(iframe);
       iframe.parentNode.removeChild(iframe);
       iframe = null;
