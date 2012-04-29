@@ -240,12 +240,12 @@ MobDeals.Account = {
     if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
-      $('#footer .user').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
+      $('.mobdeals-account-link-box').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
     } else {
       this._cookied = true;
       this.user = data;
       
-      $('#footer .user').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
+      $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
           MobDeals.Account.prompt();
