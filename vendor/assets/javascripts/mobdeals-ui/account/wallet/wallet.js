@@ -147,7 +147,7 @@ MobDeals.Account.Wallet = {
     $.ajax({
       url: MobDeals.host('core') + 
         '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
-        MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id+'&purchasable[app_id]': offer.app_id,
+        MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id+'&purchasable[app_id]' + offer.app_id,
       type: 'GET',
       xhrFields: { withCredentials: true },
       crossDomain: true,
