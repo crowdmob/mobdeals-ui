@@ -1,8 +1,8 @@
-a.blue {
+.blue {
   text-decoration:none;
   font-weight:bold;
 }
-a.blue .btn-box {
+.blue .btn-box {
   background-color: #52a8e8;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #52a8e8), color-stop(100%, #377ad0));
   background-image: -webkit-linear-gradient(top, #52a8e8, #377ad0);
@@ -30,7 +30,7 @@ a.blue .btn-box {
   -webkit-background-clip: padding-box;
   margin: auto auto;
 }
-a.blue:hover .btn-box {
+.blue:hover .btn-box {
   background-color: #3e9ee5;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3e9ee5), color-stop(100%, #206bcb));
   background-image: -webkit-linear-gradient(top, #3e9ee5 0%, #206bcb 100%);
@@ -49,7 +49,7 @@ a.blue:hover .btn-box {
   text-shadow: 0 -1px 1px #1d62ab;
   -webkit-background-clip: padding-box;
 }
-a.blue:active .btn-box {
+.blue:active .btn-box {
   background: #3282d3;
   border: 1px solid #154c8c;
   border-bottom: 1px solid #0e408e;
@@ -60,9 +60,9 @@ a.blue:active .btn-box {
   -webkit-background-clip: padding-box;
 }
 
-a.blue.disabled .btn-box,
-a.blue.disabled:hover .btn-box,
-a.blue.disabled:active .btn-box {
+.blue.disabled .btn-box,
+.blue.disabled:hover .btn-box,
+.blue.disabled:active .btn-box {
   background-color: #dadada;
   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dadada), color-stop(100%, #f3f3f3));
   background-image: -webkit-linear-gradient(top, #dadada, #f3f3f3);
@@ -82,7 +82,7 @@ a.blue.disabled:active .btn-box {
   text-shadow: 0 -1px 1px #ebebeb; 
 }
 
-a.blue .btn-box::-moz-focus-inner {
+.blue .btn-box::-moz-focus-inner {
   border: 0;
   padding: 0; 
 }
