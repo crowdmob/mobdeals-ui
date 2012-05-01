@@ -27,9 +27,17 @@ MobDeals.Habitat = {
     var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
 
     if (android) {
-      try {
-        window.mobdeals_native.purchaseConfirmed(str);
-      } catch(ignored) {
+      switch (header) {
+        case "mobdeals-html5":
+          try {
+            window.mobdeals_native.purchaseConfirmed(str);
+          } catch(ignored) {
+          }
+          break;
+        case "flurry-apps":
+          var flurryApps = window.loot_native.getFlurryApps();
+          MobDeals.Loot.Installs.Fetch.showFlurryApps(flurryApps);
+          break;
       }
     } else if (iOS) {
       var iframe = document.createElement("iframe");
