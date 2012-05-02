@@ -35,7 +35,7 @@ MobDeals.Habitat = {
           }
           break;
         case "flurry-apps":
-          var flurryApps = window.loot_native.getFlurryApps();
+          // var flurryApps = window.loot_native.getFlurryApps();
           // MobDeals.Loot.Installs.Fetch.showFlurryApps(flurryApps);
           break;
       }
