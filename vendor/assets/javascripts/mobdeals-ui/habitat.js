@@ -36,6 +36,7 @@ MobDeals.Habitat = {
           break;
         case "flurry-apps":
           var flurryApps = window.loot_native.getFlurryApps();
+          flurryApps = $.parseJSON(flurryApps);
           MobDeals.Loot.Installs.Fetch.showFlurryApps(flurryApps);
           break;
       }
