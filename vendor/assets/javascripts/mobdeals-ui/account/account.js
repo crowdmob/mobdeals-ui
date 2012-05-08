@@ -259,7 +259,7 @@ MobDeals.Account = {
         });
       });
 
-      var uuid = MobDeals.Account._getUUID();
+      var uuid = MobDeals.Account._getUuid();
       var platform = MobDeals.Account._getPlatform();
       if (uuid !== null && platform != null) {
         $.ajax({
@@ -279,8 +279,8 @@ MobDeals.Account = {
     }
   },
 
-  _getUUID: function() {
-    var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
+  _getUuid: function() {
+    var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuid;
   },
 
