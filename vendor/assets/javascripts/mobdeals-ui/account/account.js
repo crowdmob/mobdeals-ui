@@ -63,7 +63,7 @@ MobDeals.Account = {
         MobDeals.Popup.destroy(popup);
       };
       var readInputCancelBubble = function() {
-        readInput();
+        $(this).find("*:focus").blur();
         return false;
       };
       popup.find('a.email').bind(CLICK, function(ev) {
@@ -75,11 +75,6 @@ MobDeals.Account = {
  	      popup.find('.inputs').slideDown();
         popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active');
-        //popup.find('.mobile-box').keypress(function(event) {
-        //  if(event.keyCode == 13){
-        //    popup.find('.mobile-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
-        //  }
-        //});
       });
 
       if (error && error.errors) {
@@ -121,7 +116,7 @@ MobDeals.Account = {
         MobDeals.Popup.destroy(popup);
       };
       
-      popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
+      popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
       
       if (error) {
         var box = popup.find('.'+error.field+'-box');
@@ -144,7 +139,7 @@ MobDeals.Account = {
             popup.find('input').focus();
 
             var readInput = function() { MobDeals.Account._password($(this), parent, params, callback); MobDeals.Popup.destroy(popup); }
-            popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
+            popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
 
             if (error) {
               var box = popup.find('.'+error.field+'-box');
