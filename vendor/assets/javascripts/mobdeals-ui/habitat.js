@@ -31,7 +31,7 @@ MobDeals.Habitat = {
         case "mobdeals-html5":
           try {
             window.mobdeals_native.purchaseConfirmed(str);
-          } catch(ignored) {
+          } catch (ignored) {
           }
           break;
         case "flurry-apps":
