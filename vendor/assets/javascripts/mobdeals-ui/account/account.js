@@ -261,16 +261,7 @@ MobDeals.Account = {
 
       var uuid = MobDeals.Account._getUuid();
       var platform = MobDeals.Account._getPlatform();
-      if (uuid !== null && platform != null) {
-        $.ajax({
-          url: MobDeals.host('core') + '/devices.json',
-          type: 'POST',
-          xhrFields: {withCredentials: true},
-          data: {device: {uuid: uuid}},
-          crossDomain: true
-        });
-      }
-
+      MobDeals.Account._registerDevice(uuid, platform);
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
@@ -279,22 +270,36 @@ MobDeals.Account = {
     }
   },
 
+  _registerDevice: function(uuid, platform) {
+      // No point making an extra HTTP request if we couldn't get a UUID or a
+      // platform.
+      if (uuid !== null && platform !== null) {
+        $.ajax({
+          url: MobDeals.host('core') + '/devices.json',
+          type: 'POST',
+          xhrFields: {withCredentials: true},
+          data: {device: {uuid: uuid, platform: platform}},
+          crossDomain: true
+        });
+      }
+  },
+
   _getUuid: function() {
+    // TODO: Add support for calling into iOS native here, to get the iOS UUID.
     var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuid;
   },
 
   _getPlatform: function() {
-      var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
-      if (iOS) {
-        return 'ios';
-      }
-
-      var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
-      if (android) {
-        return 'android';
-      }
-
-      return null;
+    // TODO: Add support for calling into iOS native here, to get the iOS platform.
+    var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+    if (iOS) {
+      return 'ios';
+    }
+    var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
+    if (android) {
+      return 'android';
+    }
+    return 'html5';
   }
 };
