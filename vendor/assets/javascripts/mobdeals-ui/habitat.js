@@ -36,14 +36,15 @@ MobDeals.Habitat = {
   },
 
   report: function(iOSHeader, iOSStr, androidFunction, androidParameter) {
-      
     if (MobDeals.Habitat.platform == 'android') {
       try {
         if (androidParameter == null) {
-          androidFunction();
+          var func = function() {androidFunction()};
+          func();
         }
         else {
-          androidFunction(androidParameter);
+          var func = function() {androidFunction(androidParameter)};
+          func();
         }
       }
       catch(e) {
