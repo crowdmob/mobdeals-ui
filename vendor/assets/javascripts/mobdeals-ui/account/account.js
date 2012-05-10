@@ -260,8 +260,7 @@ MobDeals.Account = {
       });
 
       var uuid = MobDeals.Account._getUuid();
-      var platform = MobDeals.Account._getPlatform();
-      MobDeals.Account._registerDevice(uuid, platform);
+      MobDeals.Account._registerDevice(uuid, MobDeals.Habitat.platform);
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
@@ -289,17 +288,4 @@ MobDeals.Account = {
     var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuid;
   },
-
-  _getPlatform: function() {
-    // TODO: Add support for calling into iOS native here, to get the iOS platform.
-    var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
-    if (iOS) {
-      return 'ios';
-    }
-    var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
-    if (android) {
-      return 'android';
-    }
-    return 'html5';
-  }
 };
