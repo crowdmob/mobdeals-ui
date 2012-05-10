@@ -35,7 +35,7 @@ MobDeals.Habitat = {
     return MobDeals.Habitat._apiKey;
   },
 
-  report: function(iOSHeader, iOSStr, androidFunction, androidParamter) {
+  report: function(iOSHeader, iOSStr, androidFunction, androidParameter) {
       
     if (MobDeals.Habitat.platform == 'android') {
       try {
@@ -43,7 +43,7 @@ MobDeals.Habitat = {
           androidFunction();
         }
         else {
-          androidFunction(androidParamter);
+          androidFunction(androidParameter);
         }
       }
       catch(ignored) {}

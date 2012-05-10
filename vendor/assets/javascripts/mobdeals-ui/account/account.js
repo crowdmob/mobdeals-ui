@@ -287,5 +287,5 @@ MobDeals.Account = {
     // TODO: Add support for calling into iOS native here, to get the iOS UUID.
     var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuid;
-  },
+  }
 };
