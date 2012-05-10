@@ -273,6 +273,7 @@ MobDeals.Account = {
   },
 
   _getUUID: function() {
+    //TODO - Replace with MobDeals.Habitat.report
     var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
     return uuid;
   },

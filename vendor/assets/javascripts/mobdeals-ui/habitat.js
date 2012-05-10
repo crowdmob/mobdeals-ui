@@ -4,6 +4,8 @@ MobDeals.Habitat = {
   _apiKey: null,
   _platform: null,
   _initialized: false,
+  _iOS: navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false,
+  _android: navigator.userAgent.toLowerCase().match(/android/i) != null,
   app: null,
   init: function() {
     if (this._initialized) { return false; } else { this._initialized = true; }
@@ -12,17 +14,22 @@ MobDeals.Habitat = {
     if (val) { MobDeals.Habitat._apiKey = val; }
     return MobDeals.Habitat._apiKey;
   },
-  report: function(header, str) {
-    var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
-    var android = navigator.userAgent.toLowerCase().match(/android/i) ? true : false;
+  report: function(iOSHeader, iOSStr, androidFunction, androidParamter) {
       
-    if (android) {
-      try { window.mobdeals_native.purchaseConfirmed(str); }
+    if (MobDeals.Habitat._android) {
+      try {
+        if (androidParameter == null) {
+          androidFunction();
+        }
+        else {
+          androidFunction(androidParamter);
+        }
+      }
       catch(ignored) {}
     }
-    else if (iOS) {
+    else if (MobDeals.Habitat._iOS) {
       var iframe = document.createElement("IFRAME");
-      iframe.setAttribute("src", header+":"+str);
+      iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
       document.documentElement.appendChild(iframe);
       iframe.parentNode.removeChild(iframe);
       iframe = null;
