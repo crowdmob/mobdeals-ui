@@ -28,7 +28,7 @@ MobDeals.Account = {
       if (isCookied) {
         callback.apply(callback);
       } else {
-        MobDeals.Account.prompt(callback, null, returnUrl);
+        MobDeals.Account.loginPrompt(callback, null, returnUrl);
       }
     });
   },
@@ -51,30 +51,32 @@ MobDeals.Account = {
     this._switchedListeners.push(callback);
   },
 
-  prompt: function(callback, error, returnUrl) {
+  loginPrompt: function(callback, error, returnUrl) {
     MobDeals.Popup.show('login', function(popup) {
-      if (!MobDeals.Account._promptHtml) { MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html(); }
+      if (!MobDeals.Account._promptHtml) {
+        MobDeals.Account._promptHtml = $('#choose-login-type-popup').remove().html();
+      }
       popup.html(MobDeals.Account._promptHtml);
-      
-      var readInput = function() { MobDeals.Account._username($(this), callback); MobDeals.Popup.destroy(popup); };
-      var readInputCancelBubble = function() { readInput(); return false; };
+
+      var readInput = function() {
+        MobDeals.Account._username($(this), callback);
+        MobDeals.Popup.destroy(popup);
+      };
+      var readInputCancelBubble = function() {
+        $(this).find("*:focus").blur();
+        return false;
+      };
       popup.find('a.email').bind(CLICK, function(ev) {
  	      popup.find('.inputs').slideDown();
-        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus(); 
-
+        popup.find('.email-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.mobile-box').addClass('hidden').removeClass('active');
       });
-      popup.find('a.mobile').bind(CLICK, function(ev) { 
+      popup.find('a.mobile').bind(CLICK, function(ev) {
  	      popup.find('.inputs').slideDown();
         popup.find('.mobile-box').removeClass('hidden').addClass('active').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
         popup.find('.email-box').addClass('hidden').removeClass('active');
-        //popup.find('.mobile-box').keypress(function(event){
-        //  if(event.keyCode == 13){
-        //    popup.find('.mobile-box').find('form').submit(readInputCancelBubble).find('input').blur(readInput).focus();
-        //  }
-        //});
       });
-      
+
       if (error && error.errors) {
         for (var field in error.errors) {
           popup.find('a.'+field).click();
@@ -82,8 +84,11 @@ MobDeals.Account = {
           box.find('.errors').removeClass('hidden').text(field.charAt(0).toUpperCase() + field.slice(1) + ' ' + error.errors[field].join(', and '));
         }
       }
-      
-      popup.find('a.facebook').bind(CLICK, function(ev) { MobDeals.Account._facebook(callback, returnUrl); MobDeals.Popup.destroy(popup); });
+
+      popup.find('a.facebook').bind(CLICK, function(ev) {
+        MobDeals.Account._facebook(callback, returnUrl);
+        MobDeals.Popup.destroy(popup);
+      });
     });
   },
 
@@ -111,7 +116,7 @@ MobDeals.Account = {
         MobDeals.Popup.destroy(popup);
       };
       
-      popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
+      popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
       
       if (error) {
         var box = popup.find('.'+error.field+'-box');
@@ -134,7 +139,7 @@ MobDeals.Account = {
             popup.find('input').focus();
 
             var readInput = function() { MobDeals.Account._password($(this), parent, params, callback); MobDeals.Popup.destroy(popup); }
-            popup.find('form').submit(function() { readInput(); return false; }).find('input').blur(readInput).focus();
+            popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
 
             if (error) {
               var box = popup.find('.'+error.field+'-box');
@@ -143,7 +148,7 @@ MobDeals.Account = {
           });
         }
         else {
-          MobDeals.Account.prompt(callback, $.parseJSON(dataOrXhr.responseText));
+          MobDeals.Account.loginPrompt(callback, $.parseJSON(dataOrXhr.responseText));
         }
       }
       else {
@@ -240,7 +245,9 @@ MobDeals.Account = {
     if (!data || data.id == null) { 
       this._cookied = false;
       this.user = null;
-      $('.mobdeals-account-link-box').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) { MobDeals.Account.prompt(); }); 
+      $('.mobdeals-account-link-box').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) {
+        MobDeals.Account.loginPrompt();
+      });
     } else {
       this._cookied = true;
       this.user = data;
@@ -248,22 +255,13 @@ MobDeals.Account = {
       $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
-          MobDeals.Account.prompt();
+          MobDeals.Account.loginPrompt();
         });
       });
 
-      var uuid = MobDeals.Account._getUUID();
+      var uuid = MobDeals.Account._getUuid();
       var platform = MobDeals.Account._getPlatform();
-      if (uuid !== null && platform != null) {
-        $.ajax({
-          url: MobDeals.host('core') + '/devices.json',
-          type: 'POST',
-          xhrFields: {withCredentials: true},
-          data: {device: {uuid: uuid}},
-          crossDomain: true
-        });
-      }
-
+      MobDeals.Account._registerDevice(uuid, platform);
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
@@ -272,23 +270,36 @@ MobDeals.Account = {
     }
   },
 
-  _getUUID: function() {
-    //TODO - Replace with MobDeals.Habitat.report
-    var uuid = window.loot_native === undefined ? null : window.loot_native.getUUID();
+  _registerDevice: function(uuid, platform) {
+      // No point making an extra HTTP request if we couldn't get a UUID or a
+      // platform.
+      if (uuid !== null && platform !== null) {
+        $.ajax({
+          url: MobDeals.host('core') + '/devices.json',
+          type: 'POST',
+          xhrFields: {withCredentials: true},
+          data: {device: {uuid: uuid, platform: platform}},
+          crossDomain: true
+        });
+      }
+  },
+
+  _getUuid: function() {
+    // TODO: Add support for calling into iOS native here, to get the iOS UUID.
+    var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuid;
   },
 
   _getPlatform: function() {
-      var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
-      if (iOS) {
-        return 'ios';
-      }
-
-      var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
-      if (android) {
-        return 'android';
-      }
-
-      return null;
+    // TODO: Add support for calling into iOS native here, to get the iOS platform.
+    var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+    if (iOS) {
+      return 'ios';
+    }
+    var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
+    if (android) {
+      return 'android';
+    }
+    return 'html5';
   }
 };

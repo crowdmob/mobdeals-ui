@@ -10,11 +10,11 @@ MobDeals.Account.Wallet = {
   _empty: function() {
     return this.methods == null || this.methods.length < 1;
   },
-  selectedMethod: function(callback, purchasable) {
+  selectedMethod: function(callback, purchasable, redirectTo) {
     if (!this.loaded) { return this.load(function() { MobDeals.Account.Wallet.selectedMethod(callback, purchasable); })}  
     else if (this._default) { return callback.apply(callback, [this._default, false]); }
-    else if (purchasable.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, purchasable); }
-    else { return this._now(callback, purchasable); }
+    else if (purchasable.pay_later_allowed && MobDeals.Account.user.can_pay_later) { return this._when(callback, purchasable, redirectTo); }
+    else { return this._now(callback, purchasable, redirectTo); }
   },
   load: function(callback) {
     $.support.cors = true;
@@ -103,7 +103,7 @@ MobDeals.Account.Wallet = {
     });
   },
   
-  _when: function(callback, offer) {
+  _when: function(callback, offer, redirectTo) {
     MobDeals.Popup.show('pay-when', function(popup) {
       if (!MobDeals.Account.Wallet._whenHtml) { MobDeals.Account.Wallet._whenHtml = $('#pay-when-popup').remove().html(); }
       popup.html(MobDeals.Account.Wallet._whenHtml);
@@ -113,7 +113,7 @@ MobDeals.Account.Wallet = {
 
       popup.find('a.now').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        if (MobDeals.Account.Wallet._empty()) { MobDeals.Account.Wallet._now(callback, offer); }
+        if (MobDeals.Account.Wallet._empty()) { MobDeals.Account.Wallet._now(callback, offer, redirectTo); }
         else { MobDeals.Account.Wallet.switchPaymentMethod(callback, offer); }
       });
       popup.find('a.later').bind(CLICK, function(ev) {
@@ -122,32 +122,32 @@ MobDeals.Account.Wallet = {
       });
     });
   },
-  _now: function(callback, offer) {
+  _now: function(callback, offer, redirectTo) {
     MobDeals.Popup.show('new-method-type', function(popup) {
       if (!MobDeals.Account.Wallet._nowHtml) { MobDeals.Account.Wallet._nowHtml = $('#new-method-type-popup').remove().html(); }
       popup.html(MobDeals.Account.Wallet._nowHtml);
 
       popup.find('button.cc').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        MobDeals.Account.Wallet._cc(callback, offer);
+        MobDeals.Account.Wallet._cc(callback, offer, redirectTo);
       });
       popup.find('button.paypal').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        MobDeals.Account.Wallet._start3rdParty('paypals', callback, offer);
+        MobDeals.Account.Wallet._start3rdParty('paypals', callback, offer, redirectTo);
       });
       popup.find('button.amazon').bind(CLICK, function(ev) {
         MobDeals.Popup.destroy(popup);
-        MobDeals.Account.Wallet._start3rdParty('amazons', callback, offer);
+        MobDeals.Account.Wallet._start3rdParty('amazons', callback, offer, redirectTo);
       });
     });
   },
-  _start3rdParty: function(uri, callback, offer) {
+  _start3rdParty: function(uri, callback, offer, redirectTo) {
     $.support.cors = true;
     
     $.ajax({
       url: MobDeals.host('core') + 
-        '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect=offerwall&habitat[apikey]=' + 
-        MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id, 
+        '/account/wallet/methods/' + uri + '/new.json?settle=true&redirect='+(redirectTo ? redirectTo :  'offerwall')+'&habitat[apikey]=' + 
+        MobDeals.Habitat.apiKey() + '&purchasable_type=' + offer.purchasable_type + '&purchasable_id=' + offer.id+ '&purchasable[virtual_good_id]='+offer.virtual_good_id+'&purchasable[app_id]=' + offer.app_id,
       type: 'GET',
       xhrFields: { withCredentials: true },
       crossDomain: true,
@@ -189,7 +189,7 @@ MobDeals.Account.Wallet = {
           url: MobDeals.host('core')+'/account/wallet/methods.json', 
           type: 'POST',
           xhrFields: { withCredentials: true },
-          data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
+          data: { settle: offer != null, wallet_method: serializedCard, 'purchasable[virtual_good_id]': offer.virtual_good_id, 'purchasable_type': offer.purchasable_type, 'purchasable_id': offer.id, 'purchasable[app_id]': offer.app_id, 'habitat[apikey]': MobDeals.Habitat.apiKey()},
           crossDomain: true,
           success: function(data) {
             if (data.errors && data.errors.bad_input) {
