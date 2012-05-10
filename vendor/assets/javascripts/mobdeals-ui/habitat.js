@@ -46,7 +46,8 @@ MobDeals.Habitat = {
           androidFunction(androidParameter);
         }
       }
-      catch(ignored) {
+      catch(e) {
+        console.log(e.message);
       }
     }
     else if (MobDeals.Habitat.platform == 'ios') {
