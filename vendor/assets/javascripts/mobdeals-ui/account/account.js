@@ -268,7 +268,7 @@ MobDeals.Account = {
     }
   },
 
-  _registerDevice: function(uuid, platform) {
+  _registerDevice: function(data) {
       // No point making an extra HTTP request if we couldn't get a UUID or a
       // platform.
       if (uuid !== null && platform !== null) {
@@ -276,7 +276,7 @@ MobDeals.Account = {
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: { device: {uuid: uuid, platform: platform} },
+          data: { device: { uuid: data.uuid, platform: data.platform } },
           crossDomain: true
         });
       }
@@ -284,7 +284,8 @@ MobDeals.Account = {
 
   _androidSetupRegistration: function() {
     var uuid = MobDeals.Account._getUuid();
-    MobDeals.Account._registerDevice(uuid, MobDeals.Habitat.platform);
+    data = { uuid: uuid, platform: MobDeals.Habitat.platform };
+    MobDeals.Account._registerDevice(data);
   },
 
   _getUuid: function() {
