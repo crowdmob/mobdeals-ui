@@ -37,7 +37,11 @@ MobDeals.Habitat = {
 
   report: function(iOSHeader, iOSStr, androidFunctionWrapper) {
     if (MobDeals.Habitat.platform == 'android') {
-      androidFunctionWrapper();
+      try {
+        androidFunctionWrapper();
+      } catch(e) {
+        console.log(e.message);
+      }
     } else if (MobDeals.Habitat.platform == 'ios') {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
