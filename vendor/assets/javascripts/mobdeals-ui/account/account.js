@@ -259,7 +259,7 @@ MobDeals.Account = {
         });
       });
 
-      MobDeals.Habitat.report("loot-register", "", MobDeals.Account._androidSetupRegistration, null)
+      MobDeals.Habitat.report("loot-register", "", MobDeals.Account._androidSetupRegistration);
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
