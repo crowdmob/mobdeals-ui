@@ -3,7 +3,7 @@
 
 MobDeals.Habitat = {
   _apiKey: null,
-  _platform: null,
+  platform: null,
   _initialized: false,
   app: null,
 
@@ -17,7 +17,7 @@ MobDeals.Habitat = {
       if (iOS) {
         MobDeals.Habitat.platform = 'ios';
       }
-      if (android) {
+      else if (android) {
         MobDeals.Habitat.platform = 'android';
       }
       else {

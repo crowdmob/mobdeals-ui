@@ -259,8 +259,7 @@ MobDeals.Account = {
         });
       });
 
-      var uuid = MobDeals.Account._getUuid();
-      MobDeals.Account._registerDevice(uuid, MobDeals.Habitat.platform);
+      MobDeals.Habitat.report("loot-register", "", MobDeals.Account._androidSetupRegistration, null)
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
       for (var i in this._switchedListeners) {
@@ -277,10 +276,15 @@ MobDeals.Account = {
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: {device: {uuid: uuid, platform: platform}},
+          data: { device: {uuid: uuid, platform: platform} },
           crossDomain: true
         });
       }
+  },
+
+  _androidSetupRegistration: function() {
+    var uuid = MobDeals.Account._getUuid();
+    MobDeals.Account._registerDevice(uuid, MobDeals.Habitat.platform);
   },
 
   _getUuid: function() {
