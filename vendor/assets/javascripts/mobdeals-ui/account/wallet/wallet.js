@@ -69,7 +69,7 @@ MobDeals.Account.Wallet = {
       url: MobDeals.host('core')+'/account/purchases.json', 
       type: 'POST',
       xhrFields: { withCredentials: true },
-      data: { purchase: { purchasable_id: purchasable.id, purchasable_type: purchasable.purchasable_type, wallet_method_id: walletMethod.id, extra_data: purchasable.extra_data }, habitat: { apikey: MobDeals.Habitat.apiKey() } },
+      data: { purchase: { appymeal: purchasable.appymeal, unique_id: purchasable.uniqueId, purchasable_id: purchasable.id, purchasable_type: purchasable.purchasable_type, wallet_method_id: walletMethod.id, extra_data: purchasable.extra_data }, habitat: { apikey: MobDeals.Habitat.apiKey() } },
       crossDomain: true,
       success: function(data) {
         if (data.error_message) { return MobDeals.error(data.error_message); }
@@ -90,6 +90,8 @@ MobDeals.Account.Wallet = {
     MobDeals.Popup.show('receipt', function(popup) {
       if (!MobDeals.Account.Wallet._receiptHtml) { MobDeals.Account.Wallet._receiptHtml = $('#receipt-popup').remove().html(); }
       popup.html(MobDeals.Account.Wallet._receiptHtml);
+
+      if (purchase.appymeal) { popup.find('.giftcard').addClass('hidden'); }
 
       if (passwordCreated) { popup.find('.initialized-password').removeClass('hidden'); }
 
