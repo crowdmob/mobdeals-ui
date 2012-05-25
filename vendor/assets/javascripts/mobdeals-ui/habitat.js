@@ -35,23 +35,14 @@ MobDeals.Habitat = {
     return MobDeals.Habitat._apiKey;
   },
 
-  report: function(iOSHeader, iOSStr, androidFunction, androidParameter) {
+  report: function(iOSHeader, iOSStr, androidFunctionWrapper) {
     if (MobDeals.Habitat.platform == 'android') {
       try {
-        if (androidParameter == null) {
-          var func = function() {androidFunction()};
-          func();
-        }
-        else {
-          var func = function() {androidFunction(androidParameter)};
-          func();
-        }
-      }
-      catch(e) {
+        androidFunctionWrapper();
+      } catch(e) {
         console.log(e.message);
       }
-    }
-    else if (MobDeals.Habitat.platform == 'ios') {
+    } else if (MobDeals.Habitat.platform == 'ios') {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
       document.documentElement.appendChild(iframe);
