@@ -285,8 +285,11 @@ MobDeals.Account = {
   },
 
   _androidSetupRegistration: function() {
-    var uuid = MobDeals.Account._getUuid();
-    data = { uuid: uuid, platform: MobDeals.Habitat.platform };
+    data = {
+      uuid: MobDeals.Account._getUuid(),
+      platform: MobDeals.Habitat.platform,
+      adcolony_udid: window.loot_native.getAdColonyDeviceId()
+    };
     MobDeals.Account._registerDevice(data);
   },
 
