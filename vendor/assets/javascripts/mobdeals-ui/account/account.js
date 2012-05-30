@@ -278,15 +278,18 @@ MobDeals.Account = {
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: { device: { uuid: data.uuid, platform: data.platform } },
+          data: { device: { uuid: data.uuid, platform: data.platform, adcolony_udid: data.adcolony_udid } },
           crossDomain: true
         });
       }
   },
 
   _androidSetupRegistration: function() {
-    var uuid = MobDeals.Account._getUuid();
-    data = { uuid: uuid, platform: MobDeals.Habitat.platform };
+    data = {
+      uuid: MobDeals.Account._getUuid(),
+      platform: MobDeals.Habitat.platform,
+      adcolony_udid: window.loot_native.getAdColonyDeviceId()
+    };
     MobDeals.Account._registerDevice(data);
   },
 
