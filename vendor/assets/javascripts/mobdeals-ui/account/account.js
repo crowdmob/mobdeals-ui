@@ -274,11 +274,13 @@ MobDeals.Account = {
       // No point making an extra HTTP request if we couldn't get a UUID or a
       // platform.
       if (data.uuid !== null && data.platform !== null) {
+        $.support.cors = true;
         $.ajax({
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
           data: { device: { uuid: data.uuid, platform: data.platform, adcolony_udid: data.adcolony_udid } },
+          dataType: 'json',
           crossDomain: true
         });
       }
