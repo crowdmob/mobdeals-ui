@@ -273,13 +273,13 @@ MobDeals.Account = {
   _registerDevice: function(data) {
       // No point making an extra HTTP request if we couldn't get a UUID or a
       // platform.
-      if (data.uuid !== null && data.platform !== null) {
+      if (data.uuidType !== null && data.uuid !== null && data.platform !== null) {
         $.support.cors = true;
         $.ajax({
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: { device: { uuid: data.uuid, platform: data.platform, adcolony_udid: data.adcolony_udid } },
+          data: { device: { uuid_type: data.uuidType, uuid: data.uuid, platform: data.platform, adcolony_udid: data.adcolonyUdid } },
           dataType: 'json',
           crossDomain: true
         });
@@ -287,17 +287,21 @@ MobDeals.Account = {
   },
 
   _androidSetupRegistration: function() {
+    var uuidTypeAndUuid = MobDeals.Account._getUuidTypeAndUuid();
+    var uuidType = uuid_type_and_uuid[0];
+    var uuid = uuid_type_and_uuid[1];
     data = {
-      uuid: MobDeals.Account._getUuid(),
+      uuidType: uuidType,
+      uuid: uuid,
       platform: MobDeals.Habitat.platform,
-      adcolony_udid: window.loot_native.getAdColonyDeviceId()
+      adcolonyUdid: window.loot_native.getAdColonyDeviceId()
     };
     MobDeals.Account._registerDevice(data);
   },
 
-  _getUuid: function() {
+  _getUuidTypeAndUuid: function() {
     // TODO: Add support for calling into iOS native here, to get the iOS UUID.
-    var uuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
-    return uuid;
+    var uuidTypeAndUuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
+    return uuidTypeAndUuid;
   }
 };
