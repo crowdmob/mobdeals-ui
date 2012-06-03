@@ -300,6 +300,11 @@ MobDeals.Account = {
   },
 
   _getUuidTypeAndUuid: function() {
+    // Raj, remember to keep this in sync with the Android Loot app.  We need
+    // to get all the different UUID types and UUIDs.  We need to store them
+    // all, because later, for server-to-server integration, we don't know
+    // which one(s) our clients will want to use.
+
     // TODO: Add support for calling into iOS native here, to get the iOS UUID.
     var uuidTypeAndUuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
     return uuidTypeAndUuid;
