@@ -301,7 +301,7 @@ MobDeals.Account = {
           url: MobDeals.host('core') + '/devices.json',
           type: 'POST',
           xhrFields: {withCredentials: true},
-          data: { device: { uuid_type: data.uuidType, uuid: data.uuid, platform: data.platform, adcolony_udid: data.adcolonyUdid } },
+          data: {device: data},
           dataType: 'json',
           crossDomain: true
         });
