@@ -3,14 +3,15 @@
 
 MobDeals.Habitat = {
   _apiKey: null,
+  _appId: null,
   platform: null,
   _initialized: false,
-  app: null,
 
   init: function() {
     if (this._initialized) {
       return false;
-    } else {
+    } 
+    else {
       var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
       var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
       
@@ -26,6 +27,17 @@ MobDeals.Habitat = {
       
       this._initialized = true;
     }
+  },
+
+  appId: function(val) {
+    // backwards compatible with app with old apikey implementation
+    if (val && val.charAt(val.length-1) == "=" && val.charAt(val.length-2) == "=") {
+      MobDeals.Habitat.apiKey(val);
+    }
+    else if (val) {
+      MobDeals.Habitat._appId = val;
+    }
+    return MobDeals.Habitat._appId;
   },
 
   apiKey: function(val) {
@@ -45,7 +57,7 @@ MobDeals.Habitat = {
     } else if (MobDeals.Habitat.platform == 'ios') {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
-      document.documentElement.appendChild(iframe);
+      document.documentElementappendChild(iframe);
       iframe.parentNode.removeChild(iframe);
       iframe = null;
     }
