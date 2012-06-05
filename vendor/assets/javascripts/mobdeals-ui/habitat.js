@@ -57,7 +57,7 @@ MobDeals.Habitat = {
     } else if (MobDeals.Habitat.platform == 'ios') {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
-      document.documentElementappendChild(iframe);
+      document.documentElement.appendChild(iframe);
       iframe.parentNode.removeChild(iframe);
       iframe = null;
     }
