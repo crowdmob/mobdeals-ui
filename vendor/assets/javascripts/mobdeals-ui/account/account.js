@@ -286,9 +286,7 @@ MobDeals.Account = {
   _getUuids: function() {
     // TODO: Add support for calling into iOS native here, to get the iOS UUID.
     var uuids = window.loot_native === undefined ? null : window.loot_native.getUuids();
-    alert(uuids);
     uuids = $.parseJSON(uuids);
-    alert(uuids);
     return uuids;
   },
 
