@@ -270,6 +270,28 @@ MobDeals.Account = {
     }
   },
 
+  _androidSetupRegistration: function() {
+    var uuids = MobDeals.Account._getUuids();
+    data = {
+      platform: MobDeals.Habitat.platform,
+      adcolony_udid: window.loot_native.getAdColonyDeviceId(),
+      android_id: uuids['android_id'],
+      android_serial_number: uuids['android_id'],
+      android_telephony_id: uuids['android_telephony_id'],
+      encrypted_mac_address: uuids['encrypted_mac_address']
+    };
+    MobDeals.Account._registerDevice(data);
+  },
+
+  _getUuids: function() {
+    // TODO: Add support for calling into iOS native here, to get the iOS UUID.
+    var uuids = window.loot_native === undefined ? null : window.loot_native.getUuids();
+    alert(uuids);
+    uuids = $.parseJSON(uuids);
+    alert(uuids);
+    return uuids;
+  },
+
   _registerDevice: function(data) {
       // No point making an extra HTTP request if we couldn't get a UUID or a
       // platform.
@@ -284,29 +306,6 @@ MobDeals.Account = {
           crossDomain: true
         });
       }
-  },
-
-  _androidSetupRegistration: function() {
-    var uuidTypeAndUuid = MobDeals.Account._getUuidTypeAndUuid();
-    var uuidType = uuid_type_and_uuid[0];
-    var uuid = uuid_type_and_uuid[1];
-    data = {
-      uuidType: uuidType,
-      uuid: uuid,
-      platform: MobDeals.Habitat.platform,
-      adcolonyUdid: window.loot_native.getAdColonyDeviceId()
-    };
-    MobDeals.Account._registerDevice(data);
-  },
-
-  _getUuidTypeAndUuid: function() {
-    // Raj, remember to keep this in sync with the Android Loot app.  We need
-    // to get all the different UUID types and UUIDs.  We need to store them
-    // all, because later, for server-to-server integration, we don't know
-    // which one(s) our clients will want to use.
-
-    // TODO: Add support for calling into iOS native here, to get the iOS UUID.
-    var uuidTypeAndUuid = window.loot_native === undefined ? null : window.loot_native.getAndroidId();
-    return uuidTypeAndUuid;
   }
+
 };
