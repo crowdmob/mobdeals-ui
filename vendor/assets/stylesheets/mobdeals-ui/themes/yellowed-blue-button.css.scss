@@ -30,7 +30,7 @@ a.blue.yellowed:hover .btn-box {
   -webkit-box-shadow: inset 0 1px 0 0 #f7dd59;
   -moz-box-shadow: inset 0 1px 0 0 #f7dd59;
   box-shadow: inset 0 1px 0 0 #f7dd59;
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+  /*text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);*/
 }
 a.blue.yellowed:active .btn-box {
   background: #f1b700;
@@ -39,5 +39,5 @@ a.blue.yellowed:active .btn-box {
   -webkit-box-shadow: inset 0 0 6px 3px #e9ba24, 0 1px 0 0 white;
   -moz-box-shadow: inset 0 0 6px 3px #e9ba24, 0 1px 0 0 white;
   box-shadow: inset 0 0 6px 3px #e9ba24, 0 1px 0 0 white;
-  text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);
+  /*text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.4);*/
 }
