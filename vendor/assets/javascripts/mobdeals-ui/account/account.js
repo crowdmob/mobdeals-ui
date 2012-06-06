@@ -291,9 +291,8 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
-      // No point making an extra HTTP request if we couldn't get a UUID or a
-      // platform.
-      if (data.uuidType !== null && data.uuid !== null && data.platform !== null) {
+      // No point making an extra HTTP request if we couldn't get a platform.
+      if (data.platform !== null) {
         $.support.cors = true;
         $.ajax({
           url: MobDeals.host('core') + '/devices.json',

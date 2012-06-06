@@ -25,7 +25,11 @@ var MobDeals = {
   },
   
   host: function(app) {
-    return this._protocol + '://' + this._topology[app];
+    var url = this._protocol + '://' + this._topology[app];
+    if (url.indexOf('deals.crowdmob.com') != -1) {
+      url.replace('http://', 'https://');
+    }
+    return url;
   },
   
   // logging for analytics
