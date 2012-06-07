@@ -210,7 +210,24 @@ MobDeals.Account = {
 
   _facebook: function(callback, returnUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
-    MobDeals.redirect('http://m.facebook.com/login.php?app_id=249222915102781&cancel=http%3A%2F%2Fdeals.crowdmob.com%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied%26error%3Daccess_denied%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.&fbconnect=1&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request%26app_id%3D249222915102781%26redirect_uri%3Dhttp%253A%252F%252Fdeals.crowdmob.com%252Fusers%252Fauth%252Ffacebook%252Fcallback%26display%3Dtouch%26response_type%3Dcode%26state%3D'+escape(escape(returnUrl))+'%26perms%3Demail%252Coffline_access%26fbconnect%3D1%26from_login%3D1%26client_id%3D249222915102781&rcount=1&_rdr');
+    MobDeals.redirect(
+      'http://m.facebook.com/login.php?app_id=249222915102781' +
+      '&cancel=http%3A%2F%2Fdeals.crowdmob.com%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied' +
+        '%26error%3Daccess_denied' +
+        '%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.' +
+      '&fbconnect=1' +
+      '&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request' +
+        '%26app_id%3D249222915102781' +
+        '%26redirect_uri%3Dhttp%253A%252F%252Fdeals.crowdmob.com%252Fusers%252Fauth%252Ffacebook%252Fcallback' +
+        '%26display%3Dtouch' +
+        '%26response_type%3Dcode' +
+        '%26state%3D' + escape(escape(returnUrl)) +
+        '%26perms%3Demail%252Coffline_access' +
+        '%26fbconnect%3D1' +
+        '%26from_login%3D1' +
+        '%26client_id%3D249222915102781' +
+      '&rcount=1' +
+      '&_rdr');
   },
   
   _clear: function() {
