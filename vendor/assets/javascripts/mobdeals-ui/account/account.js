@@ -229,14 +229,14 @@ MobDeals.Account = {
       '&rcount=1' +
       '&_rdr');
   },
-  
+
   _clear: function() {
     MobDeals.Account._authenticated(null);
   },
 
   _verifyCookie: function(callback) {
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/sessions.json', 
       type: 'GET',
@@ -268,7 +268,7 @@ MobDeals.Account = {
     } else {
       this._cookied = true;
       this.user = data;
-      
+
       $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
@@ -277,7 +277,7 @@ MobDeals.Account = {
       });
 
       if (MobDeals.Habitat !== undefined) {
-        MobDeals.Habitat.report("loot-register", "", MobDeals.Account._androidSetupRegistration);
+        MobDeals.Habitat.report('loot-register', '', MobDeals.Account._androidSetupRegistration);
       }
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
