@@ -209,7 +209,7 @@ MobDeals.Account = {
   },
 
   _facebook: function(callback, returnUrl) {
-    MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
+    // MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
     var facebookLoginUrl = 'http://m.facebook.com/login.php?app_id=249222915102781' +
     '&cancel=http%3A%2F%2Fdeals.crowdmob.com%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied' +
       '%26error%3Daccess_denied' +
@@ -227,7 +227,7 @@ MobDeals.Account = {
       '%26client_id%3D249222915102781' +
     '&rcount=1' +
     '&_rdr';
-    alert(facebookLoginUrl)
+    alert(facebookLoginUrl);
     MobDeals.redirect(facebookLoginUrl);
   },
 
