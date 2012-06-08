@@ -210,15 +210,15 @@ MobDeals.Account = {
 
   _facebook: function(callback, returnUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
-    var redirectUri = MobDeals.host('core') + '/users/auth/facebook/callback';
+    var cancelUrl = redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     var facebookLoginUrl = 'http://m.facebook.com/login.php?app_id=249222915102781' +
-    '&cancel=http%3A%2F%2Fdeals.crowdmob.com%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied' +
+    '&cancel=' + escape(cancelUrl) + '%3Ferror_reason%3Duser_denied' +
       '%26error%3Daccess_denied' +
       '%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.' +
     '&fbconnect=1' +
     '&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request' +
       '%26app_id%3D249222915102781' +
-      '%26redirect_uri%3D' + escape(escape(redirectUri)) +
+      '%26redirect_uri%3D' + escape(escape(redirectUrl)) +
       '%26display%3Dtouch' +
       '%26response_type%3Dcode' +
       '%26state%3D' + escape(escape(returnUrl)) +
