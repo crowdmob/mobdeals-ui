@@ -100,7 +100,7 @@ MobDeals.Account = {
 
       var readInput = function() { 
         $.support.cors = true;
-        
+
         $.ajax({
           url: MobDeals.host('core')+'/account/passwords.json', 
           type: 'POST',
@@ -115,9 +115,9 @@ MobDeals.Account = {
         });
         MobDeals.Popup.destroy(popup);
       };
-      
+
       popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
-      
+
       if (error) {
         var box = popup.find('.'+error.field+'-box');
         box.find('.errors').text(error.message).removeClass('hidden');
