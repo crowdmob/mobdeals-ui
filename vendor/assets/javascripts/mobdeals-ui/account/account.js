@@ -100,7 +100,7 @@ MobDeals.Account = {
 
       var readInput = function() { 
         $.support.cors = true;
-        
+
         $.ajax({
           url: MobDeals.host('core')+'/account/passwords.json', 
           type: 'POST',
@@ -115,9 +115,9 @@ MobDeals.Account = {
         });
         MobDeals.Popup.destroy(popup);
       };
-      
+
       popup.find('form').submit(function() { $(this).find("*:focus").blur(); return false; }).find('input').blur(readInput).focus();
-      
+
       if (error) {
         var box = popup.find('.'+error.field+'-box');
         box.find('.errors').text(error.message).removeClass('hidden');
@@ -210,16 +210,42 @@ MobDeals.Account = {
 
   _facebook: function(callback, returnUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
-    MobDeals.redirect('http://m.facebook.com/login.php?app_id=249222915102781&cancel=http%3A%2F%2Fdeals.crowdmob.com%2Fusers%2Fauth%2Ffacebook%2Fcallback%3Ferror_reason%3Duser_denied%26error%3Daccess_denied%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.&fbconnect=1&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request%26app_id%3D249222915102781%26redirect_uri%3Dhttp%253A%252F%252Fdeals.crowdmob.com%252Fusers%252Fauth%252Ffacebook%252Fcallback%26display%3Dtouch%26response_type%3Dcode%26state%3D'+escape(escape(returnUrl))+'%26perms%3Demail%252Coffline_access%26fbconnect%3D1%26from_login%3D1%26client_id%3D249222915102781&rcount=1&_rdr');
+
+    var appId = '249222915102781';    // production
+    if (window.location.hostname.indexOf('mobstaging.com') != -1) {
+      appId = '288627961176125';      // staging
+    } else if (window.location.hostname.indexOf('localhost') != -1 || window.location.hostname.indexOf('127.0.0.1') != -1) {
+      var appId = '293759800656841';  // development
+    }
+
+    var cancelUrl = redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
+    var facebookLoginUrl = 'http://m.facebook.com/login.php?app_id=' + appId +
+    '&cancel=' + escape(cancelUrl) + '%3Ferror_reason%3Duser_denied' +
+      '%26error%3Daccess_denied' +
+      '%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.' +
+    '&fbconnect=1' +
+    '&next=https%3A%2F%2Fm.facebook.com%2Fdialog%2Fpermissions.request%3F_path%3Dpermissions.request' +
+      '%26app_id%3D' + appId +
+      '%26redirect_uri%3D' + escape(escape(redirectUrl)) +
+      '%26display%3Dtouch' +
+      '%26response_type%3Dcode' +
+      '%26state%3D' + escape(escape(returnUrl)) +
+      '%26perms%3Demail%252Coffline_access' +
+      '%26fbconnect%3D1' +
+      '%26from_login%3D1' +
+      '%26client_id%3D' + appId +
+    '&rcount=1' +
+    '&_rdr';
+    MobDeals.redirect(facebookLoginUrl);
   },
-  
+
   _clear: function() {
     MobDeals.Account._authenticated(null);
   },
 
   _verifyCookie: function(callback) {
     $.support.cors = true;
-    
+
     $.ajax({
       url: MobDeals.host('core')+'/sessions.json', 
       type: 'GET',
@@ -251,7 +277,7 @@ MobDeals.Account = {
     } else {
       this._cookied = true;
       this.user = data;
-      
+
       $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
@@ -260,7 +286,7 @@ MobDeals.Account = {
       });
 
       if (MobDeals.Habitat !== undefined) {
-        MobDeals.Habitat.report("loot-register", "", MobDeals.Account._androidSetupRegistration);
+        MobDeals.Habitat.report('loot-register', '', MobDeals.Account._androidSetupRegistration);
       }
     }
     if (this.user != null && userWas == null || this.user == null && userWas != null || this.user && userWas && this.user.id == userWas.id) {
@@ -291,9 +317,8 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
-      // No point making an extra HTTP request if we couldn't get a UUID or a
-      // platform.
-      if (data.uuidType !== null && data.uuid !== null && data.platform !== null) {
+      // No point making an extra HTTP request if we couldn't get a platform.
+      if (data.platform !== null) {
         $.support.cors = true;
         $.ajax({
           url: MobDeals.host('core') + '/devices.json',
