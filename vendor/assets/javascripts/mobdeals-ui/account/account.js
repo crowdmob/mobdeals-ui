@@ -166,13 +166,11 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: function(data) {
-        setAndCallback(data);
-      }, 
+      success: setAndCallback, 
       error: function(xhr, data, error) {
         $.ajax({ 
-          url: MobDeals.host('core')+'/users.json',
-          type:'POST',
+          url: MobDeals.host('core') + '/users.json',
+          type: 'POST',
           xhrFields: {withCredentials: true},
           data: params,
           crossDomain: true,
@@ -200,9 +198,10 @@ MobDeals.Account = {
           MobDeals.Account._cookied = true;
           MobDeals.Account._authenticated(data);
           callback.apply(callback);
+        } else {
+          MobDeals.Account._username(grandparent, callback, data.error);
         }
-        else { MobDeals.Account._username(grandparent, callback, data.error); }
-        },
+      },
       dataType: 'json'
     });
 
