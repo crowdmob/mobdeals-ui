@@ -184,9 +184,8 @@ MobDeals.Account = {
 
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    additionalParams['user[password]'] = input.val()
+    additionalParams['user[password]'] = input.val();
     $.support.cors = true;
-
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
@@ -204,7 +203,6 @@ MobDeals.Account = {
       },
       dataType: 'json'
     });
-
   },
 
   _facebook: function(callback, returnUrl) {
