@@ -43,6 +43,7 @@ MobDeals.Account = {
       data: {_method: 'delete'},
       crossDomain: true,
       success: function(data) {
+        MobDeals.Account._clear();
         if (callback) { callback.apply(callback); }
       },
       dataType: 'json'
