@@ -168,13 +168,11 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: function(data) {
-        setAndCallback(data);
-      }, 
+      success: setAndCallback, 
       error: function(xhr, data, error) {
         $.ajax({ 
-          url: MobDeals.host('core')+'/users.json',
-          type:'POST',
+          url: MobDeals.host('core') + '/users.json',
+          type: 'POST',
           xhrFields: {withCredentials: true},
           data: params,
           crossDomain: true,
@@ -188,9 +186,8 @@ MobDeals.Account = {
 
   _password: function(parent, grandparent, additionalParams, callback) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    additionalParams['user[password]'] = input.val()
+    additionalParams['user[password]'] = input.val();
     $.support.cors = true;
-
     $.ajax({
       url: MobDeals.host('core')+'/users/sign_in.json', 
       type: 'POST',
@@ -202,12 +199,12 @@ MobDeals.Account = {
           MobDeals.Account._cookied = true;
           MobDeals.Account._authenticated(data);
           callback.apply(callback);
+        } else {
+          MobDeals.Account._username(grandparent, callback, data.error);
         }
-        else { MobDeals.Account._username(grandparent, callback, data.error); }
-        },
+      },
       dataType: 'json'
     });
-
   },
 
   _facebook: function(callback, returnUrl) {
