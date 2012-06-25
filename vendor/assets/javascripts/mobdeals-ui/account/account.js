@@ -1,7 +1,7 @@
 // Anything related to the current user
 MobDeals.Account = {
   _initialized: false,
-  _cookied: null,
+  _cookied: false,
   _switchedListeners: [],
   user: null,
 
@@ -16,7 +16,7 @@ MobDeals.Account = {
   // Determines whether or not the user is cookied and returns that to the
   // callback.
   cookied: function(callback) {
-    if (this._cookied === null) {
+    if (this._cookied == false) {
       this._verifyCookie(callback);
     } else if (callback) {
       callback.apply(callback, [this._cookied]);
@@ -42,7 +42,9 @@ MobDeals.Account = {
       xhrFields: {withCredentials: true},
       data: {_method: 'delete'},
       crossDomain: true,
-      success: function(data) {  if (callback) { callback.apply(callback); } },
+      success: function(data) {
+        if (callback) { callback.apply(callback); }
+      },
       dataType: 'json'
     });
   },
