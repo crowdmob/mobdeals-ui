@@ -311,18 +311,25 @@ MobDeals.Account = {
   },
 
   _getUuids: function() {
-    // TODO: Add support for calling into iOS native here, to get the iOS UUID.
+    // Note: This is only for Android.  iOS device registrations are handled
+    // differently.
     var uuids = window.loot_native === undefined ? null : window.loot_native.getUuids();
     uuids = $.parseJSON(uuids);
     return uuids;
   },
 
   _registerDevice: function(data) {
-    if ($.inArray(data.platform, ['iPhone', 'iPod touch', 'iPad']) !== -1 && data.mac_address) {
-      MobDeals.Account.udid = data.mac_address;
+    if ($.inArray(data.platform, ['iPhone', 'iPod touch', 'iPad']) !== -1) {
+      MobDeals.Habitat.platform = 'ios';
+      if (data.mac_address) {
+        MobDeals.Account.udid = data.mac_address;
+      }
     }
-    else if (data.platform == 'android' && data.android_id) {
-      MobDeals.Account.udid = data.android_id;
+    else if (data.platform == 'android') {
+      MobDeals.Habitat.platform = 'android';
+      if (data.android_id) {
+        MobDeals.Account.udid = data.android_id;
+      }
     }
 
     $.support.cors = true;
