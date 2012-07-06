@@ -4,6 +4,7 @@ MobDeals.Account = {
   _cookied: null,
   _switchedListeners: [],
   user: null,
+  udid: null,
 
   init: function() {
     if (this._initialized) {
@@ -314,18 +315,22 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
-      // No point making an extra HTTP request if we couldn't get a platform.
-      if (data.platform !== null) {
-        $.support.cors = true;
-        $.ajax({
-          url: MobDeals.host('core') + '/devices.json',
-          type: 'POST',
-          xhrFields: {withCredentials: true},
-          data: {device: data},
-          dataType: 'json',
-          crossDomain: true
-        });
-      }
+    if ($.inArray(data.platform, ['iPhone', 'iPod touch', 'iPad']) !== -1 && data.mac_address) {
+      MobDeals.Account.udid = data.mac_address;
+    }
+    else if (data.platform == 'android' && data.android_id) {
+      MobDeals.Account.udid = data.android_id;
+    }
+
+    $.support.cors = true;
+    $.ajax({
+      url: MobDeals.host('core') + '/devices.json',
+      type: 'POST',
+      xhrFields: {withCredentials: true},
+      data: {device: data},
+      dataType: 'json',
+      crossDomain: true
+    });
   }
 
 };
