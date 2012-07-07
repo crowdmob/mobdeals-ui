@@ -4,7 +4,6 @@ MobDeals.Account = {
   _cookied: false,
   _switchedListeners: [],
   user: null,
-  udid: null,
 
   init: function() {
     if (this._initialized) {
@@ -329,13 +328,15 @@ MobDeals.Account = {
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
       MobDeals.Habitat.platform = 'ios';
       if (data.mac_address) {
-        MobDeals.Account.udid = data.mac_address;
+        MobDeals.Habitat.udid = data.mac_address;
+        MobDeals.Habitat.udid_type = 'mac_address';
       }
     }
     else if (data.platform == 'android') {
       MobDeals.Habitat.platform = 'android';
       if (data.android_id) {
-        MobDeals.Account.udid = data.android_id;
+        MobDeals.Habitat.udid = data.android_id;
+        MobDeals.Habitat.udid_type = 'android_id';
       }
     }
 
