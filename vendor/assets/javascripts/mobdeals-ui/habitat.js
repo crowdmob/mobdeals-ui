@@ -2,10 +2,13 @@
 // within.
 
 MobDeals.Habitat = {
+  device_type: null,
+  platform: null,
+  udid: null,
+  udid_type: null,
   _apiKey: null,
   _appId: null,
   _initialized: false,
-  platform: null,
 
   init: function() {
     if (this._initialized) {
