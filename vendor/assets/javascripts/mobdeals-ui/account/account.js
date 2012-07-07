@@ -319,7 +319,14 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
-    if ($.inArray(data.platform, ['iPhone', 'iPod touch', 'iPad']) !== -1) {
+    // Confusing.  :-(  On the front-end, we store low-resolution platforms
+    // (either 'ios' or 'android').  On the back-end, we store high-resolution
+    // platforms ('iPhone', 'iPod touch', 'iPad', 'android', etc.)  So on the
+    // front-end, we're storing this high-resolution platform in
+    // MobDeals.Habitat.device_type.  Please fix me, someone, anyone.
+    MobDeals.Habitat.device_type = data.platform;
+
+    if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
       MobDeals.Habitat.platform = 'ios';
       if (data.mac_address) {
         MobDeals.Account.udid = data.mac_address;

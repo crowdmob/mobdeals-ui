@@ -5,6 +5,7 @@ MobDeals.Habitat = {
   _apiKey: null,
   _appId: null,
   platform: null,
+  device_type: null,
   _initialized: false,
 
   init: function() {
