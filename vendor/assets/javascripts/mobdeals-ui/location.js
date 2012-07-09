@@ -1,9 +1,12 @@
 MobDeals.Location = {
   _initialized: false,
   location: null,
+  
   init: function() {
-    if (this._initialized) { return false; } else { this._initialized = true; }
+    if (this._initialized) { return false; }
+    else { this._initialized = true; }
   },
+  
   get: function(callback, forceRefresh) {
     if (this.location && !forceRefresh) { return this.location; }
     if (navigator.geolocation) {

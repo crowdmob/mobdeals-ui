@@ -19,9 +19,16 @@ var MobDeals = {
     $("#loading").ajaxStop(function(){ $(this).addClass("hidden"); });
   },
   
-  topology: function(protocol, topologyHash) {
-    this._topology = topologyHash;
-    this._protocol = protocol;
+  //General error popup
+  error: function(msg, callback) {
+    MobDeals.Popup.show('error', function(popup) {
+      popup.html('<h4>Mob Deals</h4><p>'+msg+'</p><fieldset><button>Ok</button>');
+      popup.find('button').bind(CLICK, function(ev) { 
+        MobDeals.Popup.destroy(popup);
+        if (callback) { callback(); }
+      });
+    });
+    MobDeals.Log.error({message: msg});
   },
   
   host: function(app) {
@@ -30,6 +37,16 @@ var MobDeals = {
       url.replace('http://', 'https://');
     }
     return url;
+  },
+  
+  redirect: function(url) {
+    document.location.href = url;
+    $('#redirecting').removeClass('hidden');
+  },
+  
+  topology: function(protocol, topologyHash) {
+    this._topology = topologyHash;
+    this._protocol = protocol;
   },
   
   // logging for analytics
@@ -44,23 +61,5 @@ var MobDeals = {
       xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
       xhr.send(postable);
     }
-  },
-  
-  //General error popup
-  error: function(msg, callback) {
-    MobDeals.Popup.show('error', function(popup) {
-      popup.html('<h4>Mob Deals</h4><p>'+msg+'</p><fieldset><button>Ok</button>');
-      popup.find('button').bind(CLICK, function(ev) { 
-        MobDeals.Popup.destroy(popup);
-        if (callback) { callback(); }
-      });
-    });
-    MobDeals.Log.error({message: msg});
-  },
-
-  redirect: function(url) {
-    document.location.href = url;
-    $('#redirecting').removeClass('hidden');
   }
-
 };
