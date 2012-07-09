@@ -324,6 +324,7 @@ MobDeals.Account = {
     // front-end, we're storing this high-resolution platform in
     // MobDeals.Habitat.device_type.  Please fix me, someone, anyone.
     MobDeals.Habitat.device_type = data.platform;
+    alert(data);
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
       MobDeals.Habitat.platform = 'ios';
