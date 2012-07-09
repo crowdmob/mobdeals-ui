@@ -301,10 +301,10 @@ MobDeals.Account = {
     data = {
       platform: MobDeals.Habitat.platform,
       adcolony_udid: window.loot_native.getAdColonyDeviceId(),
-      android_id: uuids['android_id'],
-      android_serial_number: uuids['android_id'],
-      android_telephony_id: uuids['android_telephony_id'],
-      mac_address: uuids['mac_address']
+      android_id: uuids.android_id,
+      android_serial_number: uuids.android_id,
+      android_telephony_id: uuids.android_telephony_id,
+      mac_address: uuids.mac_address
     };
     MobDeals.Account._registerDevice(data);
   },
@@ -312,7 +312,8 @@ MobDeals.Account = {
   _getUuids: function() {
     // Note: This is only for Android.  iOS device registrations are handled
     // differently.
-    var uuids = window.loot_native === undefined ? null : window.loot_native.getUuids();
+    var uuids = window.loot_native === undefined ? {} : window.loot_native.getUuids();
+    alert(uuids);
     uuids = $.parseJSON(uuids);
     return uuids;
   },
@@ -324,7 +325,6 @@ MobDeals.Account = {
     // front-end, we're storing this high-resolution platform in
     // MobDeals.Habitat.device_type.  Please fix me, someone, anyone.
     MobDeals.Habitat.device_type = data.platform;
-    alert(data.mac_address);
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
       MobDeals.Habitat.platform = 'ios';
