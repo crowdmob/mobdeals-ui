@@ -325,9 +325,7 @@ MobDeals.Account = {
     // MobDeals.Habitat.device_type.  Please fix me, someone, anyone?
     MobDeals.Habitat.device_type = data.platform;
 
-    alert(data.platform);
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
-      alert(data.mac_address);
       MobDeals.Habitat.platform = 'ios';
       if (data.mac_address) {
         MobDeals.Habitat.udid = data.mac_address;
