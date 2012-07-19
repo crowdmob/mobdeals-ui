@@ -208,7 +208,7 @@ MobDeals.Account = {
     });
   },
 
-  _facebook: function(callback, returnUrl) {
+  _facebook: function(callback, returnUrl, cancelUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
     var appId = '249222915102781';    // production
@@ -218,9 +218,13 @@ MobDeals.Account = {
       var appId = '293759800656841';  // development
     }
 
+    if (!cancelUrl) {
+      cancelUrl = returnUrl;
+    }
+    
     var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     var facebookLoginUrl = 'http://m.facebook.com/login.php?app_id=' + appId +
-    '&cancel=' + escape(returnUrl) + '%3Ferror_reason%3Duser_denied' +
+    '&cancel=' + escape(cancelUrl) + '%3Ferror_reason%3Duser_denied' +
       '%26error%3Daccess_denied' +
       '%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.' +
     '&fbconnect=1' +
