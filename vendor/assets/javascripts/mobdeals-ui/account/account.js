@@ -218,9 +218,9 @@ MobDeals.Account = {
       var appId = '293759800656841';  // development
     }
 
-    var cancelUrl = redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
+    var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     var facebookLoginUrl = 'http://m.facebook.com/login.php?app_id=' + appId +
-    '&cancel=' + escape(cancelUrl) + '%3Ferror_reason%3Duser_denied' +
+    '&cancel=' + escape(returnUrl) + '%3Ferror_reason%3Duser_denied' +
       '%26error%3Daccess_denied' +
       '%26error_description%3DThe%2Buser%2Bdenied%2Byour%2Brequest.' +
     '&fbconnect=1' +
