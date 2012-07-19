@@ -225,7 +225,7 @@ MobDeals.Account = {
     var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + clientId +
     '&redirect_uri=' + escape(redirectUrl) +
-    '&scope=email,publish_stream,user_about_me,friends_about_me,user_interests,friends_interests,user_likes,friends_likes,user_location,friends_location,user_education_history,friends_education_history,user_work_history,friends_work_history,user_relationships,friends_relationships,user_religion_politics, friends_religion_politics,user_subscriptions,friends_subscriptions,user_hometown,friends_hometown,user_groups,friends_groups,user_status,friends_status,user_birthday,friends_birthday,user_activities,friends_activities,user_about_me,friends_about_me,user_actions.news,user_actions.videos,user_actions.music,publish_actions,user_games_activity' + 
+    '&scope=email,publish_stream,user_about_me,friends_about_me,user_interests,friends_interests,user_likes,friends_likes,user_location,friends_location,user_education_history,friends_education_history,user_work_history,friends_work_history,user_relationships,friends_relationships,user_religion_politics, friends_religion_politics,user_subscriptions,friends_subscriptions,user_hometown,friends_hometown,user_groups,friends_groups,user_status,friends_status,user_birthday,friends_birthday,user_activities,friends_activities,user_about_me,friends_about_me,user_actions.news,user_actions.video,user_actions.music,publish_actions,user_games_activity' + 
     '&state=' + escape(returnUrl) +
     '&response_type=code' + 
     '&display_type=touch';
