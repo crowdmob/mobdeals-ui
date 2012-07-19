@@ -223,7 +223,7 @@ MobDeals.Account = {
     }
     
     var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
-    var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + appId +
+    var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + clientId +
     '&redirect_uri=' + escape(redirectUrl) +
     '&scope=email,publish_stream' + 
     '&state=' + escape(returnUrl) +
