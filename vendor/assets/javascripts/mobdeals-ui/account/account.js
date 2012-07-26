@@ -234,6 +234,7 @@ MobDeals.Account = {
 
   _clear: function() {
     MobDeals.Account._authenticated(null);
+    MobDeals.Account._cookied = false;
   },
 
   _verifyCookie: function(callback) {
