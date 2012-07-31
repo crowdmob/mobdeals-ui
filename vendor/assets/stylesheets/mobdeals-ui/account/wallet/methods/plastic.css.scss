@@ -106,21 +106,3 @@
   width:100%;
   opacity: 0.7;
 }
-
-@-webkit-keyframes plastic-pulse {
-  from {
-    opacity: 1.0;
-  }
-  50% {
-    opacity: 0.3;
-  }
-  to {
-    opacity: 1.0;
-  }
-}
-
-.code .scan {
-  -webkit-animation-name: plastic-pulse; 
-  -webkit-animation-duration: 1s; 
-  -webkit-animation-iteration-count: infinite;
-}
