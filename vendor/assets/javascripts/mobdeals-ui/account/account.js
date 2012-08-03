@@ -4,13 +4,21 @@ MobDeals.Account = {
   _cookied: false,
   _switchedListeners: [],
   user: null,
+  facebookClientId: '249222915102781',
 
   init: function() {
     if (this._initialized) {
       return false;
-    } else {
-      this._initialized = true;
     }
+
+    this.facebookClientId = '249222915102781';    // production
+    if (location.hostname.indexOf('mobstaging.com') != -1) {
+      this.facebookClientId = '288627961176125';  // staging
+    } else if (location.hostname.indexOf('localhost') != -1 || location.hostname.indexOf('127.0.0.1') != -1) {
+      this.facebookClientId = '293759800656841';  // development
+    }
+
+    this._initialized = true;
   },
 
   // Determines whether or not the user is cookied and returns that to the
@@ -211,11 +219,11 @@ MobDeals.Account = {
   _facebook: function(callback, returnUrl, cancelUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
-    var clientId = '249222915102781';    // production
+    var clientId = '249222915102781'; // production
     if (window.location.hostname.indexOf('mobstaging.com') != -1) {
-      clientId = '288627961176125';      // staging
+      clientId = '288627961176125';   // staging
     } else if (window.location.hostname.indexOf('localhost') != -1 || window.location.hostname.indexOf('127.0.0.1') != -1) {
-      clientId = '293759800656841';  // development
+      clientId = '293759800656841';   // development
     }
 
     if (!cancelUrl) {
