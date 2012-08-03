@@ -215,7 +215,7 @@ MobDeals.Account = {
     if (window.location.hostname.indexOf('mobstaging.com') != -1) {
       clientId = '288627961176125';      // staging
     } else if (window.location.hostname.indexOf('localhost') != -1 || window.location.hostname.indexOf('127.0.0.1') != -1) {
-      var clientId = '293759800656841';  // development
+      clientId = '293759800656841';  // development
     }
 
     if (!cancelUrl) {
