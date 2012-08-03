@@ -226,9 +226,9 @@ MobDeals.Account = {
     var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
     '&redirect_uri=' + escape(redirectUrl) +
-    '&scope=email,user_likes,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music,' + 
+    '&scope=email,user_likes,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music,' +
     '&state=' + escape(returnUrl) +
-    '&response_type=code' + 
+    '&response_type=code' +
     '&display_type=touch';
     MobDeals.redirect(facebookLoginUrl);
   },
