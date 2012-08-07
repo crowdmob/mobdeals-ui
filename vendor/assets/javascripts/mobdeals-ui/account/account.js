@@ -216,6 +216,7 @@ MobDeals.Account = {
     });
   },
 
+  // TODO: This callback does nothing.  We redirect to another (Facebook login) page, then Facebook redirects back to us.  Why is this here?  Remove it?
   _facebook: function(callback, returnUrl, cancelUrl) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
