@@ -138,9 +138,11 @@ MobDeals.Account = {
 
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
+    
     var params = {};
     params['user[type]'] = input.get(0).name();
     params['user[username]'] = input.val();
+    
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
         var data = $.parseJSON(dataOrXhr.responseText);
@@ -170,6 +172,10 @@ MobDeals.Account = {
       }
     };
     
+    MobDeals.Account.login(params, setAndCallback, setAndCallback);
+  },
+  
+  login: function(params, successCallback, failureCallback) {
     $.support.cors = true;
     
     $.ajax({
@@ -179,7 +185,7 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: setAndCallback, 
+      success: succcessCallback, 
       error: function(xhr, data, error) {
         $.ajax({ 
           url: MobDeals.host('core') + '/users.json',
@@ -187,10 +193,10 @@ MobDeals.Account = {
           xhrFields: {withCredentials: true},
           data: params,
           crossDomain: true,
-          success: setAndCallback,
-          error: setAndCallback,
+          success: successCallback,
+          error: failureCallback,
           dataType: 'json'
-        }); // register
+        });
       }
     });
   },
@@ -354,8 +360,22 @@ MobDeals.Account = {
     return re.test(s);
   },
   
-  isValidPhone: function(s) {
+  isValidMobile: function(s) {
     var re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
     return re.test(s);
-  }
+  },
+  
+  formatMobileNumber: function(mobileNumber) {
+    if (mobileNumber.length == 11) {
+      mobileNumber = mobileNumber.substr(1);
+    }
+    if (mobileNumber.length == 10) {
+      var areaCode = mobileNumber.substr(0, 3);
+      var exchange = mobileNumber.substr(3, 3);
+      var subscriberNumber = mobileNumber.substr(6);
+      mobileNumber = '(' + areaCode + ') ' + exchange + '-' + subscriberNumber;
+    }
+    return mobileNumber;
+  },
+  
 };
