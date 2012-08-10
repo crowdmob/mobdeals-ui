@@ -185,7 +185,7 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: succcessCallback, 
+      success: successCallback, 
       error: function(xhr, data, error) {
         $.ajax({ 
           url: MobDeals.host('core') + '/users.json',
