@@ -138,10 +138,9 @@ MobDeals.Account = {
 
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    
     var params = {};
+    params['user[type]'] = input.get(0).name();
     params['user[username]'] = input.val();
-    
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
         var data = $.parseJSON(dataOrXhr.responseText);
