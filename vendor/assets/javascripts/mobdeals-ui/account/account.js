@@ -138,7 +138,10 @@ MobDeals.Account = {
 
   _username: function(parent, callback, error) {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
-    var params = {}; params[input.get(0).name] = input.val(); params['user[username]'] = input.val();
+    
+    var params = {};
+    params['user[username]'] = input.val();
+    
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
         var data = $.parseJSON(dataOrXhr.responseText);
@@ -348,13 +351,11 @@ MobDeals.Account = {
   },
   
   isValidEmail: function(s) {
-    // Determine whether or not the passed in string is a valid email address.  TODO: Move this into MobDeals.Account.
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    var re = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/;
     return re.test(s);
   },
   
   isValidPhone: function(s) {
-    // Determine whether or not the passed in string is a valid phone number.  TODO: Move this into MobDeals.Account.
     var re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})$/;
     return re.test(s);
   }
