@@ -351,7 +351,7 @@ MobDeals.Account = {
   },
   
   isValidEmail: function(s) {
-    var re = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/;
+    var re = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/;
     return re.test(s);
   },
   
