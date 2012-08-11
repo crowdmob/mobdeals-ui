@@ -140,7 +140,7 @@ MobDeals.Account = {
     var input = parent.get(0).nodeName && parent.get(0).nodeName.toLowerCase() == 'input' ? parent : parent.find('input');
     
     var params = {};
-    params['user[type]'] = input.get(0).name();
+    params['user[type]'] = input.get(0).name;
     params['user[username]'] = input.val();
     
     var setAndCallback = function(dataOrXhr, error, errorType) {
