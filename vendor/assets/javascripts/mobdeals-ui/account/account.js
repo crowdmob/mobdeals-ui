@@ -14,7 +14,8 @@ MobDeals.Account = {
     this.facebookClientId = '249222915102781';    // production
     if (location.hostname.indexOf('mobstaging.com') != -1) {
       this.facebookClientId = '288627961176125';  // staging
-    } else if (location.hostname.indexOf('localhost') != -1 || location.hostname.indexOf('127.0.0.1') != -1) {
+    }
+    else if (location.hostname.indexOf('localhost') != -1 || location.hostname.indexOf('127.0.0.1') != -1) {
       this.facebookClientId = '293759800656841';  // development
     }
 
@@ -26,7 +27,8 @@ MobDeals.Account = {
   cookied: function(callback) {
     if (this._cookied == false) {
       this._verifyCookie(callback);
-    } else if (callback) {
+    }
+    else if (callback) {
       callback.apply(callback, [this._cookied]);
     }
   },
@@ -35,7 +37,8 @@ MobDeals.Account = {
     this.cookied(function(isCookied) {
       if (isCookied) {
         callback.apply(callback);
-      } else {
+      }
+      else {
         MobDeals.Account.loginPrompt(callback, null, returnUrl);
       }
     });
@@ -216,7 +219,8 @@ MobDeals.Account = {
           MobDeals.Account._cookied = true;
           MobDeals.Account._authenticated(data);
           callback.apply(callback);
-        } else {
+        }
+        else {
           MobDeals.Account._username(grandparent, callback, data.error);
         }
       },
@@ -278,11 +282,18 @@ MobDeals.Account = {
       $('.mobdeals-account-link-box').html('<a>Login...</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.loginPrompt();
       });
-    } else {
+    }
+    else {
       this._cookied = true;
       this.user = data;
 
-      $('.mobdeals-account-link-box').html('Hi ' + this.user.short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
+      var short_name = this.user.short_name;
+      
+      if (this.user.mobile) {
+        short_name = MobDeals.Account.formatMobileNumber(this.user.mobile);
+      }
+
+      $('.mobdeals-account-link-box').html('Hi ' + short_name + '. <a>Not you?</a>').find('a').bind(CLICK, function(ev) {
         MobDeals.Account.decookie(function() {
           MobDeals.Account._clear();
           MobDeals.Account.loginPrompt();

@@ -57,7 +57,8 @@ MobDeals.Habitat = {
       } catch(e) {
         // Ignored.
       }
-    } else if (MobDeals.Habitat.platform == 'ios') {
+    }
+    else if (MobDeals.Habitat.platform == 'ios') {
       var iframe = document.createElement("IFRAME");
       iframe.setAttribute("src", iOSHeader + ":" + iOSStr);
       document.documentElement.appendChild(iframe);
