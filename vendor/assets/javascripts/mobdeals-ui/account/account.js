@@ -235,8 +235,13 @@ MobDeals.Account = {
     if (!cancelUrl) {
       cancelUrl = returnUrl;
     }
-
-    var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
+ 
+    var redirectUrl= MobDeals.host('core') + '/users/auth/facebook/callback';
+    
+    if (_cookied) {
+      redirectUrl = redirectUrl + '?email=' + this.user.email + '&mobile=' + this.user.mobile;
+    }
+    
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
     '&redirect_uri=' + escape(redirectUrl) +
     '&scope=email,user_likes,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music,' +
