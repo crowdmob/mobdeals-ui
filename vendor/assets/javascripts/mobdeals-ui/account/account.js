@@ -229,23 +229,31 @@ MobDeals.Account = {
   },
 
   // TODO: This callback does nothing.  We redirect to another (Facebook login) page, then Facebook redirects back to us.  Why is this here?  Remove it?
-  _facebook: function(callback, returnUrl, cancelUrl) {
+  _facebook: function(callback, returnUrl, cancelUrl, like) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
     if (!cancelUrl) {
       cancelUrl = returnUrl;
     }
  
-    var redirectUrl= MobDeals.host('core') + '/users/auth/facebook/callback';
+    var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     
     if (this._cookied) {
+      alert("cookied!");
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
-      returnUrl = returnUrl + appendage + 'email=' + this.user.email + '&mobile=' + this.user.mobile;
+      redirectUrl = redirectUrl + appendage + 'email=' + this.user.email + '&mobile=' + this.user.mobile;
+      alert(redirectUrl);
+    }
+    
+    var permissions = 'email,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music';
+    
+    if (like) {
+      permissions = permissions + ',user_likes';
     }
     
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
     '&redirect_uri=' + escape(redirectUrl) +
-    '&scope=email,user_likes,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music,' +
+    '&scope=' + permissions +
     '&state=' + escape(returnUrl) +
     '&response_type=code' +
     '&display_type=touch';
