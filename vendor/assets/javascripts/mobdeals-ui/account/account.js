@@ -239,7 +239,7 @@ MobDeals.Account = {
     var redirectUrl= MobDeals.host('core') + '/users/auth/facebook/callback';
     
     if (this._cookied) {
-      appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?'
+      appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
       returnUrl = returnUrl + appendage + 'email=' + this.user.email + '&mobile=' + this.user.mobile;
     }
     
