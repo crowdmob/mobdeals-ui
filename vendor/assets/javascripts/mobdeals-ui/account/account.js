@@ -238,7 +238,7 @@ MobDeals.Account = {
  
     var redirectUrl= MobDeals.host('core') + '/users/auth/facebook/callback';
     
-    if (_cookied) {
+    if (this._cookied) {
       redirectUrl = redirectUrl + '?email=' + this.user.email + '&mobile=' + this.user.mobile;
     }
     
