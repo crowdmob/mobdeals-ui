@@ -241,10 +241,10 @@ MobDeals.Account = {
     if (this._cookied) {
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
       if (this.user.email) {
-        redirectUrl = redirectUrl + appendage + 'email=' + this.user.email;
+        returnUrl = returnUrl + appendage + 'email=' + this.user.email;
       }
       else if (this.user.mobile) {
-        redirectUrl = redirectUrl + appendage + 'mobile=' + this.user.mobile;
+        returnUrl = returnUrl + appendage + 'mobile=' + this.user.mobile;
       }
     }
     
