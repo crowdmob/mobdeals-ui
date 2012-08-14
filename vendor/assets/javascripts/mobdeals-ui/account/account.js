@@ -239,7 +239,8 @@ MobDeals.Account = {
     var redirectUrl= MobDeals.host('core') + '/users/auth/facebook/callback';
     
     if (this._cookied) {
-      redirectUrl = redirectUrl + '?email=' + this.user.email + '&mobile=' + this.user.mobile;
+      appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?'
+      returnUrl = returnUrl + appendage + 'email=' + this.user.email + '&mobile=' + this.user.mobile;
     }
     
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
