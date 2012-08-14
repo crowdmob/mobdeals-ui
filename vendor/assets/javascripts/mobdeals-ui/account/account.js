@@ -239,10 +239,13 @@ MobDeals.Account = {
     var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
     
     if (this._cookied) {
-      alert("cookied!");
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
-      redirectUrl = redirectUrl + appendage + 'email=' + this.user.email + '&mobile=' + this.user.mobile;
-      alert(redirectUrl);
+      if (this.user.email) {
+        redirectUrl = redirectUrl + appendage + 'email=' + this.user.email;
+      }
+      else if (this.user.mobile) {
+        redirectUrl = redirectUrl + appendage + 'mobile=' + this.user.mobile;
+      }
     }
     
     var permissions = 'email,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music';
