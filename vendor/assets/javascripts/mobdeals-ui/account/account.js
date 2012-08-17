@@ -248,13 +248,13 @@ MobDeals.Account = {
       }
     }
     
-    var permissions = 'email,publish_actions,user_actions.news,user_actions.video,user_actions.music';
+    var permissions = 'email,user_actions.news,user_actions.video,user_actions.music';
     
     if (like) {
-      permissions = permissions + ',user_likes';
+      permissions = permissions + ',user_likes,publish_actions';
     }
     if (posting) {
-      permissions = permissions + ',publish_stream';
+      permissions = permissions + ',publish_actions';
     }
     
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
