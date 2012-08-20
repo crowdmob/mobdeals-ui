@@ -106,26 +106,16 @@ MobDeals.Account = {
     });
   },
 
-  createPassword: function(callback, error) {
+  createPasswordPopup: function(callback, error) {
     MobDeals.Popup.show('create-password', function(popup) { 
-      if (!MobDeals.Account._createPasswordHtml) { MobDeals.Account._createPasswordHtml = $('#create-password-popup').remove().html(); }
-      popup.html(MobDeals.Account._createPasswordHtml);
+      if (!MobDeals.Account._createPasswordPopupHtml) { MobDeals.Account._createPasswordPopupHtml = $('#create-password-popup').remove().html(); }
+      popup.html(MobDeals.Account._createPasswordPopupHtml);
       popup.find('input').focus();
 
       var readInput = function() { 
-        $.support.cors = true;
-
-        $.ajax({
-          url: MobDeals.host('core')+'/account/passwords.json', 
-          type: 'POST',
-          xhrFields: {withCredentials: true},
-          data: { password: popup.find('input').val() },
-          crossDomain: true,
-          success: function(data) {
-            if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
-            else { MobDeals.Account._authenticated(data); callback.apply(callback); }
-          },
-          dataType: 'json'
+        MobDeals.Account._createPassword(popup.find('input').val(), function(data) {
+          if (data.errors) { MobDeals.Account.createPasswordPopup(callback, data.error); }
+          else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         });
         MobDeals.Popup.destroy(popup);
       };
@@ -136,6 +126,21 @@ MobDeals.Account = {
         var box = popup.find('.'+error.field+'-box');
         box.find('.errors').text(error.message).removeClass('hidden');
       }
+    });
+  },
+  
+  _createPassword: function(passwordToCreate, successCallback, failureCallback) {
+    $.support.cors = true;
+
+    $.ajax({
+      url: MobDeals.host('core')+'/account/passwords.json', 
+      type: 'POST',
+      xhrFields: {withCredentials: true},
+      data: { password: passwordToCreate},
+      crossDomain: true,
+      success: successCallback,
+      error: failureCallback,
+      dataType: 'json'
     });
   },
 
@@ -188,7 +193,12 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: successCallback, 
+      success: function(data) {
+        if (data.created_at.localeCompare(data.updated_at) == 0 && params.user.password) {
+          MobDeals.Account._createPassword(params.user.password, successCallback);
+        }
+        else if (successCallback) { successCallback.apply(data)};
+      }, 
       error: function(xhr, data, error) {
         $.ajax({ 
           url: MobDeals.host('core') + '/users.json',

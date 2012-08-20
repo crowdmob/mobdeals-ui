@@ -215,7 +215,7 @@ MobDeals.Account.Wallet = {
       popup.find('form').submit(function(ev) {
         var passwordCallback = function() {
           MobDeals.Popup.destroy(popup);
-          MobDeals.Account.createPassword(MobDeals.Account.Wallet.receipt)
+          MobDeals.Account.createPasswordPopup(MobDeals.Account.Wallet.receipt)
         }
         var successCallback = function() {
           MobDeals.Popup.destroy(popup);
