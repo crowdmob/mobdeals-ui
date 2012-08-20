@@ -194,9 +194,9 @@ MobDeals.Account = {
       dataType: 'json',
       crossDomain: true,
       success: function(data) {
-        if (data.created_at.localeCompare(data.updated_at) == 0 && params.user.password) {
-          MobDeals.Account._createPassword(params.user.password, successCallback);
-        }
+        //if (data.created_at.localeCompare(data.updated_at) == 0 && params.user.password) {
+        //  MobDeals.Account._createPassword(params.user.password, successCallback);
+        //}
         else if (successCallback) { successCallback.apply(data)};
       }, 
       error: function(xhr, data, error) {
