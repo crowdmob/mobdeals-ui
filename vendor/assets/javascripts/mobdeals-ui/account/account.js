@@ -193,12 +193,7 @@ MobDeals.Account = {
       data: params,
       dataType: 'json',
       crossDomain: true,
-      success: function(data) {
-        //if (data.created_at.localeCompare(data.updated_at) == 0 && params.user.password) {
-        //  MobDeals.Account._createPassword(params.user.password, successCallback);
-        //}
-        if (successCallback) { successCallback.apply(data)};
-      }, 
+      success: successCallback, 
       error: function(xhr, data, error) {
         $.ajax({ 
           url: MobDeals.host('core') + '/users.json',
