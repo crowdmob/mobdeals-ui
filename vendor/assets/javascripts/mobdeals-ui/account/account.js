@@ -4,7 +4,7 @@ MobDeals.Account = {
   _cookied: false,
   _switchedListeners: [],
   user: null,
-  facebookClientId: '249222915102781',
+  facebookClientId: null,
 
   init: function() {
     if (this._initialized) {
@@ -265,7 +265,11 @@ MobDeals.Account = {
     '&state=' + escape(returnUrl) +
     '&response_type=code' +
     '&display_type=touch';
-    MobDeals.redirect(facebookLoginUrl);
+    
+    if (MobDeals.Habitat.platform == 'ios') {
+      MobDeals.Habitat.report('facebook-login', '{"permissions":"' + permissions + '"}', function(){});
+    }
+    else { MobDeals.redirect(facebookLoginUrl); }
   },
 
   _clear: function() {
