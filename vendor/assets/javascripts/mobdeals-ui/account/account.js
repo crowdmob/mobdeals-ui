@@ -241,7 +241,7 @@ MobDeals.Account = {
       cancelUrl = returnUrl;
     }
  
-    var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
+    var redirectUrl = MobDeals.host('core') + '/users/facebook/authenticate_access_token';
     
     if (this._cookied) {
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
