@@ -15,7 +15,7 @@ MobDeals.Habitat = {
       return false;
     } 
     else {
-      var iOS = navigator.platform.match(/(iPad|iPhone|iPod)/i) ? true : false;
+      var iOS = navigator.platform.match(/(iPad|iPhone|iPod|iPhone Simulator)/i) ? true : false;
       var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
       
       if (iOS) {
