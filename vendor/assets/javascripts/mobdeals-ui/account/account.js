@@ -267,11 +267,10 @@ MobDeals.Account = {
     '&display_type=touch';
     
     if (MobDeals.Habitat.platform == 'ios' && returnUrl.indexOf('loot') != -1) {
-      alert("REPORTING!");
-      MobDeals.Habitat.report('facebook-login', '{"permissions":"' + permissions + '"}', function(){});
+      MobDeals.Habitat.report('facebook-login', '{"permissions":"' + permissions + '",' +
+      '"app_id":"' + MobDeals.Account.facebookClientId + '"}', function(){});
     }
     else { 
-      alert("NOT REPORTING!");
       MobDeals.redirect(facebookLoginUrl);
     }
   },
