@@ -241,7 +241,7 @@ MobDeals.Account = {
       cancelUrl = returnUrl;
     }
  
-    var redirectUrl = MobDeals.host('core') + '/users/facebook/authenticate_access_token';
+    var redirectUrl = MobDeals.host('core') + '/users/facebook/authenticate_code';
     
     if (this._cookied) {
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
@@ -253,7 +253,7 @@ MobDeals.Account = {
       }
     }
     
-    var permissions = 'email,user_actions.news,user_actions.video,user_actions.music';
+    var permissions = 'email';
     
     if (like) {
       permissions = permissions + ',user_likes,publish_actions';
