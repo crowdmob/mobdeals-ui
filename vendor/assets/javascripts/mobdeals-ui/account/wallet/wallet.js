@@ -46,7 +46,7 @@ MobDeals.Account.Wallet = {
       url: MobDeals.host('core') + '/account/purchases.json', 
       type: 'POST',
       xhrFields: { withCredentials: true },
-      data: { purchase: { appymeal: purchasable.appymeal, unique_id: purchasable.uniqueId, 
+      data: { purchase: { unique_id: purchasable.uniqueId, 
         purchasable_id: purchasable.id, purchasable_type: purchasable.purchasable_type, 
         wallet_method_id: walletMethod.id, extra_data: purchasable.extra_data,
         purchasable: { virtual_good_id: purchasable.virtual_good_id }, 
