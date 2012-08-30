@@ -58,23 +58,26 @@ MobDeals.Account.Wallet = {
       crossDomain: true,
       success: function(data) {
         if (data.error_message && dataErrorCallback) {
+          console.log("fake error!");
           return dataErrorCallback.apply(dataErrorCallback, [data.error_message]);
         }
+        else if (data.settled) {              //Change for pay later  
+          MobDeals.Account.Wallet.purchaseData = data;
         
-        MobDeals.Account.Wallet.purchaseData = data;
+          // Any callbacks, like report to natives...
+          if (chargeCompletedCallback) { chargeCompletedCallback.apply(chargeCompletedCallback, [data]); } 
         
-        // Any callbacks, like report to natives...
-        if (chargeCompletedCallback) { chargeCompletedCallback.apply(chargeCompletedCallback, [data]); } 
-        
-        if (!MobDeals.Account.user.password_initialized) {
-          if (passwordCallback) { passwordCallback.call(); }
-        }
-        else {
-          if (successCallback) { successCallback.call(); }
+          if (!MobDeals.Account.user.password_initialized) {
+            if (passwordCallback) { passwordCallback.call(); }
+          }
+          else {
+            if (successCallback) { successCallback.call(); }
+          }
         }
       },
       error: function() {
-        if (connectionErrorCallback) { connectionErrorCallback.call(); }
+        console.log("Real Error!");
+        if (connectionErrorCallback) { connectionErrorCallback.apply(connectionErrorCallback, [data]); }
       },
       dataType: 'json'
     });
