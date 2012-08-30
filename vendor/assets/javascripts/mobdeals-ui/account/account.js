@@ -185,6 +185,7 @@ MobDeals.Account = {
   
   login: function(params, successCallback, failureCallback) {
     params['user[origin]'] = location.host;
+    console.log(params);
     
     $.support.cors = true;
     
