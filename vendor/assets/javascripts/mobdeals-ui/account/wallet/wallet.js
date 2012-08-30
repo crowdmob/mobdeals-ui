@@ -50,7 +50,7 @@ MobDeals.Account.Wallet = {
         purchasable_id: purchasable.id, purchasable_type: purchasable.purchasable_type, 
         wallet_method_id: walletMethod.id, extra_data: purchasable.extra_data,
         purchasable: { virtual_good_id: purchasable.virtual_good_id }, 
-        habitat: { apikey: MobDeals.Habitat.apiKey(), id:  MobDeals.Habitat.appId() } }
+        habitat: { apikey: MobDeals.Habitat.apiKey, id:  MobDeals.Habitat.appId } }
       },
       crossDomain: true,
       success: function(data) {
