@@ -150,6 +150,7 @@ MobDeals.Account = {
     var params = {};
     params['user[type]'] = input.get(0).name;
     params['user[username]'] = input.val();
+    console.log(params);
     
     var setAndCallback = function(dataOrXhr, error, errorType) {
       if (error && error != 'success') {
