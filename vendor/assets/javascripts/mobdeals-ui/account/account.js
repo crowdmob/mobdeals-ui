@@ -100,7 +100,7 @@ MobDeals.Account = {
       }
 
       popup.find('a.facebook').bind(CLICK, function(ev) {
-        MobDeals.Account._facebook(callback, returnUrl);
+        MobDeals.Account._facebook(returnUrl);
         MobDeals.Popup.destroy(popup);
       });
     });
