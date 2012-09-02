@@ -235,8 +235,7 @@ MobDeals.Account = {
     });
   },
 
-  // TODO: This callback does nothing.  We redirect to another (Facebook login) page, then Facebook redirects back to us.  Why is this here?  Remove it?
-  _facebook: function(callback, returnUrl, cancelUrl, like) {
+  _facebook: function(returnUrl, cancelUrl, like) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
     if (!cancelUrl) {
@@ -245,13 +244,15 @@ MobDeals.Account = {
  
     var redirectUrl = MobDeals.host('core') + '/users/facebook/authenticate_code';
     
+    var origin = location.host;
+    
     if (this._cookied) {
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
       if (this.user.email) {
-        returnUrl = returnUrl + appendage + 'email=' + this.user.email;
+        returnUrl = returnUrl + appendage + 'email=' + this.user.email + '&origin=' + origin;
       }
       else if (this.user.mobile) {
-        returnUrl = returnUrl + appendage + 'mobile=' + this.user.mobile;
+        returnUrl = returnUrl + appendage + 'mobile=' + this.user.mobile + '&origin=' + origin;
       }
     }
     

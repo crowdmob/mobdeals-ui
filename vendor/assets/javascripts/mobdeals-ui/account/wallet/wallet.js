@@ -58,7 +58,6 @@ MobDeals.Account.Wallet = {
       crossDomain: true,
       success: function(data) {
         if (data.error_message && dataErrorCallback) {
-          console.log("fake error!");
           return dataErrorCallback.apply(dataErrorCallback, [data.error_message]);
         }
         else if (data.settled) {              //Change for pay later  
@@ -76,7 +75,6 @@ MobDeals.Account.Wallet = {
         }
       },
       error: function() {
-        console.log("Real Error!");
         if (connectionErrorCallback) { connectionErrorCallback.apply(connectionErrorCallback, [data]); }
       },
       dataType: 'json'
