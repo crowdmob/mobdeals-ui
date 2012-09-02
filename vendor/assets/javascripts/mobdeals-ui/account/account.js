@@ -274,9 +274,6 @@ MobDeals.Account = {
     '&response_type=code' +
     '&display_type=touch';
     
-    alert('{"permissions":"' + permissions +
-        '","app_id":"' + MobDeals.Account.facebookClientId +
-        '"' + extraData + '}');
     if (MobDeals.Habitat.platform == 'ios' && returnUrl.indexOf('loot') != -1) {
       MobDeals.Habitat.report(
         'facebook-login',
