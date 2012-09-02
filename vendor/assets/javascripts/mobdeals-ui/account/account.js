@@ -257,7 +257,7 @@ MobDeals.Account = {
     }
     
     var permissions = 'email';
-    var extraData;
+    var extraData = '';
     
     if (action) {
       extraData = ',"action":"' + action + '"';
