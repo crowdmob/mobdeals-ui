@@ -262,9 +262,13 @@ MobDeals.Account = {
     if (action) {
       extraData = ',"action":"' + action + '"';
     }
+    
     if (action == 'like' && actionData) {
       extraData = ',"action":"' + action + '","objectToLike":"' + actionData + '"';
       permissions = permissions + ',user_likes,publish_actions';
+    }
+    else if (action == 'refer') {
+      permissions = permissions + ',publish_actions';
     }
     
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
