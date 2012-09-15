@@ -235,7 +235,7 @@ MobDeals.Account = {
     });
   },
 
-  _facebook: function(returnUrl, cancelUrl, action, actionData) {
+  _facebook: function(returnUrl, cancelUrl, action) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
     if (!cancelUrl) {
@@ -257,14 +257,8 @@ MobDeals.Account = {
     }
     
     var permissions = 'email';
-    var extraData = '';
-    
-    if (action) {
-      extraData = ',"action":"' + action + '"';
-    }
-    
-    if (action == 'like' && actionData) {
-      extraData = ',"action":"' + action + '","objectToLike":"' + actionData + '"';
+
+    if (action == 'like') {
       permissions = permissions + ',user_likes,publish_actions';
     }
     else if (action == 'refer') {
@@ -283,7 +277,7 @@ MobDeals.Account = {
         'facebook-login',
         '{"permissions":"' + permissions +
         '","app_id":"' + MobDeals.Account.facebookClientId +
-        '"' + extraData + '}',
+        '"' + '}',
         function(){});
     }
     else { 
