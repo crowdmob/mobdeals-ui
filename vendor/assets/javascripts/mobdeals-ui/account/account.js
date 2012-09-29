@@ -260,13 +260,13 @@ MobDeals.Account = {
     var extraData = '';
 
     if (action == 'like') {
-      permissions = permissions + ',user_likes,publish_actions';
+      permissions = 'user_likes,publish_actions';
       if (actionData) {
         extraData = ',"action":"' + action + '","sponsored_action_campaign_id":"' + actionData + '"';
       }
     }
     else if (action == 'refer') {
-      permissions = permissions + ',publish_actions';
+      permissions = 'publish_actions';
       extraData = ',"action":"' + action + '"';
     }
     
