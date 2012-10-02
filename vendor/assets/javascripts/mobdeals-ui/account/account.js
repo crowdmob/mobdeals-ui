@@ -1,8 +1,10 @@
-// Anything related to the current user
 MobDeals.Account = {
   _initialized: false,
   _cookied: false,
   _switchedListeners: [],
+  ios_udid: null,
+  udid: null,
+  udid_type: null,
   user: null,
   facebookClientId: null,
 
@@ -22,8 +24,6 @@ MobDeals.Account = {
     this._initialized = true;
   },
 
-  // Determines whether or not the user is cookied and returns that to the
-  // callback.
   cookied: function(callback) {
     if (this._cookied == false) {
       this._verifyCookie(callback);
@@ -369,19 +369,12 @@ MobDeals.Account = {
   },
 
   _getUuids: function() {
-    // Note: This is only for Android.  iOS device registrations are handled
-    // differently.
     var uuids = window.loot_native === undefined ? {} : window.loot_native.getUuids();
     uuids = $.parseJSON(uuids);
     return uuids;
   },
 
   _registerDevice: function(data) {
-    // Confusing.  :-(  On the front-end, we store low-resolution platforms
-    // (either 'ios' or 'android').  On the back-end, we store high-resolution
-    // platforms ('iPhone', 'iPod touch', 'iPad', 'android', etc.)  So on the
-    // front-end, we're storing this high-resolution platform in
-    // MobDeals.Habitat.device_type.  Please fix me, someone, anyone?
     MobDeals.Habitat.device_type = data.platform;
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
@@ -389,6 +382,9 @@ MobDeals.Account = {
       if (data.mac_address) {
         MobDeals.Habitat.udid = data.mac_address;
         MobDeals.Habitat.udid_type = 'mac_address';
+      }
+      if (data.udid) {
+        MobDeals.Habitat.ios_udid = data.udid;
       }
     }
     else if (data.platform == 'android') {
