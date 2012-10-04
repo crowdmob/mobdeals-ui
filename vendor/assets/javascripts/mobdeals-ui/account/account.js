@@ -385,7 +385,6 @@ MobDeals.Account = {
       }
       if (data.udid) {
         MobDeals.Habitat.ios_udid = data.udid;
-        alert("got a UDID:" + data.udid);
       }
     }
     else if (data.platform == 'android') {
