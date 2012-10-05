@@ -1,10 +1,12 @@
-// Anything related to the current user
 MobDeals.Account = {
   _initialized: false,
   _cookied: false,
   _switchedListeners: [],
+  ios_udid: null,
+  udid: null,
+  udid_type: null,
   user: null,
-  facebookClientId: '249222915102781',
+  facebookClientId: null,
 
   init: function() {
     if (this._initialized) {
@@ -22,8 +24,6 @@ MobDeals.Account = {
     this._initialized = true;
   },
 
-  // Determines whether or not the user is cookied and returns that to the
-  // callback.
   cookied: function(callback) {
     if (this._cookied == false) {
       this._verifyCookie(callback);
@@ -100,32 +100,22 @@ MobDeals.Account = {
       }
 
       popup.find('a.facebook').bind(CLICK, function(ev) {
-        MobDeals.Account._facebook(callback, returnUrl);
+        MobDeals.Account._facebook(returnUrl);
         MobDeals.Popup.destroy(popup);
       });
     });
   },
 
-  createPassword: function(callback, error) {
+  createPasswordPopup: function(callback, error) {
     MobDeals.Popup.show('create-password', function(popup) { 
-      if (!MobDeals.Account._createPasswordHtml) { MobDeals.Account._createPasswordHtml = $('#create-password-popup').remove().html(); }
-      popup.html(MobDeals.Account._createPasswordHtml);
+      if (!MobDeals.Account._createPasswordPopupHtml) { MobDeals.Account._createPasswordPopupHtml = $('#create-password-popup').remove().html(); }
+      popup.html(MobDeals.Account._createPasswordPopupHtml);
       popup.find('input').focus();
 
       var readInput = function() { 
-        $.support.cors = true;
-
-        $.ajax({
-          url: MobDeals.host('core')+'/account/passwords.json', 
-          type: 'POST',
-          xhrFields: {withCredentials: true},
-          data: { password: popup.find('input').val() },
-          crossDomain: true,
-          success: function(data) {
-            if (data.errors) { MobDeals.Account.createPassword(callback, data.error); }
-            else { MobDeals.Account._authenticated(data); callback.apply(callback); }
-          },
-          dataType: 'json'
+        MobDeals.Account._createPassword(popup.find('input').val(), function(data) {
+          if (data.errors) { MobDeals.Account.createPasswordPopup(callback, data.error); }
+          else { MobDeals.Account._authenticated(data); callback.apply(callback); }
         });
         MobDeals.Popup.destroy(popup);
       };
@@ -136,6 +126,21 @@ MobDeals.Account = {
         var box = popup.find('.'+error.field+'-box');
         box.find('.errors').text(error.message).removeClass('hidden');
       }
+    });
+  },
+  
+  _createPassword: function(passwordToCreate, successCallback, failureCallback) {
+    $.support.cors = true;
+
+    $.ajax({
+      url: MobDeals.host('core')+'/account/passwords.json', 
+      type: 'POST',
+      xhrFields: {withCredentials: true},
+      data: { password: passwordToCreate},
+      crossDomain: true,
+      success: successCallback,
+      error: failureCallback,
+      dataType: 'json'
     });
   },
 
@@ -179,6 +184,8 @@ MobDeals.Account = {
   },
   
   login: function(params, successCallback, failureCallback) {
+    params['user[origin]'] = location.host;
+    
     $.support.cors = true;
     $.ajax({
       url: MobDeals.host('core') + '/users/sign_in.json', 
@@ -227,30 +234,39 @@ MobDeals.Account = {
     });
   },
 
-  // TODO: This callback does nothing.  We redirect to another (Facebook login) page, then Facebook redirects back to us.  Why is this here?  Remove it?
-  _facebook: function(callback, returnUrl, cancelUrl, like) {
+  _facebook: function(returnUrl, cancelUrl, action, actionData) {
     MobDeals.Log.click({'event': 'facebook', 'return_url': returnUrl});
 
     if (!cancelUrl) {
       cancelUrl = returnUrl;
     }
  
-    var redirectUrl = MobDeals.host('core') + '/users/auth/facebook/callback';
+    var redirectUrl = MobDeals.host('core') + '/users/facebook/authenticate_code';
+    
+    var origin = location.host;
     
     if (this._cookied) {
       appendage = (returnUrl.indexOf('?') != -1) ? '&' : '?';
       if (this.user.email) {
-        returnUrl = returnUrl + appendage + 'email=' + this.user.email;
+        returnUrl = returnUrl + appendage + 'email=' + this.user.email + '&origin=' + origin;
       }
       else if (this.user.mobile) {
-        returnUrl = returnUrl + appendage + 'mobile=' + this.user.mobile;
+        returnUrl = returnUrl + appendage + 'mobile=' + this.user.mobile + '&origin=' + origin;
       }
     }
     
-    var permissions = 'email,publish_stream,publish_actions,user_actions.news,user_actions.video,user_actions.music';
-    
-    if (like) {
-      permissions = permissions + ',user_likes';
+    var permissions = 'email';
+    var extraData = '';
+
+    if (action == 'like') {
+      permissions = 'user_likes,publish_actions';
+      if (actionData) {
+        extraData = ',"action":"' + action + '","sponsored_action_campaign_id":"' + actionData + '"';
+      }
+    }
+    else if (action == 'refer') {
+      permissions = 'publish_actions';
+      extraData = ',"action":"' + action + '"';
     }
     
     var facebookLoginUrl = 'http://m.facebook.com/dialog/oauth?client_id=' + MobDeals.Account.facebookClientId +
@@ -259,7 +275,18 @@ MobDeals.Account = {
     '&state=' + escape(returnUrl) +
     '&response_type=code' +
     '&display_type=touch';
-    MobDeals.redirect(facebookLoginUrl);
+    
+    if (MobDeals.Habitat.platform == 'ios' && returnUrl.indexOf('loot') != -1) {
+      MobDeals.Habitat.report(
+        'facebook-login',
+        '{"permissions":"' + permissions +
+        '","app_id":"' + MobDeals.Account.facebookClientId +
+        '"' + extraData + '}',
+        function(){});
+    }
+    else { 
+      MobDeals.redirect(facebookLoginUrl);
+    }
   },
 
   _clear: function() {
@@ -341,19 +368,12 @@ MobDeals.Account = {
   },
 
   _getUuids: function() {
-    // Note: This is only for Android.  iOS device registrations are handled
-    // differently.
     var uuids = window.loot_native === undefined ? {} : window.loot_native.getUuids();
     uuids = $.parseJSON(uuids);
     return uuids;
   },
 
   _registerDevice: function(data) {
-    // Confusing.  :-(  On the front-end, we store low-resolution platforms
-    // (either 'ios' or 'android').  On the back-end, we store high-resolution
-    // platforms ('iPhone', 'iPod touch', 'iPad', 'android', etc.)  So on the
-    // front-end, we're storing this high-resolution platform in
-    // MobDeals.Habitat.device_type.  Please fix me, someone, anyone?
     MobDeals.Habitat.device_type = data.platform;
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
@@ -361,6 +381,9 @@ MobDeals.Account = {
       if (data.mac_address) {
         MobDeals.Habitat.udid = data.mac_address;
         MobDeals.Habitat.udid_type = 'mac_address';
+      }
+      if (data.udid) {
+        MobDeals.Habitat.ios_udid = data.udid;
       }
     }
     else if (data.platform == 'android') {
