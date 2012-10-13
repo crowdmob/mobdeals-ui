@@ -187,7 +187,6 @@ MobDeals.Account = {
     params['user[origin]'] = location.host;
     
     $.support.cors = true;
-    
     $.ajax({
       url: MobDeals.host('core') + '/users/sign_in.json', 
       type: 'POST',
