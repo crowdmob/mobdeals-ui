@@ -20,6 +20,15 @@ MobDeals.Habitat = {
       
       if (iOS) {
         MobDeals.Habitat.platform = 'ios';
+        if (navigator.platform.match(/iPhone/i)) {
+          MobDeals.Habitat.device_type = 'iPhone';
+        }
+        else if (navigator.platform.match(/iPad/i)) {
+          MobDeals.Habitat.device_type = 'iPad';
+        }
+        else if (navigator.platform.match(/iPod/i)) {
+          MobDeals.Habitat.device_type = 'iPod';
+        }
       }
       else if (android) {
         MobDeals.Habitat.platform = 'android';
