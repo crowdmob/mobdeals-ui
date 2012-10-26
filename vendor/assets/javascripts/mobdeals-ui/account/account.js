@@ -366,6 +366,7 @@ MobDeals.Account = {
       android_telephony_id: uuids.android_telephony_id,
       mac_address: uuids.mac_address
     };
+    alert('populated data');
     MobDeals.Account._registerDevice(data);
   },
 
@@ -376,9 +377,11 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
+    alert('registering device');
     MobDeals.Habitat.device_type = data.platform;
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
+      alert('iOS');
       MobDeals.Habitat.platform = 'ios';
       if (data.mac_address) {
         MobDeals.Habitat.udid = data.mac_address;
@@ -389,13 +392,16 @@ MobDeals.Account = {
       }
     }
     else if (data.platform == 'android') {
+      alert('Android');
       MobDeals.Habitat.platform = 'android';
       if (data.android_id) {
+        alert('got Android ID');
         MobDeals.Habitat.udid = data.android_id;
         MobDeals.Habitat.udid_type = 'android_id';
       }
     }
 
+    alert('making AJAX call to register device');
     $.support.cors = true;
     $.ajax({
       url: MobDeals.host('core') + '/devices.json',
