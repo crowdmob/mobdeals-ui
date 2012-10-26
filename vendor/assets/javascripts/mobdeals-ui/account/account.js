@@ -387,10 +387,8 @@ MobDeals.Account = {
       }
     }
     else if (data.platform == 'android') {
-      alert('Android');
       MobDeals.Habitat.platform = 'android';
       if (data.android_id) {
-        alert('got Android ID');
         MobDeals.Habitat.udid = data.android_id;
         MobDeals.Habitat.udid_type = 'android_id';
       }
