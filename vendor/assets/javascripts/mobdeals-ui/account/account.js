@@ -355,6 +355,7 @@ MobDeals.Account = {
   },
 
   _androidSetupRegistration: function() {
+    alert('registering Android device');
     var uuids = MobDeals.Account._getUuids();
     data = {
       platform: MobDeals.Habitat.platform,
