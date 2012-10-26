@@ -62,10 +62,8 @@ MobDeals.Habitat = {
   report: function(iOSHeader, iOSStr, androidFunctionWrapper) {
     if (MobDeals.Habitat.platform == 'android') {
       try {
-        alert('entering try');
         androidFunctionWrapper();
       } catch(e) {
-        alert('caught exception');
         // Ignored.
       }
     }
