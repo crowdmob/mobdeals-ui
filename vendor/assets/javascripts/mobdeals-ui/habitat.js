@@ -17,6 +17,7 @@ MobDeals.Habitat = {
     else {
       var iOS = navigator.platform.match(/(iPad|iPhone|iPod|iPhone Simulator)/i) ? true : false;
       var android = navigator.userAgent.toLowerCase().match(/android/i) != null;
+      alert(navigator.userAgent.toLowerCase());
       
       if (iOS) {
         MobDeals.Habitat.platform = 'ios';
@@ -60,6 +61,8 @@ MobDeals.Habitat = {
   },
 
   report: function(iOSHeader, iOSStr, androidFunctionWrapper) {
+    alert('entering report function');
+    alert(MobDeals.Habitat.platform);
     if (MobDeals.Habitat.platform == 'android') {
       try {
         androidFunctionWrapper();

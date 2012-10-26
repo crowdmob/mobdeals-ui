@@ -374,7 +374,6 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
-    alert('registering device');
     MobDeals.Habitat.device_type = data.platform;
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
