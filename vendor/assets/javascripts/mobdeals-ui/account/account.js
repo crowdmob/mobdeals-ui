@@ -358,9 +358,9 @@ MobDeals.Account = {
     alert('registering Android device');
     var uuids = MobDeals.Account._getUuids();
     alert('got UUIDs');
-    data = {
+    var data = {
       platform: MobDeals.Habitat.platform,
-      adcolony_udid: window.loot_native.getAdColonyDeviceId(),
+      // adcolony_udid: window.crave_native.getAdColonyDeviceId(),
       android_id: uuids.android_id,
       android_serial_number: uuids.android_id,
       android_telephony_id: uuids.android_telephony_id,
@@ -371,7 +371,7 @@ MobDeals.Account = {
   },
 
   _getUuids: function() {
-    var uuids = window.loot_native === undefined ? {} : window.loot_native.getUuids();
+    var uuids = window.crave_native === undefined ? {} : window.crave_native.getUuids();
     uuids = $.parseJSON(uuids);
     return uuids;
   },
