@@ -401,7 +401,10 @@ MobDeals.Account = {
       xhrFields: {withCredentials: true},
       data: {device: data},
       dataType: 'json',
-      crossDomain: true
+      crossDomain: true,
+      complete: function(jqXHR, textStatus) {
+        alert(jqXHR.responseText);
+      }
     });
   },
   
