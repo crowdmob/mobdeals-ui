@@ -374,6 +374,7 @@ MobDeals.Account = {
   },
 
   _registerDevice: function(data) {
+    alert('registering device');
     MobDeals.Habitat.device_type = data.platform;
 
     if ($.inArray(data.platform, ['iPhone', 'iPhone Simulator', 'iPod touch', 'iPad']) !== -1) {
@@ -401,10 +402,7 @@ MobDeals.Account = {
       xhrFields: {withCredentials: true},
       data: {device: data},
       dataType: 'json',
-      crossDomain: true,
-      complete: function(jqXHR, textStatus) {
-        alert(jqXHR.responseText);
-      }
+      crossDomain: true
     });
   },
   
