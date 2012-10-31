@@ -6,6 +6,7 @@ MobDeals.Habitat = {
   _appId: null,
   platform: null,
   device_type: null,
+  location: null,
   udid: null,
   udid_type: null,
   _initialized: false,
@@ -74,5 +75,9 @@ MobDeals.Habitat = {
       iframe.parentNode.removeChild(iframe);
       iframe = null;
     }
+  },
+
+  _location: function(latLon) {
+    MobDeals.Habitat.location = latLon;
   }
 };
